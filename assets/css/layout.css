@@ -1,5 +1,8 @@
 body{
 }
+.error {
+color: red;
+}
 
 .bg{
     background: url("../images/bg.jpg") no-repeat top left;
