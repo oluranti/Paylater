@@ -7,6 +7,7 @@ function __construct() {
 parent::__construct();
 
 $this->load->module('template');
+$this->load->module('admintemplate');
 $this->load->library('pagination');
 //$this->output->enable_profiler(TRUE);
 }
@@ -126,7 +127,7 @@ function login($alert = array()){
                 $data['title'] = "Wrong Login Details";
                 $data['view_file'] = "login";
                 $data['module'] = "users";
-                $this->template->build(false,$data); 
+                $this->admintemplate->build(false,$data); 
             }else{
                 foreach($checkuser->result() as $usergo){
                     $this->session->set_userdata('usertype',$usergo->usertype);
@@ -145,7 +146,7 @@ function login($alert = array()){
             $data['title'] = "Wrong Login Details";
             $data['view_file'] = "login";
             $data['module'] = "users";
-            $this->template->build(false,$data); 
+            $this->admintemplate->build(false,$data); 
         }
         
         
@@ -157,10 +158,11 @@ function login($alert = array()){
                 $data['alert'] = $alert['message'];
                 $data['alert_type'] = $alert['type'];
             }
+        $data['no_visible_elements'] = true;
         $data['title'] = "Login";
         $data['view_file'] = "login";
         $data['module'] = "users";
-        $this->template->build(false,$data);    
+        $this->admintemplate->build(false,$data);    
         }
     
     }
@@ -173,93 +175,36 @@ function adduser(){
 $userdata = $this->get_form_data();
 $data = $userdata;
 //check if user exist in database
-$checkusername = $this->count_where('username',$userdata['username']);
 $checkemail = $this->count_where('email',$userdata['email']);
 
-if($checkemail < 1 && $checkusername < 1){
-    $rawpassword = $userdata['password'];
-    unset($userdata['password']);
-    $userdata['password'] = $this->makeHash($rawpassword);
-     /*if(isset($data['userfile'])){*/
-    $config['upload_path'] = './assets/user-assets/userforms';
-    $config['allowed_types'] = 'pdf';
-    $config['max_size']	= '5024';
-    $config['file_name'] = $userdata['username'];
-    $config['overwrite'] = TRUE;
-    $this->upload->initialize($config);
-    $upload_ = $this->upload->do_upload();
-    $error = $this->upload->display_errors();
-    if($upload_){
-  
-        $upload_data = $this->upload->data();
-        $fullpath = $upload_data['file_name'];
-        $userdata['userform'] = base_url("assets/user-assets/userforms/".$fullpath);
-
-    }
-    unset($userdata['userfile']);
-    unset($userdata['cpassword']);
-    $userdata['usertype'] = "inactive";
-    if(!$error){
+if($checkemail < 1){
+    
+    $userdata['status'] = "pending";
+    
         $this->_insert($userdata);
         $message = "
-        Thank you ".$userdata['firstname']." for registering with Supplies.
-        Your Username is ".$userdata['username'].".
-        You will recieve an email once your account has been approved.
+        You have been invited to paylater.
+        Click the link to complete your registration.".base_url('users/updateuser/'.base64_encode($userdata['firstname']).'/'.base64_encode($userdata['lastname']).'/'.base64_encode($userdata['email']).'/'.base64_encode($userdata['homeaddress']).'/'.base64_encode($userdata['telephonenumber']).'')."
         ";
         
-        $sendemail = $this->sendmail($userdata['email'],"SUPPLIES: Thank you for registering",$message);
-        $data['alert'] = "Thank you for registering, you will recieve an email once your account has been approved.";
+        $sendemail = $this->sendmail($userdata['email'],"PayLater Invitation",$message);
+        $data['alert'] = "The user has been added successfully and an alert has been sent";
         $data['alert_type'] = "success";
         $data['message'] = $data['alert'];
         $data['type'] = $data['alert_type'];
-        if($this->session->userdata('usertype') == "administrator"){
-            $this->getusers($data['alert_type'],$data['message']);
-        }else{
-            $message = "
-        Hello,
-        ".$userdata['firstname']." just registered with Supplies, with username ".$userdata['username'].".
-        Please, login to the admin panel to approve or delete this user.
-        ";
+        $this->getusers($data['alert_type'],$data['message']);
         
-        $sendemail = $this->sendmail("servicedesk@special-brand.com","SUPPLIES: A new user just registered",$message);
-            $data['title'] = "Registration Successful";
-            $data['view_file'] = "login";
-            $data['module'] = "users";
-            $this->template->build(false,$data);   
-            //$this->login($alert); 
-        }
         
-    }else{
-    
-    $data['alert'] = "We couldn't upload your form at the moment. Please, Try Again.".$error;
-    $data['alert_type'] = "error";
-    $data['message'] = $data['alert'];
-    $data['type'] = $data['alert_type'];
-    if($this->session->userdata('usertype') == "administrator"){
-            $this->getusers($data['type'],$data['message']);
-        }else{
-    $data['title'] = "Error Uploading File";
-    $data['view_file'] = "login";
-    $data['module'] = "users";
-    $this->template->build(false,$data);   
-    //$this->login($alert);
-    }
-    }    
+ 
     
 }else{
     unset($this->input);
-    $data['alert'] = "This user already exists. Registration failed. Try a different username or email.".@$error;
+    $data['alert'] = "This user already exists.";
     $data['alert_type'] = "warning";
     $data['message'] = $data['alert'];
     $data['type'] = $data['alert_type'];
-    if($this->session->userdata('usertype') == "administrator"){
-            $this->getusers($data['type'],$data['message']);
-        }else{
-    $data['title'] = "User Already Exists";
-    $data['view_file'] = "login";
-    $data['module'] = "users";
-    $this->template->build(false,$data);   
-    }
+    $this->getusers($data['type'],$data['message']);
+        
 }
 
 }
@@ -305,7 +250,7 @@ function getusers($alerttype = "",$alertmessage = ""){
     $data['title'] = "Users";
     $data['view_file'] = "users";
     $data['module'] = "users";
-    $this->template->build(true,$data);
+    $this->admintemplate->build(false,$data);
 }
 
 function getuser(){
@@ -319,34 +264,21 @@ function getuser(){
 function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
-    if(isset($userdata['password'])){
-       $rawpassword = $userdata['password'];
-        unset($userdata['password']);
-        $userdata['password'] = $this->makeHash($rawpassword); 
-    }
     
-     if(isset($data['userfile'])){
-    $config['upload_path'] = './assets/user-assets/userforms';
-    $config['allowed_types'] = 'pdf';
-    $config['max_size']	= '5024';
-    $config['file_name'] = $userdata['username'];
-    $config['overwrite'] = TRUE;
-    $this->upload->initialize($config);
-    $upload_ = $this->upload->do_upload();
-    $error = $this->upload->display_errors();
-    if($upload_){
-  
-        $upload_data = $this->upload->data();
-        $fullpath = $upload_data['file_name'];
-        $userdata['userfile'] = base_url("assets/user-assets/userforms/".$fullpath);
-
-    }
-    unset($userdata['userfile']);
-    }
     $this->_update($userdata['id'],$userdata);
-    $alert['message'] = "The user has been Updated successfully".@$error;
+    $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
-    $this->getusers($alert['type'],$alert['message']);
+    if($this->session->userdata('id')){
+            $this->getusers($alert['type'],$alert['message']);
+        }else{
+    $data['alert'] = "Your account has been created.";
+    $data['alert_type'] = "success";
+    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['view_file'] = "updateuser";
+    $data['module'] = "users";
+    $this->template->build(false,$data);
+        }
+    
 }else{
     $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
     $data['view_file'] = "updateuser";
@@ -468,10 +400,7 @@ function logout(){
                 $this->session->unset_userdata('id');
                 $this->session->unset_userdata('email');
                 $this->session->unset_userdata('username');
-                if(isset($_COOKIE['A_Chickens_World'])){
-                    $cook = md5('oh no! a car just hit the chicken');
-                    $setcook = setcookie("A_Chickens_World",$cook,0,"/",".special-brand.com");
-                }
+                
                 redirect('users/login');
 
             

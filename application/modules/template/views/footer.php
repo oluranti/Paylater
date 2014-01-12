@@ -1,5 +1,5 @@
     <?php $this->load->module('template'); ?>
-<footer>Copyright &copy; 2013 <a style="color: #fff;" href="http://one-cred.com" target="_blank">One Credit</a></footer>
+<footer>Copyright &copy; <?php echo date('Y'); ?> <a style="color: #fff;" href="http://one-cred.com" target="_blank">One Credit</a></footer>
 	</div><!-- container -->
     <!-- Javascript
     ================================================== -->
