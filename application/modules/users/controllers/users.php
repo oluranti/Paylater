@@ -174,17 +174,18 @@ function login($alert = array()){
 function adduser(){
 $userdata = $this->get_form_data();
 $data = $userdata;
+unset($userdata['agree']);
 //check if user exist in database
 $checkemail = $this->count_where('email',$userdata['email']);
 
 if($checkemail < 1){
     
     $userdata['status'] = "pending";
-    
+    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
         $this->_insert($userdata);
         $message = "
         You have been invited to paylater.
-        Click the link to complete your registration.".base_url('users/updateuser/'.base64_encode($userdata['firstname']).'/'.base64_encode($userdata['lastname']).'/'.base64_encode($userdata['email']).'/'.base64_encode($userdata['homeaddress']).'/'.base64_encode($userdata['telephonenumber']).'')."
+        Click the link to complete your registration.".base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'')."
         ";
         
         $sendemail = $this->sendmail($userdata['email'],"PayLater Invitation",$message);
@@ -192,18 +193,39 @@ if($checkemail < 1){
         $data['alert_type'] = "success";
         $data['message'] = $data['alert'];
         $data['type'] = $data['alert_type'];
+        if($this->session->userdata('id')){
         $this->getusers($data['alert_type'],$data['message']);
-        
+        }else{
+             $data['alert'] = "Your account has been created.";
+    $data['alert_type'] = "success";
+    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['view_file'] = "updateuser";
+    $data['module'] = "users";
+    $this->template->build(false,$data);
+        }
         
  
     
 }else{
     unset($this->input);
-    $data['alert'] = "This user already exists.";
+    
+    if($this->session->userdata('id')){
+        $data['alert'] = "This user already exists.";
     $data['alert_type'] = "warning";
     $data['message'] = $data['alert'];
     $data['type'] = $data['alert_type'];
-    $this->getusers($data['type'],$data['message']);
+        $this->getusers($data['alert_type'],$data['message']);
+        }else{
+        $data['alert'] = "This user already exists.";
+    $data['alert_type'] = "warning";
+    $data['message'] = $data['alert'];
+        $data['type'] = $data['alert_type'];
+    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['view_file'] = "updateuser";
+    $data['module'] = "users";
+    $this->template->build(false,$data);
+        }
+    
         
 }
 
@@ -250,7 +272,7 @@ function getusers($alerttype = "",$alertmessage = ""){
     $data['title'] = "Users";
     $data['view_file'] = "users";
     $data['module'] = "users";
-    $this->admintemplate->build(false,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 function getuser(){
@@ -264,7 +286,8 @@ function getuser(){
 function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
-    
+       unset($userdata['agree']);
+    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
     $this->_update($userdata['id'],$userdata);
     $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
@@ -273,6 +296,8 @@ function updateuser(){
         }else{
     $data['alert'] = "Your account has been created.";
     $data['alert_type'] = "success";
+    $data['message'] = $data['alert'];
+    $data['type'] = $data['alert_type'];
     $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
     $data['view_file'] = "updateuser";
     $data['module'] = "users";
@@ -296,17 +321,7 @@ function deleteuser(){
 function searchuser(){
     $data['access'] = "administrator";
     $key = $this->get_form_data();
-    $users = $this->get_where_like('username',$key['usersearch']);
-    $count = count($users->result());
-    if($count > 0){
-        $data['users'] = $users;
-    }else{
-        $users = $this->get_where_like('email',$key['usersearch']);
-        $count = count($users->result());
-        if($count > 0){
-            $data['users'] = $users;
-        }else{
-        $users = $this->get_where_like('firstname',$key['usersearch']);
+    $users = $this->get_where_like('firstname',$key['usersearch']);
         $count = count($users->result());
         if($count > 0){
             $data['users'] = $users;
@@ -316,16 +331,20 @@ function searchuser(){
         if($count > 0){
             $data['users'] = $users;
             }else{
-                
-            }
-            }
+                $users = $this->get_where_like('email',$key['usersearch']);
+        $count = count($users->result());
+        if($count > 0){
+            $data['users'] = $users;
+        }else{
+            
         }
-    }
+            }
+            }
     $data['users'] = $users;
     $data['title'] = "User Search Result";
     $data['view_file'] = "users";
     $data['module'] = "users";
-    $this->template->build(true,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 
@@ -517,8 +536,8 @@ function getusername($userid){
     return $username;
 }
 
-function getuserid($username){
-    $userdetail = $this->get_where_custom("username",$username);
+function getuserid($email){
+    $userdetail = $this->get_where_custom("email",$email);
     foreach($userdetail->result() as $user){
         $userid = $user->id;
     }

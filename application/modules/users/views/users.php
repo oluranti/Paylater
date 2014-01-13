@@ -60,6 +60,10 @@ foreach($users->result() as $user){
                                 <td class="center"><?php echo $user->telephonenumber; ?></td>
                                 <td class="center"><span class="label label-warning"><?php echo $user->status; ?></span></td>
                                 <td class="center">
+                                <a class="btn btn-inverse" href="#" data-target="#UserLink<?php echo $user->id; ?>" data-toggle="modal" title="Copy User Link">
+										<i class="icon-share icon-white"></i>  
+										User Link                                            
+									</a>
 									<a class="btn btn-success" href="#" data-target="#ViewUser<?php echo $user->id; ?>" data-toggle="modal" title="View User">
 										<i class="icon-zoom-in icon-white"></i>  
 										View                                            
@@ -98,6 +102,28 @@ I could not find any user on the database. Try Adding One.
 <?php 
 foreach($users->result() as $user){
  ?>
+ 
+ <!-- User Link -->
+<div id="UserLink<?php echo $user->id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="UserLink<?php echo $user->id; ?>Label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="UserLink<?php echo $user->id; ?>Label">Users Link</h3>
+  </div>
+<div class="modal-body">
+          
+          <form role="form" action="<?php echo base_url('users/updateuser'); ?>" method="post">
+          
+          <div class="form-group">
+            <label for="firstname">Link</label>
+            <input type="text" class=" span12 form-control" id="selecttext"  value="<?php echo @$user->link; ?>"  />
+          </div>
+         
+            
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn">Close</button>
+            </div>
+</div>
 <!-- View User -->
 <div id="ViewUser<?php echo $user->id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ViewUser<?php echo $user->id; ?>Label" aria-hidden="true">
   <div class="modal-header">
@@ -110,10 +136,10 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="title">Title</label>
             <select name="title" class="form-control" id="title" disabled>
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Miss">Miss</option>
-            <option value="Master">Master</option>
+            <option <?php if(@$user->title == "Mr"){ echo 'selected = "yes"'; } ?> value="Mr">Mr</option>
+            <option <?php if(@$user->title == "Mrs"){ echo 'selected = "yes"'; } ?> value="Mrs">Mrs</option>
+            <option <?php if(@$user->title == "Miss"){ echo 'selected = "yes"'; } ?> value="Miss">Miss</option>
+            <option <?php if(@$user->title == "Master"){ echo 'selected = "yes"'; } ?> value="Master">Master</option>
             </select>
           </div>
           <div class="form-group">
@@ -127,8 +153,8 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="gender">Gender</label>
             <select name="gender" class="form-control" id="gender" disabled >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option <?php if(@$user->gender == "Male"){ echo 'selected = "yes"'; } ?> value="Male">Male</option>
+            <option <?php if(@$user->gender == "Female"){ echo 'selected = "yes"'; } ?> value="Female">Female</option>
             </select>
           </div>
           <div class="form-group">
@@ -154,9 +180,9 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="employmenttype">Employment Type</label>
             <select name="employmenttype" class="form-control" id="employmenttype" disabled>
-            <option value="Self-Employed">Self-Employed</option>
-            <option value="Unemployed">Unemployed</option>
-            <option value="Salary Employee">Salary Employee</option>
+            <option <?php if(@$user->employmenttype == "Self-Employed"){ echo 'selected = "yes"'; } ?> value="Self-Employed">Self-Employed</option>
+            <option <?php if(@$user->employmenttype == "Unemployed"){ echo 'selected = "yes"'; } ?> value="Unemployed">Unemployed</option>
+            <option <?php if(@$user->employmenttype == "Salary Employee"){ echo 'selected = "yes"'; } ?> value="Salary Employee">Salary Employee</option>
             </select>
           </div>
           <div class="form-group">
@@ -170,10 +196,10 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="monthlyincome">Monthly Income</label>
             <select name="monthlyincome" class="form-control" id="monthlyincome" disabled>
-            <option value="10000 - 50000">10000 - 59999</option>
-            <option value="60000 - 100000">60000 - 99999</option>
-            <option value="100000 - 999999">100000 - 999999</option>
-            <option value="1000000 and Above">1000000 and Above</option>
+            <option <?php if(@$user->monthlyincome == "10000 - 59999"){ echo 'selected = "yes"'; } ?>  value="10000 - 50000">10000 - 59999</option>
+            <option <?php if(@$user->monthlyincome == "60000 - 100000"){ echo 'selected = "yes"'; } ?> value="60000 - 100000">60000 - 99999</option>
+            <option <?php if(@$user->monthlyincome == "100000 - 999999"){ echo 'selected = "yes"'; } ?> value="100000 - 999999">100000 - 999999</option>
+            <option <?php if(@$user->monthlyincome == "1000000 and Above"){ echo 'selected = "yes"'; } ?> value="1000000 and Above">1000000 and Above</option>
             </select>
           </div>
             
@@ -195,10 +221,10 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="title">Title</label>
             <select name="title" class="form-control" id="title">
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Miss">Miss</option>
-            <option value="Master">Master</option>
+            <option <?php if(@$user->title == "Mr"){ echo 'selected = "yes"'; } ?> value="Mr">Mr</option>
+            <option <?php if(@$user->title == "Mrs"){ echo 'selected = "yes"'; } ?> value="Mrs">Mrs</option>
+            <option <?php if(@$user->title == "Miss"){ echo 'selected = "yes"'; } ?> value="Miss">Miss</option>
+            <option <?php if(@$user->title == "Master"){ echo 'selected = "yes"'; } ?> value="Master">Master</option>
             </select>
           </div>
           <div class="form-group">
@@ -212,8 +238,8 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="gender">Gender</label>
             <select name="gender" class="form-control" id="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option <?php if(@$user->gender == "Male"){ echo 'selected = "yes"'; } ?> value="Male">Male</option>
+            <option <?php if(@$user->gender == "Female"){ echo 'selected = "yes"'; } ?> value="Female">Female</option>
             </select>
           </div>
           <div class="form-group">
@@ -239,9 +265,9 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="employmenttype">Employment Type</label>
             <select name="employmenttype" class="form-control" id="employmenttype">
-            <option value="Self-Employed">Self-Employed</option>
-            <option value="Unemployed">Unemployed</option>
-            <option value="Salary Employee">Salary Employee</option>
+            <option <?php if(@$user->employmenttype == "Self-Employed"){ echo 'selected = "yes"'; } ?> value="Self-Employed">Self-Employed</option>
+            <option <?php if(@$user->employmenttype == "Unemployed"){ echo 'selected = "yes"'; } ?> value="Unemployed">Unemployed</option>
+            <option <?php if(@$user->employmenttype == "Salary Employee"){ echo 'selected = "yes"'; } ?> value="Salary Employee">Salary Employee</option>
             </select>
           </div>
           <div class="form-group">
@@ -255,10 +281,10 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="monthlyincome">Monthly Income</label>
             <select name="monthlyincome" class="form-control" id="monthlyincome">
-            <option value="10000 - 50000">10000 - 59999</option>
-            <option value="60000 - 100000">60000 - 99999</option>
-            <option value="100000 - 999999">100000 - 999999</option>
-            <option value="1000000 and Above">1000000 and Above</option>
+            <option <?php if(@$user->monthlyincome == "10000 - 59999"){ echo 'selected = "yes"'; } ?>  value="10000 - 50000">10000 - 59999</option>
+            <option <?php if(@$user->monthlyincome == "60000 - 100000"){ echo 'selected = "yes"'; } ?> value="60000 - 100000">60000 - 99999</option>
+            <option <?php if(@$user->monthlyincome == "100000 - 999999"){ echo 'selected = "yes"'; } ?> value="100000 - 999999">100000 - 999999</option>
+            <option <?php if(@$user->monthlyincome == "1000000 and Above"){ echo 'selected = "yes"'; } ?> value="1000000 and Above">1000000 and Above</option>
             </select>
           </div>
           <input type="hidden" name="id" value="<?php echo @$user->id; ?>" />

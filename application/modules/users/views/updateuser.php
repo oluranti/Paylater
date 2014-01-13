@@ -2,6 +2,17 @@
     <section>
         <button type="button" class="btn btn-warning btn-lg register" data-toggle="modal" data-target="#myModal">CLICK HERE TO REGISTER</button>
     </section>
+    
+    <?php
+    
+    $firstname = $this->uri->segment(3);
+    $lastname = $this->uri->segment(4);
+    $email = $this->uri->segment(5);
+    $homeaddress = $this->uri->segment(6);
+    $phonenumber = $this->uri->segment(7);
+    
+     ?>
+    
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -12,7 +23,7 @@
           </div>
           <div class="modal-body">
           
-          <form role="form" id="formregister">
+          <form role="form" id="formregister" method="post" action="<?php if(!empty($firstname)){ ?><?php echo base_url('users/updateuser'); ?><? }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>
             <select name="title" class="form-control" id="title">
@@ -24,11 +35,11 @@
           </div>
           <div class="form-group">
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name" />
+            <input type="text" class="form-control" name="firstname" id="firstname" <?php if(!empty($firstname)){ ?> value="<?php echo urldecode($firstname); ?>" disabled <?php } ?> placeholder="First Name" />
           </div>
           <div class="form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" />
+            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" <?php if(!empty($lastname)){ ?> value="<?php echo urldecode($lastname); ?>" disabled <?php } ?> />
           </div>
           <div class="form-group">
             <label for="gender">Gender</label>
@@ -43,15 +54,15 @@
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="text" class="form-control" name="email" id="email" placeholder="name@email.com" />
+            <input type="text" class="form-control" name="email" id="email" placeholder="name@email.com" <?php if(!empty($email)){ ?> value="<?php echo urldecode($email); ?>" disabled <?php } ?> />
           </div>
           <div class="form-group">
             <label for="homeaddress">Home Address</label>
-            <textarea class="form-control" name="homeaddress" id="homeaddress" placeholder="Home Address"></textarea>
+            <textarea class="form-control" name="homeaddress" id="homeaddress" placeholder="Home Address" <?php if(!empty($homeaddress)){ ?>  disabled <?php } ?>><?php if(!empty($homeaddress)){ ?> <?php echo urldecode($homeaddress); ?><?php } ?></textarea>
           </div>
           <div class="form-group">
             <label for="telephonenumber">Telephone Number</label>
-            <input type="text" class="form-control" name="telephonenumber" id="telephonenumber" placeholder="07087654321" />
+            <input type="text" class="form-control" name="telephonenumber" id="telephonenumber" <?php if(!empty($phonenumber)){ ?> value="<?php echo urldecode($phonenumber); ?>" disabled <?php } ?> placeholder="07087654321" />
           </div>
           <div class="form-group">
             <label for="alternativecontactnumber">Alternative Contact Number</label>
@@ -87,7 +98,11 @@
               <input type="checkbox" value="I Agree" name="agree" id="agree" /> I agree to the <a href="#" data-toggle="modal" data-target="#TC">terms and conditions.</a>
             </label>
           </div>
-            
+          <?php if(!empty($firstname)){ ?>
+            <input type="hidden" name="status" value="Active"/>
+            <?php $this->load->module('users'); ?>
+            <input type="hidden" name="id" value="<?php echo $this->users->getuserid(urldecode($email)); ?>"/>
+            <?php }else{ ?> <input type="hidden" name="status" value="Direct"/> <? } ?>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button></form>
@@ -134,5 +149,8 @@ Morbi id euismod odio. Nam orci nulla, interdum vel orci in, semper lacinia eros
 <script>
 $(document).ready(function(){
     $('#formregister').validate({ rules: { alternativecontactnumber: { required: true, number: true, maxlength: 11}, agree: { required: true } } });
-});
+  <?php if(!empty($firstname)){ ?> $('#myModal').modal('show');  <?php } ?>
+}
+
+);
 </script>

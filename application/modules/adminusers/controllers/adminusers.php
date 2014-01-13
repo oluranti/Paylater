@@ -96,7 +96,7 @@ function index(){
     if($this->session->userdata('usertype') == "administrator"){
                     $this->getadminusers();
                 }else{
-                    $this->updateuser();
+                    $this->login();
                 } 
     //$this->getadminusers();
 }
@@ -130,7 +130,7 @@ function login($alert = array()){
                 $this->admintemplate->build(false,$data); 
             }else{
                 foreach($checkuser->result() as $usergo){
-                    $this->session->set_userdata('usertype',$usergo->usertype);
+                    $this->session->set_userdata('usertype','administrator');
                     $this->session->set_userdata('id',$usergo->id);
                     $this->session->set_userdata('email',$usergo->email);
                     $this->session->set_userdata('username',$usergo->username);
@@ -176,32 +176,13 @@ $userdata = $this->get_form_data();
 $data = $userdata;
 //check if user exist in database
 $checkusername = $this->count_where('username',$userdata['username']);
-$checkemail = $this->count_where('email',$userdata['email']);
 
-if($checkemail < 1 && $checkusername < 1){
+if($checkusername < 1){
     $rawpassword = $userdata['password'];
     unset($userdata['password']);
     $userdata['password'] = $this->makeHash($rawpassword);
      /*if(isset($data['userfile'])){*/
-    $config['upload_path'] = './assets/user-assets/userforms';
-    $config['allowed_types'] = 'pdf';
-    $config['max_size']	= '5024';
-    $config['file_name'] = $userdata['username'];
-    $config['overwrite'] = TRUE;
-    $this->upload->initialize($config);
-    $upload_ = $this->upload->do_upload();
-    $error = $this->upload->display_errors();
-    if($upload_){
-  
-        $upload_data = $this->upload->data();
-        $fullpath = $upload_data['file_name'];
-        $userdata['userform'] = base_url("assets/user-assets/userforms/".$fullpath);
-
-    }
-    unset($userdata['userfile']);
-    unset($userdata['cpassword']);
-    $userdata['usertype'] = "inactive";
-    if(!$error){
+    
         $this->_insert($userdata);
         $message = "
         Thank you ".$userdata['firstname']." for registering with Supplies.
@@ -210,47 +191,26 @@ if($checkemail < 1 && $checkusername < 1){
         ";
         
         $sendemail = $this->sendmail($userdata['email'],"SUPPLIES: Thank you for registering",$message);
-        $data['alert'] = "Thank you for registering, you will recieve an email once your account has been approved.";
+        $data['alert'] = "Thank you for registering.";
         $data['alert_type'] = "success";
         $data['message'] = $data['alert'];
         $data['type'] = $data['alert_type'];
         if($this->session->userdata('usertype') == "administrator"){
             $this->getadminusers($data['alert_type'],$data['message']);
         }else{
-            $message = "
-        Hello,
-        ".$userdata['firstname']." just registered with Supplies, with username ".$userdata['username'].".
-        Please, login to the admin panel to approve or delete this user.
-        ";
         
-        $sendemail = $this->sendmail("servicedesk@special-brand.com","SUPPLIES: A new user just registered",$message);
             $data['title'] = "Registration Successful";
             $data['view_file'] = "login";
             $data['module'] = "adminusers";
-            $this->template->build(false,$data);   
+            $this->admintemplate->build(false,$data);   
             //$this->login($alert); 
         }
         
-    }else{
-    
-    $data['alert'] = "We couldn't upload your form at the moment. Please, Try Again.".$error;
-    $data['alert_type'] = "error";
-    $data['message'] = $data['alert'];
-    $data['type'] = $data['alert_type'];
-    if($this->session->userdata('usertype') == "administrator"){
-            $this->getadminusers($data['type'],$data['message']);
-        }else{
-    $data['title'] = "Error Uploading File";
-    $data['view_file'] = "login";
-    $data['module'] = "adminusers";
-    $this->template->build(false,$data);   
-    //$this->login($alert);
-    }
-    }    
+      
     
 }else{
     unset($this->input);
-    $data['alert'] = "This user already exists. Registration failed. Try a different username or email.".@$error;
+    $data['alert'] = "This user already exists. Registration failed. Try a different username or email.";
     $data['alert_type'] = "warning";
     $data['message'] = $data['alert'];
     $data['type'] = $data['alert_type'];
@@ -260,7 +220,7 @@ if($checkemail < 1 && $checkusername < 1){
     $data['title'] = "User Already Exists";
     $data['view_file'] = "login";
     $data['module'] = "adminusers";
-    $this->template->build(false,$data);   
+    $this->admintemplate->build(false,$data);   
     }
 }
 
@@ -303,11 +263,11 @@ function getadminusers($alerttype = "",$alertmessage = ""){
     
     $data['access'] = 'administrator';
     
-    $data['adminusers'] = $adminusers;
-    $data['title'] = "adminusers";
-    $data['view_file'] = "adminusers";
+    $data['users'] = $adminusers;
+    $data['title'] = "users";
+    $data['view_file'] = "users";
     $data['module'] = "adminusers";
-    $this->admintemplate->build(false,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 function getuser(){
@@ -315,7 +275,7 @@ function getuser(){
     $data['title'] = "User";
     $data['view_file'] = "user";
     $data['module'] = "adminusers";
-    $this->template->build(true,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 function updateuser(){
@@ -327,33 +287,11 @@ function updateuser(){
         $userdata['password'] = $this->makeHash($rawpassword); 
     }
     
-     if(isset($data['userfile'])){
-    $config['upload_path'] = './assets/user-assets/userforms';
-    $config['allowed_types'] = 'pdf';
-    $config['max_size']	= '5024';
-    $config['file_name'] = $userdata['username'];
-    $config['overwrite'] = TRUE;
-    $this->upload->initialize($config);
-    $upload_ = $this->upload->do_upload();
-    $error = $this->upload->display_errors();
-    if($upload_){
-  
-        $upload_data = $this->upload->data();
-        $fullpath = $upload_data['file_name'];
-        $userdata['userfile'] = base_url("assets/user-assets/userforms/".$fullpath);
-
-    }
-    unset($userdata['userfile']);
-    }
+    
     $this->_update($userdata['id'],$userdata);
     $alert['message'] = "The user has been Updated successfully".@$error;
     $alert['type'] = "success";
     $this->getadminusers($alert['type'],$alert['message']);
-}else{
-    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
-    $data['view_file'] = "updateuser";
-    $data['module'] = "adminusers";
-    $this->template->build(false,$data);
 }
 }
 
@@ -369,33 +307,33 @@ function searchuser(){
     $adminusers = $this->get_where_like('username',$key['adminusersearch']);
     $count = count($adminusers->result());
     if($count > 0){
-        $data['adminusers'] = $adminusers;
+        $data['users'] = $adminusers;
     }else{
         $adminusers = $this->get_where_like('email',$key['adminusersearch']);
         $count = count($adminusers->result());
         if($count > 0){
-            $data['adminusers'] = $adminusers;
+            $data['users'] = $adminusers;
         }else{
         $adminusers = $this->get_where_like('firstname',$key['adminusersearch']);
         $count = count($adminusers->result());
         if($count > 0){
-            $data['adminusers'] = $adminusers;
+            $data['users'] = $adminusers;
             }else{
         $adminusers = $this->get_where_like('lastname',$key['adminusersearch']);
         $count = count($adminusers->result());
         if($count > 0){
-            $data['adminusers'] = $adminusers;
+            $data['users'] = $adminusers;
             }else{
                 
             }
             }
         }
     }
-    $data['adminusers'] = $adminusers;
+    $data['users'] = $adminusers;
     $data['title'] = "User Search Result";
-    $data['view_file'] = "adminusers";
+    $data['view_file'] = "users";
     $data['module'] = "adminusers";
-    $this->template->build(true,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 
@@ -543,7 +481,7 @@ function dashboard(){
     $data['title'] = "Dashboard";
     $data['view_file'] = "dashboard";
     $data['module'] = "adminusers";
-    $this->template->build(true,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 function frontend(){
@@ -555,7 +493,7 @@ function backend(){
     $data['title'] = "Dashboard";
     $data['view_file'] = "backend";
     $data['module'] = "adminusers";
-    $this->template->build(true,$data);
+    $this->admintemplate->build(true,$data);
 }
 
 function approveuser(){
