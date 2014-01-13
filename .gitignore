@@ -3,3 +3,7 @@
 */logs/!index.html
 */cache/*
 */cache/!index.html
+
+config.php
+database.php
+index.php
