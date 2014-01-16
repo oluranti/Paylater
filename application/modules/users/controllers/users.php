@@ -593,7 +593,7 @@ function downloaduserlinks(){
     $this->load->model('mdl_users');
     $csvdata = $this->mdl_users->get_userlinks_as_csv();
     $time = time();
-    if ( !write_file('./assets/csvdownloads/'.$time.'.csv', $csvdata)){
+    if ( !write_file('./paylater/assets/csvdownloads/'.$time.'.csv', $csvdata)){
         $alert['message'] = "User Export Failed";
         $alert['type'] = "error";
         $this->getusers($alert['type'],$alert['message']);
