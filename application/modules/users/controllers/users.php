@@ -101,76 +101,6 @@ function index(){
     //$this->getusers();
 }
 
-private function login($alert = array()){
-    $userdetail = $this->get_form_data();
-    //check for submit action
-    //echo 1;
-    if(!empty($userdetail) && $userdetail['username'] != "" && $userdetail['password'] != ""){
-        //make hash
-        //echo 2;
-        $password = $this->makeHash($userdetail['password']);
-        //first level check
-        //echo 3;
-        if($this->count_where('username',$userdetail['username']) > 0 && $this->count_where('password',$password) > 0){
-            //get the user from db
-            //echo 4;
-            $checkuser = $this->get_where_custom('username',$userdetail['username']);
-            foreach($checkuser->result() as $userdb){
-                $passw = $userdb->password;
-                $usern = $userdb->username;
-            }
-            //second level check
-            //echo 5;
-            if($userdetail['username'] != $usern || $password != $passw ){
-                $data['alert'] = "Wrong Username or Password, Please Try Again";
-                $data['alert_type'] = "Warning";
-                $data['title'] = "Wrong Login Details";
-                $data['view_file'] = "login";
-                $data['module'] = "users";
-                $this->admintemplate->build(false,$data); 
-            }else{
-                foreach($checkuser->result() as $usergo){
-                    $this->session->set_userdata('usertype',$usergo->usertype);
-                    $this->session->set_userdata('id',$usergo->id);
-                    $this->session->set_userdata('email',$usergo->email);
-                    $this->session->set_userdata('username',$usergo->username);
-                    redirect('users');
-                    //$this->getusers();   
-                    //echo 'go';
-                }
-                
-            }
-        }else{
-            $data['alert'] = "Wrong Username or Password, Please Try Again";
-            $data['alert_type'] = "Warning";
-            $data['title'] = "Wrong Login Details";
-            $data['view_file'] = "login";
-            $data['module'] = "users";
-            $this->admintemplate->build(false,$data); 
-        }
-        
-        
-    }else{
-        if($this->session->userdata('id')){
-            redirect('users');
-        }else{
-            if(!empty($alert)){
-                $data['alert'] = $alert['message'];
-                $data['alert_type'] = $alert['type'];
-            }
-        $data['no_visible_elements'] = true;
-        $data['title'] = "Login";
-        $data['view_file'] = "login";
-        $data['module'] = "users";
-        $this->admintemplate->build(false,$data);    
-        }
-    
-    }
-    
-    
-   
-}
-
 function adduser(){
 $userdata = $this->get_form_data();
 $data = $userdata;
@@ -273,14 +203,6 @@ function getusers($alerttype = "",$alertmessage = ""){
     $this->admintemplate->build(true,$data);
 }
 
-private function getuser(){
-    $data['access'] = "administrator";
-    $data['title'] = "User";
-    $data['view_file'] = "user";
-    $data['module'] = "users";
-    $this->template->build(true,$data);
-}
-
 function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
@@ -346,45 +268,6 @@ function searchuser(){
     $this->admintemplate->build(true,$data);
 }
 
-
-/**
- * Users::getAvi()
- * gets the current user avatar
- * @param mixed $width
- * @param mixed $height
- * @return string
- */
-private function getAvi($width,$height){
-    $userid = $this->session->userdata('id');
-    $query = $this->get_where_custom('id',$userid );
-    foreach($query->result() as $row){
-        $avi = $row->avi;
-    }
-    if($avi){
-    $urlarray = explode('.',$avi);
-    $urlarray['0'] .= '_'.$width.'by'.$height.'';
-    $aviurlnew = implode('.',$urlarray);
-    
-    $config['image_library'] = 'gd2';
-    $config['source_image']	= 'assets/user-assets/avi/'.$avi.'';//$aviurl;
-    $config['create_thumb'] = TRUE;
-    $config['maintain_ratio'] = TRUE;
-    $config['width']	 = $width;
-    $config['height']	= $height;
-    $config['thumb_marker']	= '_'.$width.'by'.$height.'';
-    
-    $this->load->library('image_lib', $config); 
-    
-    $this->image_lib->resize();
-    
-    $aviurl = base_url('assets/user-assets/avi/'.$aviurlnew.'');
-    return $aviurl;
-    }else{
-        
-        return false;
-    }
-}
-
 /**
  * Users::makeHash()
  * generate a secure hash string from a sring and a salt
@@ -411,21 +294,6 @@ function makeHash($data, $salt = "%gd:FG{hdfVFDds6egNNKYRfe dr"){
     
 }
 
-private function logout(){
-
-
-                $this->session->unset_userdata('usertype');
-                $this->session->unset_userdata('id');
-                $this->session->unset_userdata('email');
-                $this->session->unset_userdata('username');
-                
-                redirect('users/login');
-
-            
-        
-  
-}
-
 /**
  * Users::accessLocker()
  * use 0 to accept all users and the respective role id for other users
@@ -444,87 +312,6 @@ function accessLocker($role){
         return false;
     }
     
-}
-
-private function downloadform(){
-    $data = file_get_contents(base_url('assets/user-assets/registrationform/Creditapplicationform.pdf')); // Read the file's contents
-    $name = 'registrationForm.pdf';
-    if(!$data){
-        die('File does not exist');
-    }
-    force_download($name, $data);
-}
-
-private function downloaduserform(){
-    $usernm = $this->uri->segment(3);
-    $data = file_get_contents(base_url('assets/user-assets/userforms/'.$usernm.'.pdf')); // Read the file's contents
-    if(!$data){
-        die('File does not exist');
-    }
-    $name = $usernm.'_registration_form.pdf';
-    
-    force_download($name, $data);
-}
-
-private function sendmail($to,$subject,$message){
-    $this->email->from('servicedesk@special-brand.com', 'Supplies');
-    $this->email->to($to);
-    
-    $this->email->subject($subject);
-    $this->email->message($message);	
-    
-    $send = $this->email->send();
-    if(!$send){
-        return false;
-    }else{
-        return true;
-    }
-}
-
-private function dashboard(){
-    $data['access'] = 'all';
-    $this->load->module('spreadsheets');
-    $data['link'] = $this->spreadsheets->getlatestlinkbyuser();
-    $data['title'] = "Dashboard";
-    $data['view_file'] = "dashboard";
-    $data['module'] = "users";
-    $this->template->build(true,$data);
-}
-
-private function frontend(){
-    $this->dashboard();
-}
-
-private function backend(){
-    $data['access'] = 'all';
-    $data['title'] = "Dashboard";
-    $data['view_file'] = "backend";
-    $data['module'] = "users";
-    $this->template->build(true,$data);
-}
-
-private function approveuser(){
-    $userdt = $this->get_form_data();
-    $data['usertype'] = "regular";
-    $data['id'] = $userdt['userid']; 
-    $userdetails = $this->get_where_custom('id',$userdt['userid']);
-    foreach($userdetails->result() as $userd){
-        $email = $userd->email;
-        $company = $userd->companyname;
-        $username = $userd->username;
-    }
-    $approve = $this->_update_where('id',$userdt['userid'],$data);
-    $this->load->module('spreadsheets');
-    $this->spreadsheets->create($userdt['userid'],$userdt['name'],$userdt['link'],true);
-    $message = "
-        Congratulations ".$company.", 
-        Your Supplies account at ".base_url()." has been approved.
-        Login here (".base_url().") with your username(".$username.") and password to continue.
-        ";
-    $this->sendmail($email,'SUPPLIES: Account Approval',$message);
-        $data['message'] = "The User has been approved.";
-        $data['type'] = "success";
-        $this->getusers($data['type'],$data['message']);
 }
 
 function getusername($userid){

@@ -51,7 +51,7 @@ foreach($users->result() as $user){
 									<a class="btn btn-info" href="#" data-target="#EditUser<?php echo $user->id; ?>" data-toggle="modal" title="Edit User">
 										<i class="icon-edit icon-white"></i>                                     
 									</a>
-									<a class="btn btn-danger" href="<?php echo base_url('users/deleteuser') ?>/<?php echo $user->id; ?>" title="Delete User">
+									<a class="btn btn-danger" href="<?php echo base_url('adminusers/deleteuser') ?>/<?php echo $user->id; ?>" title="Delete User">
 										<i class="icon-trash icon-white"></i>
 									</a>
 								</td>
@@ -121,7 +121,7 @@ foreach($users->result() as $user){
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="AddUserLabel">Add User</h4>
+            <h4 class="modal-title" id="AddUserLabel">Add Admin User</h4>
           </div>
           <div class="modal-body">
           
@@ -138,7 +138,7 @@ foreach($users->result() as $user){
             
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Add User</button></form>
+            <button type="submit" class="btn btn-primary">Add Admin User</button></form>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
