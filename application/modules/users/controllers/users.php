@@ -543,6 +543,49 @@ function getuserid($email){
     }
     return $userid;
 }
+
+function importusers(){
+   // $row = 1;
+    $file = fopen(base_url('assets/importusers/Listforthefirstround.csv'),'r');
+     while (($filedecode = fgetcsv($file)) !== FALSE) {
+        $splitname = explode(' ',$filedecode[0]);
+        $firstname = $splitname[0];
+        $lastname = $splitname[1];
+        $email = $filedecode[1];
+        
+        //echo $firstname.'-'.$lastname.'-'.$email.'<br />';
+        
+        $checkemail = $this->count_where('email',$email);
+        if($checkemail < 1){
+            $data['firstname'] = $firstname;
+            $data['lastname'] = $lastname;
+            $data['email'] = $email;
+            $data['status'] = "pending";
+            $data['link'] = base_url('users/updateuser/'.urlencode($data['firstname']).'/'.urlencode($data['lastname']).'/'.urlencode($data['email']).'/'.$this->makeHash($firstname.'-'.$lastname.'-'.$email));
+                $this->_insert($data);
+                echo 'Done';
+
+        }
+        
+        /*echo "<p> $num fields in line $row: <br /></p>\n";
+        $row++;
+        for ($c=0; $c < $num; $c++) {
+            echo $data[$c] . "<br />\n";
+        }*/
+       }
+    
+   /* $row = 1;
+    $file = fopen(base_url('assets/importusers/Listforthefirstround.csv'),'r');
+     while (($data = fgetcsv($file)) !== FALSE) {
+        $num = count($data);
+        echo "<p> $num fields in line $row: <br /></p>\n";
+        $row++;
+        for ($c=0; $c < $num; $c++) {
+            echo $data[$c] . "<br />\n";
+        }
+        }*/
+  
+}
  
 }
 
