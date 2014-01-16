@@ -593,7 +593,7 @@ function downloaduserlinks(){
     $this->load->model('mdl_users');
     $csvdata = $this->mdl_users->get_userlinks_as_csv();
     $time = time();
-    if ( !write_file('~/public_html/paylater/assets/csvdownloads/'.$time.'.csv', $csvdata)){
+    if ( !write_file('./assets/csvdownloads/'.$time.'.csv', $csvdata)){
         $alert['message'] = "User Export Failed";
         $alert['type'] = "error";
         $this->getusers($alert['type'],$alert['message']);
@@ -601,7 +601,7 @@ function downloaduserlinks(){
         $alert['message'] = "User Export Successful";
         $alert['type'] = "success";
         $this->getusers($alert['type'],$alert['message']);
-        $data = file_get_contents(base_url('assets/csvdownloads/'.$time.'.csv')); // Read the file's contents
+        $data = file_get_contents('./assets/csvdownloads/'.$time.'.csv'); // Read the file's contents
         if(!$data){
         die('File does not exist');
         }
