@@ -35,7 +35,12 @@
                                   <th><a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
 										<i class="icon-plus icon-white"></i>  
 										Add                                            
-									</a></th>
+									</a>
+                                    <a class="btn btn-primary" href="<?php echo base_url('users/downloaduserlinks') ?>" title="Download User Links as CSV">
+										<i class="icon-plus icon-white"></i>  
+										Download User Links as CSV                                           
+									</a>
+                                    </th>
 							  </tr>
 						  </thead>   
 						  <tbody>

@@ -30,7 +30,9 @@
 								  <th><a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
 										<i class="icon-plus icon-white"></i>  
 										Add                                            
-									</a></th>
+									</a>
+                                    
+                                    </th>
 							  </tr>
 						  </thead>   
 						  <tbody>

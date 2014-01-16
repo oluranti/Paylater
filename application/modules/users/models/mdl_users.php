@@ -108,6 +108,16 @@ $query=$this->db->get($table);
 return $query;
 }
 
+function get_userlinks_as_csv(){
+    $this->load->dbutil();
+    $table = $this->get_table();
+    $this->db->select('firstname,lastname,email,link');
+    $query = $this->db->get($table);
+    $csvdata = $this->dbutil->csv_from_result($query);
+    return $csvdata;
+    
+}
+
 }
 
 ?>

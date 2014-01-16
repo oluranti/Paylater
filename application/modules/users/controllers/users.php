@@ -181,11 +181,11 @@ $checkemail = $this->count_where('email',$userdata['email']);
 if($checkemail < 1){
     
     $userdata['status'] = "pending";
-    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
+    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
         $this->_insert($userdata);
         $message = "
         You have been invited to paylater.
-        Click the link to complete your registration.".base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'')."
+        Click the link to complete your registration.".base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']))/*base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'')*/."
         ";
         
         $sendemail = $this->sendmail($userdata['email'],"PayLater Invitation",$message);
@@ -287,7 +287,8 @@ function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
        unset($userdata['agree']);
-    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
+       base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));
+    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
     $this->_update($userdata['id'],$userdata);
     $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
@@ -585,6 +586,31 @@ function importusers(){
         }
         }*/
   
+}
+
+function downloaduserlinks(){
+    $this->load->helper('file');
+    $this->load->model('mdl_users');
+    $csvdata = $this->mdl_users->get_userlinks_as_csv();
+    $time = time();
+    if ( !write_file('./assets/csvdownloads/'.$time.'.csv', $csvdata)){
+        $alert['message'] = "User Export Failed";
+        $alert['type'] = "error";
+        $this->getusers($alert['type'],$alert['message']);
+    }else{
+        $alert['message'] = "User Export Successful";
+        $alert['type'] = "success";
+        $this->getusers($alert['type'],$alert['message']);
+        $data = file_get_contents(base_url('assets/csvdownloads/'.$time.'.csv')); // Read the file's contents
+        if(!$data){
+        die('File does not exist');
+        }
+        $name = 'users_'.$time.'.csv';
+        
+        force_download($name, $data);  
+    }
+
+    
 }
  
 }

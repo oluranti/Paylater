@@ -1,4 +1,5 @@
     <?php $this->load->module('template'); ?>
+    <?php $this->load->module('users'); ?>
     <section>
         <button type="button" class="btn btn-warning btn-lg register" data-toggle="modal" data-target="#myModal">CLICK HERE TO REGISTER</button>
     </section>
@@ -8,9 +9,17 @@
     $firstname = $this->uri->segment(3);
     $lastname = $this->uri->segment(4);
     $email = $this->uri->segment(5);
-    $homeaddress = $this->uri->segment(6);
-    $phonenumber = $this->uri->segment(7);
+    $verificationcode = $this->uri->segment(6);
+    //$phonenumber = $this->uri->segment(7);
+    if(!empty($firstname)){ 
+    $verify = $this->users->makeHash(urldecode($firstname).'-'.urldecode($lastname).'-'.urldecode($email));
     
+    if($verificationcode == $verify){
+        $verification = true;
+    }else{
+        $verification = false;
+    }
+    }
      ?>
     
     <!-- Modal -->
@@ -23,7 +32,7 @@
           </div>
           <div class="modal-body">
           
-          <form role="form" id="formregister" method="post" action="<?php if(!empty($firstname)){ ?><?php echo base_url('users/updateuser'); ?><? }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
+          <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><? }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>
             <select name="title" class="form-control" id="title">
@@ -98,9 +107,9 @@
               <input type="checkbox" value="I Agree" name="agree" id="agree" /> I agree to the <a href="#" data-toggle="modal" data-target="#TC">terms and conditions.</a>
             </label>
           </div>
-          <?php if(!empty($firstname)){ ?>
+          <?php if(!empty($verificationcode) && $verification){ ?>
+          
             <input type="hidden" name="status" value="Active"/>
-            <?php $this->load->module('users'); ?>
             <input type="hidden" name="id" value="<?php echo $this->users->getuserid(urldecode($email)); ?>"/>
             <?php }else{ ?> <input type="hidden" name="status" value="Direct"/> <? } ?>
           </div>
