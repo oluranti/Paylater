@@ -10,7 +10,7 @@
 	<meta name="author" content="Olanipekun Olufemi, KVPAfrica">
 
 	<!-- The styles -->
-	<link id="bs-csss" href="<?php echo $this->admintemplate->get_asset(); ?>/css/bootstrap-cerulean.css" rel="stylesheet">
+	<link id="bs-csss" href="<?php echo $this->admintemplate->get_asset(); ?>/css/bootstrap-united.css" rel="stylesheet">
 	<style type="text/css">
 	  body {
 		padding-bottom: 40px;
