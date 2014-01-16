@@ -94,7 +94,8 @@ function get_form_data(){
 
 function index(){
     if($this->session->userdata('usertype') == "administrator"){
-                    $this->getadminusers();
+            redirect('users');
+            //$this->getadminusers();
                 }else{
                     $this->login();
                 } 
@@ -103,6 +104,7 @@ function index(){
 
 function login($alert = array()){
     $userdetail = $this->get_form_data();
+    $data['no_visible_elements'] = true;
     //check for submit action
     //echo 1;
     if(!empty($userdetail) && $userdetail['username'] != "" && $userdetail['password'] != ""){
@@ -158,7 +160,6 @@ function login($alert = array()){
                 $data['alert'] = $alert['message'];
                 $data['alert_type'] = $alert['type'];
             }
-        $data['no_visible_elements'] = true;
         $data['title'] = "Login";
         $data['view_file'] = "login";
         $data['module'] = "adminusers";
@@ -174,6 +175,7 @@ function login($alert = array()){
 function adduser(){
 $userdata = $this->get_form_data();
 $data = $userdata;
+$data['access'] = 'administrator';
 //check if user exist in database
 $checkusername = $this->count_where('username',$userdata['username']);
 
@@ -184,25 +186,24 @@ if($checkusername < 1){
      /*if(isset($data['userfile'])){*/
     
         $this->_insert($userdata);
-        $message = "
+        /*$message = "
         Thank you ".$userdata['firstname']." for registering with Supplies.
         Your Username is ".$userdata['username'].".
         You will recieve an email once your account has been approved.
-        ";
+        ";*/
         
-        $sendemail = $this->sendmail($userdata['email'],"SUPPLIES: Thank you for registering",$message);
-        $data['alert'] = "Thank you for registering.";
+        //$sendemail = $this->sendmail($userdata['email'],"SUPPLIES: Thank you for registering",$message);
+        $data['alert'] = "Admin User Created Successfully";
         $data['alert_type'] = "success";
         $data['message'] = $data['alert'];
         $data['type'] = $data['alert_type'];
         if($this->session->userdata('usertype') == "administrator"){
             $this->getadminusers($data['alert_type'],$data['message']);
         }else{
-        
             $data['title'] = "Registration Successful";
             $data['view_file'] = "login";
             $data['module'] = "adminusers";
-            $this->admintemplate->build(false,$data);   
+            $this->admintemplate->build(true,$data);   
             //$this->login($alert); 
         }
         
@@ -210,7 +211,7 @@ if($checkusername < 1){
     
 }else{
     unset($this->input);
-    $data['alert'] = "This user already exists. Registration failed. Try a different username or email.";
+    $data['alert'] = "This admin user already exists. Registration failed. Try a different username or email.";
     $data['alert_type'] = "warning";
     $data['message'] = $data['alert'];
     $data['type'] = $data['alert_type'];
@@ -220,7 +221,7 @@ if($checkusername < 1){
     $data['title'] = "User Already Exists";
     $data['view_file'] = "login";
     $data['module'] = "adminusers";
-    $this->admintemplate->build(false,$data);   
+    $this->admintemplate->build(true,$data);   
     }
 }
 
@@ -264,13 +265,13 @@ function getadminusers($alerttype = "",$alertmessage = ""){
     $data['access'] = 'administrator';
     
     $data['users'] = $adminusers;
-    $data['title'] = "users";
+    $data['title'] = "Administrators";
     $data['view_file'] = "users";
     $data['module'] = "adminusers";
     $this->admintemplate->build(true,$data);
 }
 
-function getuser(){
+private function getuser(){
     $data['access'] = "administrator";
     $data['title'] = "User";
     $data['view_file'] = "user";
@@ -289,7 +290,7 @@ function updateuser(){
     
     
     $this->_update($userdata['id'],$userdata);
-    $alert['message'] = "The user has been Updated successfully".@$error;
+    $alert['message'] = "The admin user has been updated successfully";
     $alert['type'] = "success";
     $this->getadminusers($alert['type'],$alert['message']);
 }
@@ -301,7 +302,7 @@ function deleteuser(){
     redirect('adminusers');
 }
 
-function searchuser(){
+private function searchuser(){
     $data['access'] = "administrator";
     $key = $this->get_form_data();
     $adminusers = $this->get_where_like('username',$key['adminusersearch']);
@@ -344,7 +345,7 @@ function searchuser(){
  * @param mixed $height
  * @return string
  */
-function getAvi($width,$height){
+private function getAvi($width,$height){
     $userid = $this->session->userdata('id');
     $query = $this->get_where_custom('id',$userid );
     foreach($query->result() as $row){
@@ -403,20 +404,13 @@ function makeHash($data, $salt = "%gd:FG{hdfVFDds6egNNKYRfe dr"){
 
 function logout(){
 
-
                 $this->session->unset_userdata('usertype');
                 $this->session->unset_userdata('id');
                 $this->session->unset_userdata('email');
                 $this->session->unset_userdata('username');
-                if(isset($_COOKIE['A_Chickens_World'])){
-                    $cook = md5('oh no! a car just hit the chicken');
-                    $setcook = setcookie("A_Chickens_World",$cook,0,"/",".special-brand.com");
-                }
+                
                 redirect('adminusers/login');
 
-            
-        
-  
 }
 
 /**
@@ -439,7 +433,7 @@ function accessLocker($role){
     
 }
 
-function downloadform(){
+private function downloadform(){
     $data = file_get_contents(base_url('assets/user-assets/registrationform/Creditapplicationform.pdf')); // Read the file's contents
     $name = 'registrationForm.pdf';
     if(!$data){
@@ -448,7 +442,7 @@ function downloadform(){
     force_download($name, $data);
 }
 
-function downloaduserform(){
+private function downloaduserform(){
     $usernm = $this->uri->segment(3);
     $data = file_get_contents(base_url('assets/user-assets/userforms/'.$usernm.'.pdf')); // Read the file's contents
     if(!$data){
@@ -459,7 +453,7 @@ function downloaduserform(){
     force_download($name, $data);
 }
 
-function sendmail($to,$subject,$message){
+private function sendmail($to,$subject,$message){
     $this->email->from('servicedesk@special-brand.com', 'Supplies');
     $this->email->to($to);
     
@@ -474,7 +468,7 @@ function sendmail($to,$subject,$message){
     }
 }
 
-function dashboard(){
+private function dashboard(){
     $data['access'] = 'all';
     $this->load->module('spreadsheets');
     $data['link'] = $this->spreadsheets->getlatestlinkbyuser();
@@ -484,11 +478,11 @@ function dashboard(){
     $this->admintemplate->build(true,$data);
 }
 
-function frontend(){
+private function frontend(){
     $this->dashboard();
 }
 
-function backend(){
+private function backend(){
     $data['access'] = 'all';
     $data['title'] = "Dashboard";
     $data['view_file'] = "backend";
@@ -496,7 +490,7 @@ function backend(){
     $this->admintemplate->build(true,$data);
 }
 
-function approveuser(){
+private function approveuser(){
     $userdt = $this->get_form_data();
     $data['usertype'] = "regular";
     $data['id'] = $userdt['userid']; 

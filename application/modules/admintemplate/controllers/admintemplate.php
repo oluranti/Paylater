@@ -24,7 +24,7 @@ var $asset;
             $this->footer($data);
         }else{
             if(!$this->session->userdata('id')){
-                redirect('users/login');
+                redirect('adminusers/login');
             }else{
                 $this->load->module('users');
             $this->header($data);

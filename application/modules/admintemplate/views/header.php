@@ -1,9 +1,10 @@
 <?php $this->load->module('admintemplate'); ?>
+<?php $this->load->module('template'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Free HTML5 Bootstrap Admin Template</title>
+	<title>Paylater Administrator Panel<?php echo " | ".$title; ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Paylater Admin">
 	<meta name="author" content="Olanipekun Olufemi, KVPAfrica">
@@ -21,8 +22,7 @@
 	<link href="<?php echo $this->admintemplate->get_asset(); ?>/css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="<?php echo $this->admintemplate->get_asset(); ?>/css/charisma-app.css" rel="stylesheet">
 	<link href="<?php echo $this->admintemplate->get_asset(); ?>/css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/fullcalendar.css' rel='stylesheet'>
-	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/fullcalendar.print.css' rel='stylesheet'  media='print'>
+	
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/chosen.css' rel='stylesheet'>
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/uniform.default.css' rel='stylesheet'>
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/colorbox.css' rel='stylesheet'>
@@ -31,9 +31,9 @@
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/noty_theme_default.css' rel='stylesheet'>
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/elfinder.min.css' rel='stylesheet'>
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/elfinder.theme.css' rel='stylesheet'>
-	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/jquery.iphone.toggle.css' rel='stylesheet'>
+
 	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/opa-icons.css' rel='stylesheet'>
-	<link href='<?php echo $this->admintemplate->get_asset(); ?>/css/uploadify.css' rel='stylesheet'>
+
 
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -41,7 +41,10 @@
 	<![endif]-->
 
 	<!-- The fav icon -->
-	<link rel="shortcut icon" href="<?php echo $this->admintemplate->get_asset(); ?>/img/favicon.ico">
+	<link rel="shortcut icon" href="<?php echo $this->template->get_asset(); ?>/images/favicon.ico" />
+	<link rel="apple-touch-icon" href="<?php echo $this->template->get_asset(); ?>/images/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $this->template->get_asset(); ?>/images/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $this->template->get_asset(); ?>/images/apple-touch-icon-114x114.png" />
 		
 </head>
 
@@ -56,14 +59,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="index.html">PayLater</a>
+				<a class="brand" href="<?php echo base_url('admin'); ?>">PayLater</a>
 				
 				
 				
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right" >
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span class="hidden-phone"> admin</span>
+						<i class="icon-user"></i><span class="hidden-phone"> <?php echo $this->session->userdata('username'); ?></span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -98,7 +101,7 @@
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Admin Menu</li>
 						<li><a class="ajax-link" href="<?php echo base_url('users'); ?>"><i class="icon-user"></i><span class="hidden-tablet"> Users</span></a></li>
-						<li><a class="ajax-link" href="<?php echo base_url('adminusers'); ?>"><i class="icon-star"></i><span class="hidden-tablet"> Admin Users</span></a></li>
+						<li><a class="ajax-link" href="<?php echo base_url('adminusers/getadminusers'); ?>"><i class="icon-star"></i><span class="hidden-tablet"> Admin Users</span></a></li>
 					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
 				</div><!--/.well -->
 			</div><!--/span-->

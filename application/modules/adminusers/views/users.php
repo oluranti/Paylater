@@ -15,11 +15,11 @@
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-user"></i> Admin Users</h2>
-					<!--	<div class="box-icon">
-							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-						</div>-->
+                        <div class="box-icon">
+					<a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
+										<i class="icon-plus icon-white"></i>                                          
+									</a>
+                                    </div>
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -27,11 +27,8 @@
 							  <tr>
                                     <th>#</th>
 								  <th>username</th>
-								  <th><a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
-										<i class="icon-plus icon-white"></i>  
-										Add                                            
-									</a>
-                                    
+								  <th>
+                                    &nbsp;
                                     </th>
 							  </tr>
 						  </thead>   
@@ -52,12 +49,10 @@ foreach($users->result() as $user){
 								<td class="center"><?php echo $user->username; ?></td>
                                 <td class="center">
 									<a class="btn btn-info" href="#" data-target="#EditUser<?php echo $user->id; ?>" data-toggle="modal" title="Edit User">
-										<i class="icon-edit icon-white"></i>  
-										Edit                                            
+										<i class="icon-edit icon-white"></i>                                     
 									</a>
 									<a class="btn btn-danger" href="<?php echo base_url('users/deleteuser') ?>/<?php echo $user->id; ?>" title="Delete User">
-										<i class="icon-trash icon-white"></i> 
-										Delete
+										<i class="icon-trash icon-white"></i>
 									</a>
 								</td>
 							</tr>
@@ -106,7 +101,7 @@ foreach($users->result() as $user){
             <input type="password" class="form-control" name="password" id="password" value="<?php echo @$user->password; ?>"   />
           </div>
           
-          
+          <input type="hidden" name="id" value="<?php echo @$user->id; ?>" />
             
           </div>
           <div class="modal-footer">
@@ -134,11 +129,11 @@ foreach($users->result() as $user){
           
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" id="username" value="<?php echo @$user->username; ?>"   />
+            <input type="text" class="form-control" name="username" id="username" value="<?php echo @$username; ?>"   />
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password" value="<?php echo @$user->password; ?>"   />
+            <input type="password" class="form-control" name="password" id="password" value="<?php echo @$password; ?>"   />
           </div>
             
           </div>

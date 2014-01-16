@@ -15,31 +15,31 @@
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-user"></i> Users</h2>
-					<!--	<div class="box-icon">
-							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-						</div>-->
+					<div class="box-icon">
+							<a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
+										<i class="icon-plus icon-white"></i>                                           
+									</a>
+                                    <a class="btn btn-primary" href="#" data-target="#ImportUsers" data-toggle="modal" title="Import Users from CSV">
+										<i class="icon-upload icon-white"></i>                                           
+									</a>
+                                    <a class="btn btn-primary" href="<?php echo base_url('users/downloaduserlinks') ?>" title="Download User Links as CSV">
+										<i class="icon-download-alt icon-white"></i>                                         
+									</a>
+						</div>
 					</div>
 					<div class="box-content">
+                    
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
                                     <th>#</th>
 								  <th>First Name</th>
 								  <th>Last Name</th>
-                                  <th>Email</th>
+                                  <th>Email</th><!--
                                   <th>Home Address</th>
-								  <th>Telephone Number</th>
+								  <th>Telephone Number</th>-->
                                   <th>Status</th>
-                                  <th><a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
-										<i class="icon-plus icon-white"></i>  
-										Add                                            
-									</a>
-                                    <a class="btn btn-primary" href="<?php echo base_url('users/downloaduserlinks') ?>" title="Download User Links as CSV">
-										<i class="icon-plus icon-white"></i>  
-										Download User Links as CSV                                           
-									</a>
+                                  <th>&nbsp;
                                     </th>
 							  </tr>
 						  </thead>   
@@ -61,25 +61,21 @@ foreach($users->result() as $user){
 								<td class="center"><?php echo $user->firstname; ?></td>
 								<td class="center"><?php echo $user->lastname; ?></td>
 								<td class="center"><?php echo $user->email; ?></td>
-                                <td class="center"><?php echo $user->homeaddress; ?></td>
-                                <td class="center"><?php echo $user->telephonenumber; ?></td>
+                                <!--<td class="center"><?php echo $user->homeaddress; ?></td>
+                                <td class="center"><?php echo $user->telephonenumber; ?></td>-->
                                 <td class="center"><span class="label label-warning"><?php echo $user->status; ?></span></td>
                                 <td class="center">
                                 <a class="btn btn-inverse" href="#" data-target="#UserLink<?php echo $user->id; ?>" data-toggle="modal" title="Copy User Link">
-										<i class="icon-share icon-white"></i>  
-										User Link                                            
+										<i class="icon-share icon-white"></i>                                          
 									</a>
 									<a class="btn btn-success" href="#" data-target="#ViewUser<?php echo $user->id; ?>" data-toggle="modal" title="View User">
-										<i class="icon-zoom-in icon-white"></i>  
-										View                                            
+										<i class="icon-zoom-in icon-white"></i>                                           
 									</a>
 									<a class="btn btn-info" href="#" data-target="#EditUser<?php echo $user->id; ?>" data-toggle="modal" title="Edit User">
-										<i class="icon-edit icon-white"></i>  
-										Edit                                            
+										<i class="icon-edit icon-white"></i>                                         
 									</a>
 									<a class="btn btn-danger" href="<?php echo base_url('users/deleteuser') ?>/<?php echo $user->id; ?>" title="Delete User">
-										<i class="icon-trash icon-white"></i> 
-										Delete
+										<i class="icon-trash icon-white"></i>
 									</a>
 								</td>
 							</tr>
@@ -342,6 +338,28 @@ foreach($users->result() as $user){
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Add User</button></form>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <!-- Import Users From CSV -->
+    <div class="modal fade" id="ImportUsers" tabindex="-1" role="dialog" aria-labelledby="ImportUsersLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="ImportUsersLabel">Import Users from a CSV File</h4>
+          </div>
+          <div class="modal-body">
+          <span class="text-info">Note: The CSV must contain fullname of the user in the first column (first name and last name separated by space) and the users email in the second column </span>
+          <?php echo form_open_multipart('users/importusers');?>
+
+            <input type="file" name="userfile" />
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Import Users</button></form>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

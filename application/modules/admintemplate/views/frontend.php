@@ -3,8 +3,7 @@
         <?php if(isset($alert)){ ?>
             <div class="alert <?php if(isset($alert_type)){echo "alert-".$alert_type;}else{ echo "alert-block"; } ?>">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <?php if(isset($alert_type)){ ?><h4 style="text-transform: capitalize;"><?php echo $alert_type ?>!</h4> <?php } ?>
-              <?php echo $alert; ?>
+              <?php if(isset($alert_type)){ ?><strong style="text-transform: capitalize;"><?php echo $alert_type ?>!</strong> <?php }  ?> <?php echo $alert; ?>
             </div>
         <?php } ?>
         </div>

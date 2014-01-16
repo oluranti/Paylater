@@ -101,7 +101,7 @@ function index(){
     //$this->getusers();
 }
 
-function login($alert = array()){
+private function login($alert = array()){
     $userdetail = $this->get_form_data();
     //check for submit action
     //echo 1;
@@ -183,13 +183,13 @@ if($checkemail < 1){
     $userdata['status'] = "pending";
     $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
         $this->_insert($userdata);
-        $message = "
+        /*$message = "
         You have been invited to paylater.
-        Click the link to complete your registration.".base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']))/*base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'')*/."
-        ";
+        Click the link to complete your registration.".base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']))/*base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'')*//*."
+        ";*/
         
-        $sendemail = $this->sendmail($userdata['email'],"PayLater Invitation",$message);
-        $data['alert'] = "The user has been added successfully and an alert has been sent";
+        //$sendemail = $this->sendmail($userdata['email'],"PayLater Invitation",$message);
+        $data['alert'] = "Account Created Successfully";
         $data['alert_type'] = "success";
         $data['message'] = $data['alert'];
         $data['type'] = $data['alert_type'];
@@ -264,8 +264,6 @@ function getusers($alerttype = "",$alertmessage = ""){
     }
     $users = $this->get_with_limit($config['per_page'],$offset,'id');
     
-    
-    
     $data['access'] = 'administrator';
     
     $data['users'] = $users;
@@ -275,7 +273,7 @@ function getusers($alerttype = "",$alertmessage = ""){
     $this->admintemplate->build(true,$data);
 }
 
-function getuser(){
+private function getuser(){
     $data['access'] = "administrator";
     $data['title'] = "User";
     $data['view_file'] = "user";
@@ -287,7 +285,7 @@ function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
        unset($userdata['agree']);
-       base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));
+       /*base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));*/
     $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
     $this->_update($userdata['id'],$userdata);
     $alert['message'] = "The user has been Updated successfully";
@@ -356,7 +354,7 @@ function searchuser(){
  * @param mixed $height
  * @return string
  */
-function getAvi($width,$height){
+private function getAvi($width,$height){
     $userid = $this->session->userdata('id');
     $query = $this->get_where_custom('id',$userid );
     foreach($query->result() as $row){
@@ -413,7 +411,7 @@ function makeHash($data, $salt = "%gd:FG{hdfVFDds6egNNKYRfe dr"){
     
 }
 
-function logout(){
+private function logout(){
 
 
                 $this->session->unset_userdata('usertype');
@@ -448,7 +446,7 @@ function accessLocker($role){
     
 }
 
-function downloadform(){
+private function downloadform(){
     $data = file_get_contents(base_url('assets/user-assets/registrationform/Creditapplicationform.pdf')); // Read the file's contents
     $name = 'registrationForm.pdf';
     if(!$data){
@@ -457,7 +455,7 @@ function downloadform(){
     force_download($name, $data);
 }
 
-function downloaduserform(){
+private function downloaduserform(){
     $usernm = $this->uri->segment(3);
     $data = file_get_contents(base_url('assets/user-assets/userforms/'.$usernm.'.pdf')); // Read the file's contents
     if(!$data){
@@ -468,7 +466,7 @@ function downloaduserform(){
     force_download($name, $data);
 }
 
-function sendmail($to,$subject,$message){
+private function sendmail($to,$subject,$message){
     $this->email->from('servicedesk@special-brand.com', 'Supplies');
     $this->email->to($to);
     
@@ -483,7 +481,7 @@ function sendmail($to,$subject,$message){
     }
 }
 
-function dashboard(){
+private function dashboard(){
     $data['access'] = 'all';
     $this->load->module('spreadsheets');
     $data['link'] = $this->spreadsheets->getlatestlinkbyuser();
@@ -493,11 +491,11 @@ function dashboard(){
     $this->template->build(true,$data);
 }
 
-function frontend(){
+private function frontend(){
     $this->dashboard();
 }
 
-function backend(){
+private function backend(){
     $data['access'] = 'all';
     $data['title'] = "Dashboard";
     $data['view_file'] = "backend";
@@ -505,7 +503,7 @@ function backend(){
     $this->template->build(true,$data);
 }
 
-function approveuser(){
+private function approveuser(){
     $userdt = $this->get_form_data();
     $data['usertype'] = "regular";
     $data['id'] = $userdt['userid']; 
@@ -546,15 +544,29 @@ function getuserid($email){
 }
 
 function importusers(){
-   // $row = 1;
-    $file = fopen(base_url('assets/importusers/Listforthefirstround.csv'),'r');
+   
+   $config['upload_path'] = './assets/importusers/';
+	$config['allowed_types'] = 'csv';
+	$config['max_size']	= '4123';
+    $this->upload->initialize($config);
+
+	if ( ! $this->upload->do_upload())
+	{
+		$alert['message'] = $this->upload->display_errors();
+        $alert['type'] = "error";
+        $this->getusers($alert['type'],$alert['message']);
+	}
+	else
+	{
+    $uploaddata = $this->upload->data();
+    $file = fopen(base_url('assets/importusers/'.$uploaddata['file_name']),'r');
+    $cc = 0;
      while (($filedecode = fgetcsv($file)) !== FALSE) {
+        $cc++;
         $splitname = explode(' ',$filedecode[0]);
         $firstname = $splitname[0];
         $lastname = $splitname[1];
         $email = $filedecode[1];
-        
-        //echo $firstname.'-'.$lastname.'-'.$email.'<br />';
         
         $checkemail = $this->count_where('email',$email);
         if($checkemail < 1){
@@ -564,28 +576,15 @@ function importusers(){
             $data['status'] = "pending";
             $data['link'] = base_url('users/updateuser/'.urlencode($data['firstname']).'/'.urlencode($data['lastname']).'/'.urlencode($data['email']).'/'.$this->makeHash($firstname.'-'.$lastname.'-'.$email));
                 $this->_insert($data);
-                echo 'Done';
-
         }
         
-        /*echo "<p> $num fields in line $row: <br /></p>\n";
-        $row++;
-        for ($c=0; $c < $num; $c++) {
-            echo $data[$c] . "<br />\n";
-        }*/
-       }
-    
-   /* $row = 1;
-    $file = fopen(base_url('assets/importusers/Listforthefirstround.csv'),'r');
-     while (($data = fgetcsv($file)) !== FALSE) {
-        $num = count($data);
-        echo "<p> $num fields in line $row: <br /></p>\n";
-        $row++;
-        for ($c=0; $c < $num; $c++) {
-            echo $data[$c] . "<br />\n";
-        }
-        }*/
-  
+       }  
+        $alert['message'] = 'You have successfully imported '.$cc.' users';
+        $alert['type'] = "success";
+        $this->getusers($alert['type'],$alert['message']);
+	}
+   
+
 }
 
 function downloaduserlinks(){

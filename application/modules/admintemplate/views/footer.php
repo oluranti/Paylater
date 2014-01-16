@@ -55,49 +55,31 @@
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/bootstrap-popover.js"></script>
 	<!-- button enhancer library -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/bootstrap-button.js"></script>
-	<!-- accordion library (optional, not used in demo) -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/bootstrap-collapse.js"></script>
-	<!-- carousel slideshow library (optional, not used in demo) -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/bootstrap-carousel.js"></script>
+
 	<!-- autocomplete library -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/bootstrap-typeahead.js"></script>
-	<!-- tour library -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/bootstrap-tour.js"></script>
+
 	<!-- library for cookie management -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.cookie.js"></script>
-	<!-- calander plugin -->
-	<script src='<?php echo $this->admintemplate->get_asset(); ?>/js/fullcalendar.min.js'></script>
+
 	<!-- data table plugin -->
 	<script src='<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.dataTables.min.js'></script>
 
-	<!-- chart libraries start -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/excanvas.js"></script>
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.flot.min.js"></script>
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.flot.pie.min.js"></script>
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.flot.stack.js"></script>
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.flot.resize.min.js"></script>
-	<!-- chart libraries end -->
+
 
 	<!-- select or dropdown enhancer -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.chosen.min.js"></script>
 	<!-- checkbox, radio, and file input styler -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.uniform.min.js"></script>
-	<!-- plugin for gallery image view -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.colorbox.min.js"></script>
+
 	<!-- rich text editor library -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.cleditor.min.js"></script>
 	<!-- notification plugin -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.noty.js"></script>
-	<!-- file manager library -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.elfinder.min.js"></script>
-	<!-- star rating plugin -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.raty.min.js"></script>
-	<!-- for iOS style toggle switch -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.iphone.toggle.js"></script>
+
 	<!-- autogrowing textarea plugin -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.autogrow-textarea.js"></script>
-	<!-- multiple file upload plugin -->
-	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.uploadify-3.1.min.js"></script>
+
 	<!-- history.js for cross-browser state change on ajax -->
 	<script src="<?php echo $this->admintemplate->get_asset(); ?>/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
