@@ -1,5 +1,7 @@
     <?php $this->load->module('template'); ?>
     <?php $this->load->module('users'); ?>
+    <link href="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/themes/default.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/themes/default.date.css" rel="stylesheet" type="text/css" />
     <section>
         <button type="button" class="btn btn-warning btn-lg register" data-toggle="modal" data-target="#myModal">CLICK HERE TO REGISTER</button>
     </section>
@@ -35,7 +37,7 @@
           <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><? }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>
-            <select name="title" class="form-control" id="title">
+            <select name="title" class="form-control" id="title" >
             <option value="Mr">Mr</option>
             <option value="Mrs">Mrs</option>
             <option value="Miss">Miss</option>
@@ -44,11 +46,11 @@
           </div>
           <div class="form-group">
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" id="firstname" <?php if(!empty($firstname)){ ?> value="<?php echo urldecode($firstname); ?>" disabled <?php } ?> placeholder="First Name" />
+            <input type="text" class="form-control" name="firstname" id="firstname" <?php if(!empty($firstname)){ ?> value="<?php echo urldecode($firstname); ?>" disabled <?php } ?> placeholder="First Name" required />
           </div>
           <div class="form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" <?php if(!empty($lastname)){ ?> value="<?php echo urldecode($lastname); ?>" disabled <?php } ?> />
+            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" <?php if(!empty($lastname)){ ?> value="<?php echo urldecode($lastname); ?>" disabled <?php } ?> required />
           </div>
           <div class="form-group">
             <label for="gender">Gender</label>
@@ -59,23 +61,23 @@
           </div>
           <div class="form-group">
             <label for="dateofbirth">Date of Birth</label>
-            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="mm/dd/yyyy" />
+            <input type="text" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Date of Birth" style="cursor: pointer !important;" title="Click to Input Date of Birth" required />
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="text" class="form-control" name="email" id="email" placeholder="name@email.com" <?php if(!empty($email)){ ?> value="<?php echo urldecode($email); ?>" disabled <?php } ?> />
+            <input type="email" class="form-control" name="email" id="email" placeholder="name@email.com" <?php if(!empty($email)){ ?> value="<?php echo urldecode($email); ?>" disabled <?php } ?> required />
           </div>
           <div class="form-group">
             <label for="homeaddress">Home Address</label>
-            <textarea class="form-control" name="homeaddress" id="homeaddress" placeholder="Home Address" <?php if(!empty($homeaddress)){ ?>  disabled <?php } ?>><?php if(!empty($homeaddress)){ ?> <?php echo urldecode($homeaddress); ?><?php } ?></textarea>
+            <textarea class="form-control" name="homeaddress" id="homeaddress" placeholder="Home Address" <?php if(!empty($homeaddress)){ ?> required  disabled <?php } ?>><?php if(!empty($homeaddress)){ ?> <?php echo urldecode($homeaddress); ?><?php } ?></textarea>
           </div>
           <div class="form-group">
             <label for="telephonenumber">Telephone Number</label>
-            <input type="text" class="form-control" name="telephonenumber" id="telephonenumber" <?php if(!empty($phonenumber)){ ?> value="<?php echo urldecode($phonenumber); ?>" disabled <?php } ?> placeholder="07087654321" />
+            <input type="text" class="form-control" name="telephonenumber" id="telephonenumber" <?php if(!empty($phonenumber)){ ?> value="<?php echo urldecode($phonenumber); ?>" disabled <?php } ?> placeholder="07000000000" required />
           </div>
           <div class="form-group">
             <label for="alternativecontactnumber">Alternative Contact Number</label>
-            <input type="text" class="form-control" name="alternativecontactnumber" id="alternativecontactnumber" placeholder="08012345678" class="required number"  />
+            <input type="text" class="form-control" name="alternativecontactnumber" id="alternativecontactnumber" placeholder="08000000000" class="required number" required />
           </div>
           <div class="form-group">
             <label for="employmenttype">Employment Type</label>
@@ -88,11 +90,11 @@
           </div>
           <div class="form-group">
             <label for="nameofemployer">Name of Employer/Business</label>
-            <input type="text" class="form-control" name="nameofemployer" id="nameofemployer" placeholder="Name of Employer/Business" autocomplete="off" />
+            <input type="text" class="form-control" name="nameofemployer" id="nameofemployer" placeholder="Name of Employer/Business" autocomplete="off" required />
           </div>
           <div class="form-group">
             <label for="officeaddress">Office/Business Address</label>
-            <textarea class="form-control" name="officeaddress" id="officeaddress" placeholder="Office/Business Address"></textarea>
+            <textarea class="form-control" name="officeaddress" id="officeaddress" placeholder="Office/Business Address" required></textarea>
           </div>
           <div class="form-group">
             <label for="monthlyincome">Monthly Income</label>
@@ -105,7 +107,7 @@
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="I Agree" name="agree" id="agree" /> I agree to the <a href="#" data-toggle="modal" data-target="#TC">terms and conditions.</a>
+              <input type="checkbox" value="I Agree" name="agree" id="agree" required /> I agree to the <a href="#" data-toggle="modal" data-target="#TC">terms and conditions.</a>
             </label>
           </div>
           <?php if(!empty($verificationcode) && $verification){ ?>
@@ -158,9 +160,38 @@ Morbi id euismod odio. Nam orci nulla, interdum vel orci in, semper lacinia eros
 </div><!-- /.modal -->
 <script>
 $(document).ready(function(){
-    $('#formregister').validate({ rules: { alternativecontactnumber: { required: true, number: true, maxlength: 11}, agree: { required: true } } });
+    $('#formregister').validate({ 
+        rules: { 
+            telephonenumber: { 
+                required: true, 
+                number: true, 
+                maxlength: 11,
+                minlength: 11
+                },
+            alternativecontactnumber: { 
+                required: true, 
+                number: true, 
+                maxlength: 11,
+                minlength: 11
+                }, 
+                agree: { 
+                    required: true 
+                    } 
+                    } 
+                    });
+                    
   <?php if(!empty($firstname)){ ?> $('#myModal').modal('show');  <?php } ?>
+  $('#dateofbirth').pickadate({
+    today: '',
+    clear: 'Clear selection',
+     selectYears: 100,
+     selectMonths: true
+})
+  
 }
 
 );
 </script>
+<script src="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/picker.js"></script>
+<script src="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/picker.date.js"></script>
+<script src="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/legacy.js"></script>
