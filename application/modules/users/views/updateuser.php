@@ -34,7 +34,7 @@
           </div>
           <div class="modal-body">
           
-          <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><? }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
+          <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><?php }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>
             <select name="title" class="form-control" id="title" >
@@ -114,7 +114,7 @@
           
             <input type="hidden" name="status" value="Active"/>
             <input type="hidden" name="id" value="<?php echo $this->users->getuserid(urldecode($email)); ?>"/>
-            <?php }else{ ?> <input type="hidden" name="status" value="Direct"/> <? } ?>
+            <?php }else{ ?> <input type="hidden" name="status" value="Direct"/> <?php } ?>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button></form>
