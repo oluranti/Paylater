@@ -81,8 +81,9 @@
             <label for="employmenttype">Employment Type</label>
             <select name="employmenttype" class="form-control" id="employmenttype">
             <option value="Self-Employed">Self-Employed</option>
-            <option value="Unemployed">Unemployed</option>
             <option value="Salary Employee">Salary Employee</option>
+            <option value="Student">Student</option>
+            <option value="Unemployed">Unemployed</option>
             </select>
           </div>
           <div class="form-group">

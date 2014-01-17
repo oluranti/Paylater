@@ -206,9 +206,13 @@ function getusers($alerttype = "",$alertmessage = ""){
 function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
-       unset($userdata['agree']);
-       /*base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));*/
-    $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
+       
+    if(!isset($userdata['agree'])){
+        $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
+    }else{
+        $userdata['date'] = $this->currenttime();
+    }
+    unset($userdata['agree']);
     $this->_update($userdata['id'],$userdata);
     $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
@@ -399,6 +403,20 @@ function downloaduserlinks(){
     
 }
  
+function currenttime(){
+$timestamp = time();
+$timezone = 'UP1';
+$daylight_saving = FALSE;
+$times = gmt_to_local($timestamp, $timezone, $daylight_saving);
+return $times;
+}
+
+function formattime($timestamp){
+    $datestring = "%d/%m/%Y - %h:%i %a";
+    $time = mdate($datestring, $timestamp);
+    return $time;
+}
+
 }
 
 ?>

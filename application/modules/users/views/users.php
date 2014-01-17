@@ -1,5 +1,5 @@
 <?php $this->load->module('admintemplate'); ?>
-
+<?php $this->load->module('users'); ?>
 <div>
 				<ul class="breadcrumb">
 					<li>
@@ -36,8 +36,8 @@
 								  <th>First Name</th>
 								  <th>Last Name</th>
                                   <th>Email</th><!--
-                                  <th>Home Address</th>
-								  <th>Telephone Number</th>-->
+                                  <th>Home Address</th>-->
+								  <th>Registration Date &amp; Time</th>
                                   <th>Status</th>
                                   <th>&nbsp;
                                     </th>
@@ -61,8 +61,8 @@ foreach($users->result() as $user){
 								<td class="center"><?php echo $user->firstname; ?></td>
 								<td class="center"><?php echo $user->lastname; ?></td>
 								<td class="center"><?php echo $user->email; ?></td>
-                                <!--<td class="center"><?php echo $user->homeaddress; ?></td>
-                                <td class="center"><?php echo $user->telephonenumber; ?></td>-->
+                                <!--<td class="center"><?php echo $user->homeaddress; ?></td>-->
+                                <td class="center"><?php if(!empty($user->date)){echo $this->users->formattime($user->date); } ?></td>
                                 <td class="center"><span class="label label-warning"><?php echo $user->status; ?></span></td>
                                 <td class="center">
                                 <a class="btn btn-inverse" href="#" data-target="#UserLink<?php echo $user->id; ?>" data-toggle="modal" title="Copy User Link">
@@ -182,8 +182,9 @@ foreach($users->result() as $user){
             <label for="employmenttype">Employment Type</label>
             <select name="employmenttype" class="form-control" id="employmenttype" disabled>
             <option <?php if(@$user->employmenttype == "Self-Employed"){ echo 'selected = "yes"'; } ?> value="Self-Employed">Self-Employed</option>
-            <option <?php if(@$user->employmenttype == "Unemployed"){ echo 'selected = "yes"'; } ?> value="Unemployed">Unemployed</option>
             <option <?php if(@$user->employmenttype == "Salary Employee"){ echo 'selected = "yes"'; } ?> value="Salary Employee">Salary Employee</option>
+            <option <?php if(@$user->employmenttype == "Student"){ echo 'selected = "yes"'; } ?> value="Student">Student</option>
+            <option <?php if(@$user->employmenttype == "Unemployed"){ echo 'selected = "yes"'; } ?> value="Unemployed">Unemployed</option>
             </select>
           </div>
           <div class="form-group">
@@ -267,8 +268,10 @@ foreach($users->result() as $user){
             <label for="employmenttype">Employment Type</label>
             <select name="employmenttype" class="form-control" id="employmenttype">
             <option <?php if(@$user->employmenttype == "Self-Employed"){ echo 'selected = "yes"'; } ?> value="Self-Employed">Self-Employed</option>
-            <option <?php if(@$user->employmenttype == "Unemployed"){ echo 'selected = "yes"'; } ?> value="Unemployed">Unemployed</option>
             <option <?php if(@$user->employmenttype == "Salary Employee"){ echo 'selected = "yes"'; } ?> value="Salary Employee">Salary Employee</option>
+            <option <?php if(@$user->employmenttype == "Student"){ echo 'selected = "yes"'; } ?> value="Student">Student</option>
+            <option <?php if(@$user->employmenttype == "Unemployed"){ echo 'selected = "yes"'; } ?> value="Unemployed">Unemployed</option>
+            
             </select>
           </div>
           <div class="form-group">
