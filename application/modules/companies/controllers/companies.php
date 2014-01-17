@@ -87,6 +87,26 @@ function get_form_data(){
     return $data;
 }
 
+function create($company){
+    
+}
+
+function read(){
+    
+}
+
+function update(){
+    
+}
+
+function delete(){
+    
+}
+
+function readall(){
+    
+}
+
 }
 
 ?>
