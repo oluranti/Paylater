@@ -4,6 +4,10 @@ body{
 color: red;
 }
 
+input[disabled]#dateofbirth,input[readonly]#dateofbirth {
+    background-color: #E0E4FF;
+}
+
 .bg{
     background: url("../images/bg.jpg") no-repeat top left;
     background-size: 100%;

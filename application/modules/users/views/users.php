@@ -1,5 +1,8 @@
 <?php $this->load->module('admintemplate'); ?>
 <?php $this->load->module('users'); ?>
+<?php $this->load->module('companies'); ?>
+<link href="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/themes/default.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/themes/default.date.css" rel="stylesheet" type="text/css" />
 <div>
 				<ul class="breadcrumb">
 					<li>
@@ -35,8 +38,8 @@
                                     <th>#</th>
 								  <th>First Name</th>
 								  <th>Last Name</th>
-                                  <th>Email</th><!--
-                                  <th>Home Address</th>-->
+                                  <th>Email</th>
+                                  <th>Unique ID</th>
 								  <th>Registration Date &amp; Time</th>
                                   <th>Status</th>
                                   <th>&nbsp;
@@ -61,7 +64,7 @@ foreach($users->result() as $user){
 								<td class="center"><?php echo $user->firstname; ?></td>
 								<td class="center"><?php echo $user->lastname; ?></td>
 								<td class="center"><?php echo $user->email; ?></td>
-                                <!--<td class="center"><?php echo $user->homeaddress; ?></td>-->
+                                <td class="center"><?php echo $user->uniqueid; ?></td>
                                 <td class="center"><?php if(!empty($user->date)){echo $this->users->formattime($user->date); } ?></td>
                                 <td class="center"><span class="label label-warning"><?php echo $user->status; ?></span></td>
                                 <td class="center">
@@ -160,7 +163,7 @@ foreach($users->result() as $user){
           </div>
           <div class="form-group">
             <label for="dateofbirth">Date of Birth</label>
-            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="mm/dd/yyyy" value="<?php echo @$user->dateofbirth; ?>" disabled />
+            <input type="text" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Date of Birth" value="<?php echo @$user->dateofbirth; ?>" disabled />
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
@@ -197,12 +200,53 @@ foreach($users->result() as $user){
           </div>
           <div class="form-group">
             <label for="monthlyincome">Monthly Income</label>
-            <select name="monthlyincome" class="form-control" id="monthlyincome" disabled>
-            <option <?php if(@$user->monthlyincome == "10000 - 59999"){ echo 'selected = "yes"'; } ?>  value="10000 - 50000">10000 - 59999</option>
-            <option <?php if(@$user->monthlyincome == "60000 - 100000"){ echo 'selected = "yes"'; } ?> value="60000 - 100000">60000 - 99999</option>
-            <option <?php if(@$user->monthlyincome == "100000 - 999999"){ echo 'selected = "yes"'; } ?> value="100000 - 999999">100000 - 999999</option>
-            <option <?php if(@$user->monthlyincome == "1000000 and Above"){ echo 'selected = "yes"'; } ?> value="1000000 and Above">1000000 and Above</option>
-            </select>
+            <input type="text" class="form-control" name="monthlyincome" id="monthlyincome" value="<?php echo @$user->monthlyincome; ?>" placeholder="Monthly Income" autocomplete="off" required disabled />
+            
+          </div>
+          <div class="form-group">
+            <label for="havecurrentaccount">Do You Have a Current Account?</label>
+            <select name="havecurrentaccount" class="form-control" id="havecurrentaccount"  disabled >
+            <option value="Yes" <?php if(@$user->havecurrentaccount == "Yes"){ echo 'selected = "yes"'; } ?>>Yes</option>
+            <option value="No" <?php if(@$user->havecurrentaccount == "No"){ echo 'selected = "yes"'; } ?>>No</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="bank">If Yes, Select Your Bank</label>
+            <select name="bank" class="form-control" id="bank" disabled >
+            <option <?php if(@$user->bank == "Access Bank"){ echo 'selected = "yes"'; } ?> value="Access Bank">Access Bank</option>
+            <option <?php if(@$user->bank == "Citibank"){ echo 'selected = "yes"'; } ?> value="Citibank">Citibank</option>
+            <option <?php if(@$user->bank == "Diamond Bank"){ echo 'selected = "yes"'; } ?> value="Diamond Bank">Diamond Bank</option>
+            <option <?php if(@$user->bank == "Ecobank Nigeria"){ echo 'selected = "yes"'; } ?> value="Ecobank Nigeria">Ecobank Nigeria</option>
+            <option <?php if(@$user->bank == "Enterprise Bank Limited"){ echo 'selected = "yes"'; } ?> value="Enterprise Bank Limited">Enterprise Bank Limited</option>
+            <option <?php if(@$user->bank == "Fidelity Bank Nigeria"){ echo 'selected = "yes"'; } ?> value="Fidelity Bank Nigeria">Fidelity Bank Nigeria</option>
+            <option <?php if(@$user->bank == "First Bank of Nigeria"){ echo 'selected = "yes"'; } ?> value="First Bank of Nigeria">First Bank of Nigeria</option>
+            <option <?php if(@$user->bank == "First City Monument Bank"){ echo 'selected = "yes"'; } ?> value="First City Monument Bank">First City Monument Bank</option>
+            <option <?php if(@$user->bank == "Guaranty Trust Bank"){ echo 'selected = "yes"'; } ?> value="Guaranty Trust Bank">Guaranty Trust Bank</option>
+            <option <?php if(@$user->bank == "Heritage Bank Plc"){ echo 'selected = "yes"'; } ?> value="Heritage Bank Plc">Heritage Bank Plc</option>
+            <option <?php if(@$user->bank == "Keystone Bank Limited"){ echo 'selected = "yes"'; } ?> value="Keystone Bank Limited">Keystone Bank Limited</option>
+            <option <?php if(@$user->bank == "Mainstreet Bank Limited"){ echo 'selected = "yes"'; } ?> value="Mainstreet Bank Limited">Mainstreet Bank Limited</option>
+            <option <?php if(@$user->bank == "Savannah Bank"){ echo 'selected = "yes"'; } ?> value="Savannah Bank">Savannah Bank</option>
+            <option <?php if(@$user->bank == "Skye Bank"){ echo 'selected = "yes"'; } ?> value="Skye Bank">Skye Bank</option>
+            <option <?php if(@$user->bank == "Stanbic IBTC Bank Nigeria Limited"){ echo 'selected = "yes"'; } ?> value="Stanbic IBTC Bank Nigeria Limited">Stanbic IBTC Bank Nigeria Limited</option>
+            <option <?php if(@$user->bank == "Standard Chartered Bank"){ echo 'selected = "yes"'; } ?> value="Standard Chartered Bank">Standard Chartered Bank</option>
+            <option <?php if(@$user->bank == "Sterling Bank"){ echo 'selected = "yes"'; } ?> value="Sterling Bank">Sterling Bank</option>
+            <option <?php if(@$user->bank == "Union Bank of Nigeria"){ echo 'selected = "yes"'; } ?> value="Union Bank of Nigeria">Union Bank of Nigeria</option>
+            <option <?php if(@$user->bank == "United Bank for Africa"){ echo 'selected = "yes"'; } ?> value="United Bank for Africa">United Bank for Africa</option>
+            <option <?php if(@$user->bank == "Unity Bank Plc"){ echo 'selected = "yes"'; } ?> value="Unity Bank Plc">Unity Bank Plc</option>
+            <option <?php if(@$user->bank == "Wema Bank"){ echo 'selected = "yes"'; } ?> value="Wema Bank">Wema Bank</option>
+            <option <?php if(@$user->bank == "Zenith Bank"){ echo 'selected = "yes"'; } ?> value="Zenith Bank">Zenith Bank</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="doyouhaveloans">Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</label>
+            <select name="doyouhaveloans" class="form-control" id="doyouhaveloans" disabled >
+            <option <?php if(@$user->doyouhaveloans == "Yes"){ echo 'selected = "yes"'; } ?> value="Yes">Yes</option>
+            <option <?php if(@$user->doyouhaveloans == "No"){ echo 'selected = "yes"'; } ?> value="No">No</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="loanvalue">If Yes Please Input Total Value of Loan(s)</label>
+            <input type="text" class="form-control" name="loanvalue" value="<?php echo @$user->loanvalue; ?>" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" disabled /> 
           </div>
             
           </div>
@@ -219,7 +263,7 @@ foreach($users->result() as $user){
   </div>
 <div class="modal-body">
           
-          <form role="form" action="<?php echo base_url('users/updateuser'); ?>" method="post">
+          <form role="form" action="<?php echo base_url('users/updateuser'); ?>" method="post" id="edituser">
           <div class="form-group">
             <label for="title">Title</label>
             <select name="title" class="form-control" id="title">
@@ -246,7 +290,7 @@ foreach($users->result() as $user){
           </div>
           <div class="form-group">
             <label for="dateofbirth">Date of Birth</label>
-            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="mm/dd/yyyy" value="<?php echo @$user->dateofbirth; ?>" />
+            <input type="text" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Date of Birth" value="<?php echo @$user->dateofbirth; ?>" />
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
@@ -276,7 +320,12 @@ foreach($users->result() as $user){
           </div>
           <div class="form-group">
             <label for="nameofemployer">Name of Employer/Business</label>
-            <input type="text" class="form-control" name="nameofemployer" id="nameofemployer" value="<?php echo @$user->nameofemployer; ?>" placeholder="Name of Employer/Business" autocomplete="off" />
+            <?php 
+            $rawcompanies = $this->companies->read(); 
+            $foo = 0;
+            $comma = ",";
+            ?>
+            <input type="text" class="form-control" name="nameofemployer" value="<?php echo @$user->nameofemployer; ?>" id="nameofemployer" placeholder="Name of Employer/Business"  data-provide="typeahead" data-source="[<?php foreach($rawcompanies->result() as $company){ $foo++; if($foo > 1){ echo $comma; }?>&quot;<?php echo $company->company; ?>&quot;<?php } ?>]" required />
           </div>
           <div class="form-group">
             <label for="officeaddress">Office/Business Address</label>
@@ -284,12 +333,53 @@ foreach($users->result() as $user){
           </div>
           <div class="form-group">
             <label for="monthlyincome">Monthly Income</label>
-            <select name="monthlyincome" class="form-control" id="monthlyincome">
-            <option <?php if(@$user->monthlyincome == "10000 - 59999"){ echo 'selected = "yes"'; } ?>  value="10000 - 50000">10000 - 59999</option>
-            <option <?php if(@$user->monthlyincome == "60000 - 100000"){ echo 'selected = "yes"'; } ?> value="60000 - 100000">60000 - 99999</option>
-            <option <?php if(@$user->monthlyincome == "100000 - 999999"){ echo 'selected = "yes"'; } ?> value="100000 - 999999">100000 - 999999</option>
-            <option <?php if(@$user->monthlyincome == "1000000 and Above"){ echo 'selected = "yes"'; } ?> value="1000000 and Above">1000000 and Above</option>
-            </select>
+            <input type="text" class="form-control" name="monthlyincome" id="monthlyincome" value="<?php echo @$user->monthlyincome; ?>" placeholder="Monthly Income" autocomplete="off" required />
+
+          </div>
+          <div class="form-group">
+            <label for="havecurrentaccount">Do You Have a Current Account?</label>
+            <select name="havecurrentaccount" class="form-control" id="havecurrentaccount">
+            <option value="Yes" <?php if(@$user->havecurrentaccount == "Yes"){ echo 'selected = "yes"'; } ?>>Yes</option>
+            <option value="No" <?php if(@$user->havecurrentaccount == "No"){ echo 'selected = "yes"'; } ?>>No</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="bank">If Yes, Select Your Bank</label>
+            <select name="bank" class="form-control" id="bank">
+            <option <?php if(@$user->bank == "Access Bank"){ echo 'selected = "yes"'; } ?> value="Access Bank">Access Bank</option>
+            <option <?php if(@$user->bank == "Citibank"){ echo 'selected = "yes"'; } ?> value="Citibank">Citibank</option>
+            <option <?php if(@$user->bank == "Diamond Bank"){ echo 'selected = "yes"'; } ?> value="Diamond Bank">Diamond Bank</option>
+            <option <?php if(@$user->bank == "Ecobank Nigeria"){ echo 'selected = "yes"'; } ?> value="Ecobank Nigeria">Ecobank Nigeria</option>
+            <option <?php if(@$user->bank == "Enterprise Bank Limited"){ echo 'selected = "yes"'; } ?> value="Enterprise Bank Limited">Enterprise Bank Limited</option>
+            <option <?php if(@$user->bank == "Fidelity Bank Nigeria"){ echo 'selected = "yes"'; } ?> value="Fidelity Bank Nigeria">Fidelity Bank Nigeria</option>
+            <option <?php if(@$user->bank == "First Bank of Nigeria"){ echo 'selected = "yes"'; } ?> value="First Bank of Nigeria">First Bank of Nigeria</option>
+            <option <?php if(@$user->bank == "First City Monument Bank"){ echo 'selected = "yes"'; } ?> value="First City Monument Bank">First City Monument Bank</option>
+            <option <?php if(@$user->bank == "Guaranty Trust Bank"){ echo 'selected = "yes"'; } ?> value="Guaranty Trust Bank">Guaranty Trust Bank</option>
+            <option <?php if(@$user->bank == "Heritage Bank Plc"){ echo 'selected = "yes"'; } ?> value="Heritage Bank Plc">Heritage Bank Plc</option>
+            <option <?php if(@$user->bank == "Keystone Bank Limited"){ echo 'selected = "yes"'; } ?> value="Keystone Bank Limited">Keystone Bank Limited</option>
+            <option <?php if(@$user->bank == "Mainstreet Bank Limited"){ echo 'selected = "yes"'; } ?> value="Mainstreet Bank Limited">Mainstreet Bank Limited</option>
+            <option <?php if(@$user->bank == "Savannah Bank"){ echo 'selected = "yes"'; } ?> value="Savannah Bank">Savannah Bank</option>
+            <option <?php if(@$user->bank == "Skye Bank"){ echo 'selected = "yes"'; } ?> value="Skye Bank">Skye Bank</option>
+            <option <?php if(@$user->bank == "Stanbic IBTC Bank Nigeria Limited"){ echo 'selected = "yes"'; } ?> value="Stanbic IBTC Bank Nigeria Limited">Stanbic IBTC Bank Nigeria Limited</option>
+            <option <?php if(@$user->bank == "Standard Chartered Bank"){ echo 'selected = "yes"'; } ?> value="Standard Chartered Bank">Standard Chartered Bank</option>
+            <option <?php if(@$user->bank == "Sterling Bank"){ echo 'selected = "yes"'; } ?> value="Sterling Bank">Sterling Bank</option>
+            <option <?php if(@$user->bank == "Union Bank of Nigeria"){ echo 'selected = "yes"'; } ?> value="Union Bank of Nigeria">Union Bank of Nigeria</option>
+            <option <?php if(@$user->bank == "United Bank for Africa"){ echo 'selected = "yes"'; } ?> value="United Bank for Africa">United Bank for Africa</option>
+            <option <?php if(@$user->bank == "Unity Bank Plc"){ echo 'selected = "yes"'; } ?> value="Unity Bank Plc">Unity Bank Plc</option>
+            <option <?php if(@$user->bank == "Wema Bank"){ echo 'selected = "yes"'; } ?> value="Wema Bank">Wema Bank</option>
+            <option <?php if(@$user->bank == "Zenith Bank"){ echo 'selected = "yes"'; } ?> value="Zenith Bank">Zenith Bank</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="doyouhaveloans">Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</label>
+            <select name="doyouhaveloans" class="form-control" id="doyouhaveloans">
+            <option <?php if(@$user->doyouhaveloans == "Yes"){ echo 'selected = "yes"'; } ?> value="Yes">Yes</option>
+            <option <?php if(@$user->doyouhaveloans == "No"){ echo 'selected = "yes"'; } ?> value="No">No</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="loanvalue">If Yes Please Input Total Value of Loan(s)</label>
+            <input type="text" class="form-control" name="loanvalue" value="<?php echo @$user->loanvalue; ?>" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" /> 
           </div>
           <input type="hidden" name="id" value="<?php echo @$user->id; ?>" />
             
@@ -367,3 +457,47 @@ foreach($users->result() as $user){
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <script>
+$(document).ready(function(){
+    
+    /*$('#edituser').validate({ 
+        rules: { 
+            telephonenumber: { 
+                required: true, 
+                number: true, 
+                maxlength: 11,
+                minlength: 11
+                },
+            monthlyincome: { 
+                required: true, 
+                number: true
+                },
+            loanvalue: {
+                number: true
+                },
+            alternativecontactnumber: { 
+                required: true, 
+                number: true, 
+                maxlength: 11,
+                minlength: 11
+                }, 
+                agree: { 
+                    required: true 
+                    } 
+                    } 
+                    });*/
+                    
+  $('#edituser #dateofbirth').pickadate({
+    today: '',
+    clear: 'Clear selection',
+     selectYears: 100,
+     selectMonths: true
+});
+  
+}
+
+);
+</script>
+<script src="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/picker.js"></script>
+<script src="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/picker.date.js"></script>
+<script src="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/legacy.js"></script>

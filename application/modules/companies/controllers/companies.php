@@ -88,10 +88,13 @@ function get_form_data(){
 }
 
 function create($company){
+    $check = $this->count_where('company',$company);
+    if($check < 1){
+       $data['company'] = $company; 
+       $this->_insert($data);
+       return true;
+    }
     
-}
-
-function read(){
     
 }
 
@@ -103,8 +106,9 @@ function delete(){
     
 }
 
-function readall(){
-    
+function read(){
+    $data = $this->get('company');
+    return $data;
 }
 
 }

@@ -112,6 +112,8 @@ if($checkemail < 1){
     
     $userdata['status'] = "pending";
     $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
+        $userdata['hash'] = $this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']);
+        $userdata['uniqueid'] = $this->createuniqueid();
         $this->_insert($userdata);
         /*$message = "
         You have been invited to paylater.
@@ -213,6 +215,11 @@ function updateuser(){
         $userdata['date'] = $this->currenttime();
     }
     unset($userdata['agree']);
+    if(isset($userdata['firstname'],$userdata['lastname'],$userdata['email'])){
+    $userdata['hash'] = $this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']);
+    }
+    $this->load->module('companies');
+    $this->companies->create($userdata['nameofemployer']);
     $this->_update($userdata['id'],$userdata);
     $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
@@ -366,7 +373,9 @@ function importusers(){
             $data['email'] = $email;
             $data['status'] = "pending";
             $data['link'] = base_url('users/updateuser/'.urlencode($data['firstname']).'/'.urlencode($data['lastname']).'/'.urlencode($data['email']).'/'.$this->makeHash($firstname.'-'.$lastname.'-'.$email));
-                $this->_insert($data);
+             $data['hash'] = $this->makeHash($firstname.'-'.$lastname.'-'.$email);
+             $data['uniqueid'] = $this->createuniqueid();
+             $this->_insert($data);
         }
         
        }  
@@ -376,6 +385,12 @@ function importusers(){
 	}
    
 
+}
+
+function createuniqueid(){
+    $count;
+     for($count = 1; $count > 0; $uid = random_string('numeric',10), $count = $this->count_where('uniqueid',$uid), $final = $uid);
+     return $final;
 }
 
 function downloaduserlinks(){

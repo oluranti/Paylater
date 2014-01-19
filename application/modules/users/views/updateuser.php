@@ -1,5 +1,6 @@
     <?php $this->load->module('template'); ?>
     <?php $this->load->module('users'); ?>
+    <?php $this->load->module('companies'); ?>
     <link href="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/themes/default.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $this->template->get_asset(); ?>/js/datepicker/lib/themes/default.date.css" rel="stylesheet" type="text/css" />
     <section>
@@ -90,7 +91,12 @@
           </div>
           <div class="form-group">
             <label for="nameofemployer">Name of Employer/Business</label>
-            <input type="text" class="form-control" name="nameofemployer" id="nameofemployer" placeholder="Name of Employer/Business" autocomplete="off" required />
+            <?php 
+            $rawcompanies = $this->companies->read(); 
+            $foo = 0;
+            $comma = ",";
+            ?>
+            <input type="text" class="form-control" name="nameofemployer" id="nameofemployer" placeholder="Name of Employer/Business"  data-provide="typeahead" data-source="[<?php foreach($rawcompanies->result() as $company){ $foo++; if($foo > 1){ echo $comma; }?>&quot;<?php echo $company->company; ?>&quot;<?php } ?>]" required />
           </div>
           <div class="form-group">
             <label for="officeaddress">Office/Business Address</label>
@@ -98,13 +104,54 @@
           </div>
           <div class="form-group">
             <label for="monthlyincome">Monthly Income</label>
-            <select name="monthlyincome" class="form-control" id="monthlyincome">
-            <option value="10000 - 50000">10000 - 59999</option>
-            <option value="60000 - 100000">60000 - 99999</option>
-            <option value="100000 - 999999">100000 - 999999</option>
-            <option value="1000000 and Above">1000000 and Above</option>
-            </select>
+            <input type="text" class="form-control" name="monthlyincome" id="monthlyincome" placeholder="Monthly Income" autocomplete="off" required /> 
           </div>
+          <div class="form-group">
+            <label for="havecurrentaccount">Do You Have a Current Account?</label>
+            <select name="havecurrentaccount" class="form-control" id="havecurrentaccount">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="bank">If Yes, Select Your Bank</label>
+            <select name="bank" class="form-control" id="bank">
+            <option value="Access Bank">Access Bank</option>
+            <option value="Citibank">Citibank</option>
+            <option value="Diamond Bank">Diamond Bank</option>
+            <option value="Ecobank Nigeria">Ecobank Nigeria</option>
+            <option value="Enterprise Bank Limited">Enterprise Bank Limited</option>
+            <option value="Fidelity Bank Nigeria">Fidelity Bank Nigeria</option>
+            <option value="First Bank of Nigeria">First Bank of Nigeria</option>
+            <option value="First City Monument Bank">First City Monument Bank</option>
+            <option value="Guaranty Trust Bank">Guaranty Trust Bank</option>
+            <option value="Heritage Bank Plc">Heritage Bank Plc</option>
+            <option value="Keystone Bank Limited">Keystone Bank Limited</option>
+            <option value="Mainstreet Bank Limited">Mainstreet Bank Limited</option>
+            <option value="Savannah Bank">Savannah Bank</option>
+            <option value="Skye Bank">Skye Bank</option>
+            <option value="Stanbic IBTC Bank Nigeria Limited">Stanbic IBTC Bank Nigeria Limited</option>
+            <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+            <option value="Sterling Bank">Sterling Bank</option>
+            <option value="Union Bank of Nigeria">Union Bank of Nigeria</option>
+            <option value="United Bank for Africa">United Bank for Africa</option>
+            <option value="Unity Bank Plc">Unity Bank Plc</option>
+            <option value="Wema Bank">Wema Bank</option>
+            <option value="Zenith Bank">Zenith Bank</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="doyouhaveloans">Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</label>
+            <select name="doyouhaveloans" class="form-control" id="doyouhaveloans">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            </select> 
+          </div>
+          <div class="form-group">
+            <label for="loanvalue">If Yes Please Input Total Value of Loan(s)</label>
+            <input type="text" class="form-control" name="loanvalue" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" /> 
+          </div>
+          
           <div class="checkbox">
             <label>
               <input type="checkbox" value="I Agree" name="agree" id="agree" required /> I agree to the <a href="#" data-toggle="modal" data-target="#TC">terms and conditions.</a>
@@ -167,6 +214,13 @@ $(document).ready(function(){
                 number: true, 
                 maxlength: 11,
                 minlength: 11
+                },
+            monthlyincome: { 
+                required: true, 
+                number: true
+                },
+            loanvalue: {
+                number: true
                 },
             alternativecontactnumber: { 
                 required: true, 
