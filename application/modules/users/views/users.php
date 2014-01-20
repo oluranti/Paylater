@@ -350,6 +350,15 @@ foreach($users->result() as $user){
             </select>
           </div>
           <div class="form-group">
+            <label for="employmentlength">Length of Employment</label>
+            <select name="employmentlength" class="form-control" id="employmentlength">
+            <option <?php if(@$user->employmentlength == "Less Than 1 Year"){ echo 'selected = "yes"'; } ?> value="Less Than 1 Year">Less Than 1 Year</option>
+            <option <?php if(@$user->employmentlength == "1 - 2 Years"){ echo 'selected = "yes"'; } ?> value="1 - 2 Years">1 - 2 Years</option>
+            <option <?php if(@$user->employmentlength == "2 - 5 Years"){ echo 'selected = "yes"'; } ?> value="2 - 5 Years">2 - 5 Years</option>
+            <option <?php if(@$user->employmentlength == "More Than 5 Years"){ echo 'selected = "yes"'; } ?> value="More Than 5 Years">More Than 5 Years</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="nameofemployer">Name of Employer/Business</label>
             <?php 
             $rawcompanies = $this->companies->read(); 
@@ -385,21 +394,15 @@ foreach($users->result() as $user){
             </select>
           </div>
           <div class="form-group">
-            <label for="doyouownacar">Do You Own a Car?</label>
-            <select name="doyouownacar" class="form-control" id="doyouownacar">
-            <option <?php if(@$user->doyouownacar == "Yes"){ echo 'selected = "yes"'; } ?> value="Yes">Yes</option>
-            <option <?php if(@$user->doyouownacar == "No"){ echo 'selected = "yes"'; } ?> value="No">No</option>
+            <label for="bankaccounttype">What type of account do you use?</label>
+            <select name="bankaccounttype" class="form-control" id="bankaccounttype" required >
+            <option <?php if(@$user->bankaccounttype == "Current"){ echo 'selected = "yes"'; } ?> value="Current">Current</option>
+            <option <?php if(@$user->bankaccounttype == "Savings"){ echo 'selected = "yes"'; } ?> value="Savings">Savings</option>
+            <option <?php if(@$user->bankaccounttype == "None"){ echo 'selected = "yes"'; } ?> value="None">None</option>
             </select> 
           </div>
           <div class="form-group">
-            <label for="havecurrentaccount">Do You Have a Current Account?</label>
-            <select name="havecurrentaccount" class="form-control" id="havecurrentaccount">
-            <option value="Yes" <?php if(@$user->havecurrentaccount == "Yes"){ echo 'selected = "yes"'; } ?>>Yes</option>
-            <option value="No" <?php if(@$user->havecurrentaccount == "No"){ echo 'selected = "yes"'; } ?>>No</option>
-            </select> 
-          </div>
-          <div class="form-group">
-            <label for="bank">If Yes, Select Your Bank</label>
+            <label for="bank">Select Your Bank</label>
             <select name="bank" class="form-control" id="bank">
             <option <?php if(@$user->bank == "Access Bank"){ echo 'selected = "yes"'; } ?> value="Access Bank">Access Bank</option>
             <option <?php if(@$user->bank == "Citibank"){ echo 'selected = "yes"'; } ?> value="Citibank">Citibank</option>

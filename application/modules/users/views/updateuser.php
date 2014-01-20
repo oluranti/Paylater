@@ -38,7 +38,8 @@
           <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><?php }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>
-            <select name="title" class="form-control" id="title" >
+            <select name="title" class="form-control" id="title" required >
+            <option value="">Select...</option>
             <option value="Mr">Mr</option>
             <option value="Mrs">Mrs</option>
             <option value="Miss">Miss</option>
@@ -55,14 +56,16 @@
           </div>
           <div class="form-group">
             <label for="gender">Gender</label>
-            <select name="gender" class="form-control" id="gender">
+            <select name="gender" class="form-control" id="gender" required>
+            <option value="">Select...</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             </select>
           </div>
           <div class="form-group">
             <label for="maritalstatus">Marital Status</label>
-            <select name="maritalstatus" class="form-control" id="maritalstatus">
+            <select name="maritalstatus" class="form-control" id="maritalstatus" required>
+                <option value="">Select...</option>
             	<option value="Married">Married</option>
             	<option value="Single">Single</option>
             	<option value="Divorced">Divorced</option>
@@ -85,7 +88,8 @@
           </div>
           <div class="form-group">
             <label for="residentialstatus">Residential status</label>
-            <select name="residentialstatus" class="form-control" id="residentialstatus">
+            <select name="residentialstatus" class="form-control" id="residentialstatus" required>
+            <option value="">Select...</option>
             <option value="House Owner">House Owner</option>
             <option value="Rented">Rented</option>
             <option value="Family House">Family House</option>
@@ -95,7 +99,8 @@
           </div>
           <div class="form-group">
             <label for="howlonglived">How Long Have You Lived Here?</label>
-            <select name="howlonglived" class="form-control" id="howlonglived">
+            <select name="howlonglived" class="form-control" id="howlonglived" required>
+            <option value="">Select...</option>
             <option value="Less Than 1 Year">Less Than 1 Year</option>
             <option value="1 - 3 Years">1 - 3 Years</option>
             <option value="3 - 5 Years">3 - 5 Years</option>
@@ -112,11 +117,22 @@
           </div>
           <div class="form-group">
             <label for="employmenttype">Employment Type</label>
-            <select name="employmenttype" class="form-control" id="employmenttype">
+            <select name="employmenttype" class="form-control" id="employmenttype" required>
+            <option value="">Select...</option>
             <option value="Self-Employed">Self-Employed</option>
             <option value="Salary Employee">Salary Employee</option>
             <option value="Student">Student</option>
             <option value="Unemployed">Unemployed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="employmentlength">Length of Employment</label>
+            <select name="employmentlength" class="form-control" id="employmentlength">
+            <option value="">Select...</option>
+            <option value="Less Than 1 Year">Less Than 1 Year</option>
+            <option value="1 - 2 Years">1 - 2 Years</option>
+            <option value="2 - 5 Years">2 - 5 Years</option>
+            <option value="More Than 5 Years">More Than 5 Years</option>
             </select>
           </div>
           <div class="form-group">
@@ -138,7 +154,8 @@
           </div>
           <div class="form-group">
             <label for="noofdependants">Number of Dependants</label>
-            <select name="noofdependants" class="form-control" id="noofdependants">
+            <select name="noofdependants" class="form-control" id="noofdependants" required>
+            <option value="">Select...</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -154,22 +171,18 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="doyouownacar">Do You Own a Car?</label>
-            <select name="doyouownacar" class="form-control" id="doyouownacar">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <label for="bankaccounttype">What type of account do you use?</label>
+            <select name="bankaccounttype" class="form-control" id="bankaccounttype" required >
+            <option value="">Select...</option>
+            <option value="Current">Current</option>
+            <option value="Savings">Savings</option>
+            <option value="None">None</option>
             </select> 
           </div>
           <div class="form-group">
-            <label for="havecurrentaccount">Do You Have a Current Account?</label>
-            <select name="havecurrentaccount" class="form-control" id="havecurrentaccount">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            </select> 
-          </div>
-          <div class="form-group">
-            <label for="bank">If Yes, Select Your Bank</label>
+            <label for="bank">Select Your Bank</label>
             <select name="bank" class="form-control" id="bank">
+            <option value="">Select...</option>
             <option value="Access Bank">Access Bank</option>
             <option value="Citibank">Citibank</option>
             <option value="Diamond Bank">Diamond Bank</option>
@@ -197,7 +210,8 @@
           </div>
           <div class="form-group">
             <label for="doyouhaveloans">Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</label>
-            <select name="doyouhaveloans" class="form-control" id="doyouhaveloans">
+            <select name="doyouhaveloans" class="form-control" id="doyouhaveloans" required>
+            <option value="">Select...</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
             </select> 
@@ -234,25 +248,213 @@
         <h4 class="modal-title" id="TCLabel">Terms and Conditions</h4>
       </div>
       <div class="modal-body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in mi et ipsum feugiat consequat. Morbi nisi nisl, rutrum id iaculis vel, iaculis id odio. Nullam quis est vel arcu vulputate pellentesque. Maecenas hendrerit vitae nulla non eleifend. Proin a luctus odio, laoreet tincidunt nisl. Nullam venenatis elit et tellus molestie, sed iaculis tortor interdum. Morbi eu lacus mauris. Quisque non aliquam quam. Nam feugiat nunc vehicula, facilisis enim eget, elementum lectus. Morbi arcu lectus, tempus in consequat sit amet, porttitor at eros. Integer lacinia velit eget varius rhoncus. Nam semper eget nulla in blandit.
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
 
-Ut bibendum ante quis lorem sagittis ullamcorper. Proin convallis mollis neque, at mollis eros pellentesque posuere. Nam viverra risus eget enim tincidunt semper. Phasellus lacinia, elit et commodo adipiscing, eros felis dapibus sem, ut sollicitudin ligula arcu id ante. Duis pretium pharetra quam vel eleifend. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec id turpis vitae ante convallis blandit. Ut ac dolor vel velit posuere gravida. Donec tellus orci, porttitor id felis quis, lobortis iaculis quam. Quisque euismod congue sem, ac bibendum mi tempus nec. In molestie consectetur nisl, nec iaculis dui convallis et. Fusce id velit ac ipsum varius lobortis id in elit. Aenean sed sollicitudin ante. Aliquam erat volutpat. Nam nec metus neque.
+<body>
+<p><strong>TERMS AND CONDITIONS</strong><br />
+  These Terms and Conditions apply to and regulate the provision of  credit facilities advanced by One Credit Limited (&ldquo;The Lender&rdquo;) to the Borrower  herein. These Terms and Conditions constitute the Lender's offer and sets out  the terms governing this Agreement.</p>
+<p><strong>PayLater&reg;</strong> is an open-end  credit plan offered by One Credit Limited (&quot;the Lender&quot;). BY  ACCEPTING THIS ONLINE OFFER, A PAYLATER ACCOUNT IS SET UP WITH ONE CREDIT and  you agree that you have read the Terms and Conditions, you authorize the Lender  to review your credit report and you understand that this account is subject to  transaction fees and default Fees and is governed by the Laws of the Federal  Republic of Nigeria. You authorize the Merchant to share your personal  information, including email address, with the Lender, and authorize the Lender  to use that information for all lawful purposes, including sharing or receiving  data with the Merchants (our Partners) in connection with the account. </p>
+<p>You may be asked to provide information (such as your date of birth  and your bank account number), each time you use PayLater&reg;. This information is  used solely for verification purposes.</p>
+<p><strong>HOW TO USE PayLater ACCOUNT</strong><br />
+  This is an open-end credit account. When you make online purchase(s),  using PayLater Credit Limit made available through any of our Partners  purchases will be added to the balance of your Account, provided such purchases  do not exceed your credit limit. We will then charge you transaction fee on  each purchase made using this Account, beginning on each transaction date. </p><p><strong>1. DEFINITION</strong></p>
+<p>&ldquo;<em>Parties</em>&rdquo;  to this agreement are: &quot;<em>You</em>&quot;,  &quot;<em>your</em>&quot; and &quot;<em>Borrower</em>&quot; mean the person who  applied for this <br />
+  Account and agrees to this Agreement.</p>
+<p><em>&quot;We&quot;, &quot;us&quot; and  &quot;our&quot; mean &ldquo;Lender&rdquo;</em>, and following an assignment, any person,  company or bank to whom the rights and/or obligations of the Lender have been  assigned</p>
+<p>&ldquo;<em>Merchant&rdquo; &ldquo;our Partner</em>&rdquo; means any  person/company/organization who is duly accredited, acknowledged and authorizes  as participatory in the PayLater payment option.</p>
+<p>&ldquo;<em>Account</em>&rdquo;  means the Borrower&rsquo;s account with the Lender </p>
+<p>&ldquo;<em>Disbursement Date</em>&rdquo; means the date the  Lender made payment for the purchase on behalf of the Borrower </p>
+<p>&ldquo;<em>Payment Due  Date</em>&rdquo; means 30 days after the purchase was made</p>
+<p>&ldquo;<em>Credit Limit</em>&rdquo; means the maximum credit  available to the Borrower on opening the account with the Lender</p>
+<p><em>&ldquo;Loan&rdquo;</em> means the amount utilized by the  customer to purchase on the Merchant&rsquo;s site </p>
+<p><strong>2. CUSTOMER CONSENT</strong>:<br />
+  By ticking the <em>&quot;I agree to the Terms and Conditions&quot;</em>, on the application form, which you  hereby adopt as your electronic signature, you consent and agree that: </p>
+<ul>
+  <li>We can provide materials and other information  about your legal rights and duties to you electronically.</li>
+</ul>
+<ul>
+  <li>We are authorized to share, receive and use  data/information collected from your transaction/purchases with the Merchants  (our partners) while assessing your credit limit.</li>
+</ul>
+<ul>
+  <li>Your electronic signature on agreements and  documents has the same effect as if you signed them using ink on paper or any  other physical means.</li>
+</ul>
+<ul>
+  <li>We can send all important communications,  billing statements and demand notes and reminders (collectively referred to as  &ldquo;Disclosures&rdquo;) to you electronically via our website or to the email address  that you have provided to the Merchant in this transaction or to another email  address that you provide to us for that purpose rather than in paper form.</li>
+</ul>
+<ul>
+  <li>We will alert you when the Disclosures are  available, by sending you an electronic communication.</li>
+</ul>
+<ul>
+  <li>Our email will tell you how you can view the  Disclosures.</li>
+</ul>
+<ul>
+  <li>We will make the Disclosures available to you  from the date it first became available to you, or the date we sent you the  email to alert you that it was available.</li>
+</ul>
+<ul>
+  <li>You will be able to print a copy of the  Disclosure or download the information for your records.</li>
+</ul>
+<ul>
+  <li>This consent applies to this transaction, to all  future Disclosures on this Account, to all future transactions in which you use  the PayLater Payment option with us, at any time, and to other Disclosures that  we provide to you by email, unless you have, prior to such transaction,  withdrawn your consent by the procedure mentioned below.</li>
+</ul>
+<ul>
+  <li>By consenting, you agree that electronic  Disclosures have the same meaning and effect as if we provided paper  Disclosures to you as we are required to do so. When we send you an email  alerting you that the Disclosures are available electronically and make it  available online, that shall have the same meaning and effect as if we provided  paper Disclosures to you, whether or not you choose to view the Disclosures,  unless you had previously withdrawn your consent to receive Disclosures  electronically.</li>
+</ul>
+<p><strong>3. TRANSACTION FEE</strong></p>
+<ul>
+  <li>The transaction Fee for the use of the PayLater  payment system shall be a flat 10% fixed for the term of this loan.</li>
+</ul>
+<ul>
+  <li>The transaction fee does not preclude The Lender  from charging default fees, penalty fee and in the event of any dispute arising  from this terms and Condition - the cost of Litigation/Solicitors&rsquo; fees.</li>
+</ul>
+<ul>
+  <li>The Transaction fee may be increases or  decreases from time to time by the Lender. Such change in Transaction fee will  take effect on the Borrower&rsquo;s account following a minimum of 15 days written  notice.</li>
+</ul>
+<ul>
+  <li>Total transaction fee of the term of the loan  will still be due in the event of the Borrower liquidating the loan before  expiration.</li>
+</ul>
+<p><strong>4. BORROWER&rsquo;S OBLIGATIONS</strong>:</p>
+<ul>
+  <li>To pay to us, the balance on this Account,  including all Purchases and Cash Advances, extensions of credit and other  amounts Borrower has authorized us to charge to this Account. Borrower promises  to pay these amounts as agreed in this Agreement, including the promise to make  the Minimum Payment Due on each purchase on or before the Payment Due Date.</li>
+</ul>
+<ul>
+  <li>To pay for all Purchases made by you and by  anyone you authorized to use this Account. The Lender reserves the right to  presume that the Borrower has authorized any Purchase made in the name of the  Borrower using this Account. The Borrower will not be responsible for any  unauthorized Purchases using this Account only if the Borrower returns the  purchases goods to the merchant within 24 hours of purchase or alerts the  Merchant or Borrower of imminent fraud by another person on his account within  24 hours of such fraud.</li>
+</ul>
+<ul>
+  <li>To pay for all Cash Advances made by you and by  someone you authorized to use this Account. We will not be responsible for any  unauthorized Cash Advances using this Account.</li>
+</ul>
+<ul>
+  <li>To give us authentic and up-to-date personal  financial information about you that we may reasonably request, from time to  time.</li>
+</ul>
+<ul>
+  <li>To pay all costs of collection if we take any  action to collect this Account or take any action in a bankruptcy proceeding  filed by or against you. This shall include, unless prohibited by applicable  law, reasonable attorneys' fees and expenses incurred while collection lasts.</li>
+</ul>
+<ul>
+  <li>Not to give us false information or signatures,  electronic or otherwise, at any time.</li>
+</ul>
+<ul>
+  <li>To pay a Late Fee and Return Cheque Fee, as  provided in this terms and conditions.</li>
+</ul>
+<ul>
+  <li>To make all payments by cheques, money order,  electronic funds transfer or by direct credit into the Lender&rsquo;s designated  account, in a form that will be processed and honored by any financial  institution approved by the Lender.</li>
+</ul>
+<ul>
+  <li>To promptly notify us if you change your name,  your mailing address, your e-mail address or your telephone number.</li>
+</ul>
+<ul>
+  <li>To honor any other promises that you make in  this Agreement.</li>
+</ul>
+<ul>
+  <li>That you will not accept this Account unless you  are of legal age and have the capacity to enter into a valid contract.</li>
+</ul>
+<ul>
+  <li>If you are dissatisfied with goods or services  you purchased from a merchant, you will try in good faith to resolve the  dispute and correct the problem directly with the Merchant. You agree to allow  a reasonable period of time for the Merchant to resolve the dispute. This shall  in no way limit or reduce your rights in case of a billing error.</li>
+</ul>
+<ul>
+  <li>To use PayLater only for personal, family or  household purposes.</li>
+</ul>
+<p><strong>5. LENDER&rsquo;S OBLIGATIONS</strong></p>
+<ul>
+  <li>To advance payment to the merchant on behalf of  the Borrower when the Borrower uses the PayLater option for transacting a  purchase</li>
+</ul>
+<ul>
+  <li>To perform a) above upon confirmation of the  purchase and request by the Merchant</li>
+</ul>
+<ul>
+  <li>To demand repayment for the Borrower as and when  due</li>
+</ul>
+<ul>
+  <li>To conduct investigations on the Borrower prior  to opening an account for the Borrower</li>
+</ul>
+<ul>
+  <li>To require the Borrower to prove the  authenticity of documents and any information provided while applying for the  account</li>
+</ul>
+<ul>
+  <li>To use all reasonable and legitimate means to  collect the amount expended on the purchases of the Borrower and the  transaction fees on such purchase.</li>
+</ul>
+<p><strong>6. CREDIT REFERENCE</strong></p>
+<ul>
+  <li>The Lender or its duly authorized  representatives/agents will utilize a dedicated Credit Agency for a credit  report on the Borrower in considering any application for credit.</li>
+</ul>
+<ul>
+  <li>The Borrower authorizes The Lender to access any  information available to The Lender as provided by the Credit Agency.</li>
+</ul>
+<ul>
+  <li>The Borrower also agrees that the Borrower&rsquo;s  details and the loan application decision may be registered with the Credit  Agency.</li>
+</ul>
+<p><strong>7. NOTICES</strong><br />
+  The Borrower agrees  that The Lender may communicate with them by sending notices, messages, alerts  and statements in relation to this Agreement in the following manner:</p>
+<ul>
+  <li>To the most recent physical address The Lender  holds for the Borrower on file</li>
+</ul>
+<ul>
+  <li>By delivery to any email address provided during  the application process.</li>
+</ul>
+<ul>
+  <li>By delivery of an SMS to any mobile telephone  number the Borrower has provided to The Lender.</li>
+</ul>
+<p><strong>8.1. EVENT OF DEFAULT</strong><br />
+Default in terms of this Agreement will occur if:</p>
+<ul>
+  <li>The Borrower fails to make any scheduled  repayment in full on or before the payment due date in accordance with the  repayment plan given to the Borrower;</li>
+</ul>
+<ul>
+  <li>Any representation/information, warranty or  assurance made or given by the Borrower in connection with the application for  this loan or any information or documentation supplied by the Borrower is later  discovered to be materially incorrect; or</li>
+</ul>
+<ul>
+  <li>The Borrower does or omits to do anything which  may prejudice The Lender&rsquo;s rights in terms of this Agreement or causes The  Lender to suffer any loss or damage.</li>
+</ul>
+<p>In the event of any default by the Borrower subject  to clause 8.1 above -</p>
+<ul>
+  <li>The Lender reserves the right to assign its  right, title and interest under the Agreement to an external Collections Agency  who will take all reasonable steps to collect the outstanding loan amount.</li>
+</ul>
+<ul>
+  <li>The Lender also reserves the right to institute  legal proceedings against the defaulting Borrower and is under no obligation to  inform the Borrower before such proceedings commence.</li>
+</ul>
+<ul>
+  <li>The Borrower shall be responsible for all legal  costs and expenses incurred by The Lender in attempting to obtain repayment of  any outstanding loan balance owed by the Borrower. Interest on any amount which  becomes due and payable shall be charged.</li>
+</ul>
+<p><strong>9. TERMINATION OF THE ACCOUNT</strong></p>
+<ul>
+  <li>In addition to Termination by default, we may  terminate this Agreement at any time and for any reason subject to the  requirements of applicable law.</li>
+</ul>
+<ul>
+  <li>We can terminate your Account by sending written  notice to the address on the billing statement.</li>
+</ul>
+<ul>
+  <li>If there is no debit or credit on this Account  for twelve (12) consecutive months, we may terminate this Account without  notice to you. </li>
+</ul>
+<ul>
+  <li>After Termination, you will not be able to make  new Purchases on this Account. Termination will not affect any Purchase which  complies with this Agreement and which was made before the date of the  Termination notice. If we choose, at our sole option, to allow Purchases after  we have terminated this Account (whether or not you have given us notice to  terminate this Account), you agree that we may charge those Purchases to this  Account.</li>
+</ul>
+<p><strong>10. GENERAL</strong></p>
+<ul>
+  <li>This Agreement represents the entire  understanding between The Lender and the Borrower. </li>
+</ul>
+<ul>
+  <li>Amendment shall be made by the Lender from time  to time and communicated to the Borrower in writing.</li>
+</ul>
+<ul>
+  <li>The Borrower agrees and undertakes that for the  period of this Agreement, the Borrower will not close the Borrower&rsquo;s specified  bank account.</li>
+</ul>
+<ul>
+  <li>This Agreement shall be governed by the laws of  the Federal Republic of Nigeria and shall be subject to the jurisdiction of the  courts of the Federal Republic of Nigeria.</li>
+</ul>
+<ul>
+  <li>If The Lender does not strictly enforce its  rights under this Agreement (including its right to insist on the repayment of  all sums due on the Repayment Due Date) or grant the Borrower an indulgence,  The Lender will not be deemed to have lost those rights and will not be  prevented from insisting upon its strict rights at a later date.</li>
+</ul>
+<ul>
+  <li>The Lender reserves the right to transfer or  assign its rights and obligations under this Agreement (including its  obligation to lend money to the Borrower or the amount owed under this  Agreement) to another person. The Lender will only inform the Borrower if such  a transfer causes the arrangements for the administration of this Agreement to  change.</li>
+</ul>
+<ul>
+  <li>The Borrower authorizes and consents to all  lawful access, use or disclosure of the Borrower&rsquo;s particulars in the  application by The Lender which may include but shall not be limited to  purposes necessary to promote or sustain the business of The Lender; and the  Borrower waives any claims the Borrower may have against The Lender arising  from any such access, use or disclosure.</li>
+</ul>
+</body>
+</html>
 
-Proin gravida orci in est viverra, id aliquam felis porttitor. Donec non arcu accumsan, dapibus augue vel, tincidunt ligula. Donec posuere ut mi et rutrum. Fusce vulputate nisl quis eros tempor vestibulum. Aenean consequat purus at quam varius, nec porta dolor laoreet. Fusce egestas augue felis. Suspendisse felis dolor, commodo non felis non, scelerisque rutrum enim. Mauris ac arcu ac justo scelerisque posuere nec ac purus. Suspendisse ut enim aliquet, ultrices dolor vel, auctor arcu. Mauris pharetra, massa sed gravida aliquet, tortor sapien convallis dolor, sit amet vehicula lorem magna ut nisl. Quisque non tortor metus. Donec et commodo metus. Praesent augue erat, condimentum a libero at, porta pellentesque metus.
-
-Nunc pretium, enim at suscipit sodales, neque nisi mollis massa, a semper risus odio pulvinar erat. Nam felis magna, congue non viverra in, dapibus et erat. Curabitur sed arcu sit amet elit vulputate pretium ut fermentum leo. Quisque a odio et mi rutrum pretium quis sed tellus. Sed et sapien leo. Aliquam risus orci, sodales vel enim eget, sodales ullamcorper enim. In iaculis ante risus, eu aliquet nisl aliquam sit amet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed metus tortor, facilisis sed neque nec, facilisis vehicula risus. Phasellus auctor felis mollis felis venenatis pharetra.
-
-Fusce tempor eget tellus vel adipiscing. Nunc ultrices cursus massa. Sed adipiscing malesuada purus, non sodales enim imperdiet ac. Mauris auctor accumsan purus, at malesuada mi congue sed. Nulla facilisi. Donec et rutrum libero. Fusce pellentesque, mauris at rhoncus bibendum, massa nunc sollicitudin neque, vitae fermentum risus sapien id risus. Nam facilisis nunc non diam sollicitudin eleifend. Vestibulum quis turpis pretium, pulvinar magna ut, fermentum urna. Vivamus blandit felis ut leo iaculis, nec aliquet quam blandit. Donec id nulla id nulla dictum tincidunt. Etiam euismod luctus nisl, nec vehicula sem laoreet vulputate. Ut vehicula dolor nec metus condimentum, in cursus felis interdum. Vivamus faucibus egestas turpis vel iaculis. Suspendisse accumsan ante vel mauris ultricies, sollicitudin interdum velit luctus.
-
-Praesent molestie fringilla erat, id commodo libero congue quis. Duis arcu ligula, faucibus in mollis at, gravida varius risus. Ut semper, metus quis aliquam sagittis, tellus sem viverra enim, eget dignissim nunc sapien eleifend felis. Duis non orci non elit rutrum rhoncus. Donec posuere, turpis sit amet lobortis commodo, nulla mi dapibus lacus, ac fermentum tellus libero eu nibh. Praesent sed massa egestas, facilisis lectus ut, venenatis odio. Nulla placerat arcu non posuere porttitor. Nunc placerat urna nec massa tincidunt, id eleifend ligula pretium. Vivamus non massa nec velit mattis tempor in eget odio. In lacinia tellus a metus sollicitudin placerat. Pellentesque consectetur, tortor at gravida tincidunt, leo augue dignissim turpis, non interdum tellus nibh vitae metus. Ut venenatis ante a nisl molestie consectetur.
-
-Praesent eu fermentum leo. Nullam viverra dui eget pharetra aliquam. Cras augue magna, dapibus in tincidunt ut, accumsan id diam. Etiam condimentum consequat dictum. Vivamus vulputate sem et pulvinar venenatis. Integer non odio elit. Ut hendrerit ipsum ac tristique aliquam. Sed nunc mauris, iaculis eget venenatis sit amet, malesuada sit amet nibh. Morbi laoreet lorem nec commodo facilisis. In ultrices justo purus, ut auctor massa vulputate in. Donec consequat leo ac volutpat ultrices.
-
-Quisque vitae sagittis augue. Mauris fermentum sapien ante, quis rutrum metus rutrum non. Sed orci erat, porttitor at augue a, malesuada dignissim tortor. Cras a quam id libero tempor vehicula. Pellentesque id tincidunt mi, in sagittis nisl. Nunc magna purus, condimentum sed dolor a, consectetur aliquam justo. Duis vitae justo felis. Suspendisse quis tempus arcu. In mollis orci id turpis ornare, sed volutpat urna eleifend. In pharetra iaculis facilisis. Donec scelerisque tellus quis vulputate interdum. Curabitur porta lacus a aliquam pharetra. Etiam cursus sit amet nulla sit amet fermentum. Curabitur suscipit pulvinar nulla, ut vehicula lacus rhoncus non.
-
-Maecenas consequat egestas nisi et dictum. Donec sit amet dui metus. Curabitur mollis neque sit amet tortor porta, eu condimentum mauris iaculis. Phasellus nec felis non erat commodo placerat. Fusce ipsum lectus, sollicitudin sed ipsum id, commodo convallis augue. Mauris suscipit iaculis libero, nec porttitor mauris porta et. Mauris fringilla condimentum porta. Nulla facilisi. Cras lectus nibh, tincidunt sed nulla nec, lobortis laoreet purus. Donec eu felis sapien. Maecenas molestie nunc quis tortor sollicitudin, ac venenatis ipsum porta. Proin a diam nisi. Suspendisse ac orci tellus. Praesent venenatis nisi nunc, ac tempor lectus tincidunt in.
-
-Morbi id euismod odio. Nam orci nulla, interdum vel orci in, semper lacinia eros. Pellentesque vel nisl eu nisi venenatis mollis et sit amet risus. Vivamus vel mauris eget nulla scelerisque ornare sed ut leo. Nam et odio sem. Nulla facilisi. Integer imperdiet dapibus tortor sit amet accumsan. Suspendisse fringilla urna et augue iaculis scelerisque. Cras mi ipsum, aliquet a eleifend nec, eleifend a nisl. Ut et urna ac nisi blandit mattis vel sed nibh.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

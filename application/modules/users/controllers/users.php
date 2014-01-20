@@ -221,6 +221,41 @@ function updateuser(){
     $this->load->module('companies');
     $this->companies->create($userdata['nameofemployer']);
     $this->_update($userdata['id'],$userdata);
+    $this->generatetc($userdata['title'],$userdata['firstname'],$userdata['lastname'],$userdata['address'],$userdata['hash']);
+    $message = '
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;">
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Really Simple HTML Email Template</title>
+  </head>
+  <body bgcolor="#f6f6f6" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; height: 100%; margin: 0; padding: 0;">&#13;
+&#13;
+<!-- body -->&#13;
+<table class="body-wrap" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; width: 100%; margin: 0; padding: 20px;"><tr style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;"><td style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;"></td>&#13;
+		<td class="container" bgcolor="#FFFFFF" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto; padding: 20px; border: 1px solid #f0f0f0;">&#13;
+&#13;
+			<!-- content -->&#13;
+			<div class="content" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; max-width: 600px; display: block; margin: 0 auto; padding: 0;">&#13;
+			<table style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; width: 100%; margin: 0; padding: 0;"><tr style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;"><td style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;">&#13;
+						<p style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">Hello '.$userdata['firstname'].',</p>&#13;
+						<p style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">Thank you for submitting your Paylater credit information form. Attached is the copy of the Agreement you executed by agreeing to our terms and condition.</p>&#13;
+						<p style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">One Credit will call you in 48 hours to review your details and ensure you meet few other criteria.</p>&#13;
+						<p style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">For further information on this mail or queries regarding the Paylater Credit Limit please contact One Credit on <a href="call:08091112274" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #348eda; margin: 0; padding: 0;">0809-111-CASH (08091112274)</a> or email <a href="mailto:paylater@one-cred.com" target="_blank" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #348eda; margin: 0; padding: 0;">paylater@one-cred.com</a> </p>&#13;
+						<p style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">Happy Spending!</p>&#13;
+						<p style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;"><a href="'.base_url().'" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #348eda; margin: 0; padding: 0;"><img src="'.$this->template->get_asset().'/images/logo.png" width="232" height="146" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; max-width: 100%; margin: 0; padding: 0;" /></a></p>&#13;
+					</td>&#13;
+				</tr></table></div>&#13;
+			<!-- /content -->&#13;
+									&#13;
+		</td>&#13;
+		<td style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;"></td>&#13;
+	</tr></table><!-- /body --></body>
+</html>
+
+    ';
+    $this->sendmail($userdata['email'],'Paylater Account Activity',$message,true,'./assets/tc/'.$hash.'.pdf');
     $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
     if($this->session->userdata('id')){
@@ -449,20 +484,32 @@ function sendmail($to,$subject,$message,$attach = false,$attachment_path = ""){
     }
 }
 
-function testmail(){
+/*function testmail(){
     $this->sendmail('olufemi@kvpafrica.com','Test','fooooo');
-}
+}*/
 
-function generatetc($firstname="Olanipekun",$lastname="Olufemi",$hash="iefjnfkhdf"){
+function generatetc($title,$firstname, $lastname, $address,$hash){
+    date_default_timezone_set('Africa/Lagos');
+    $data['day'] = date('jS');
+    $data['month'] = date('F');
+    $data['year'] = date('Y');
+    $data['title'] = $title;
     $data['firstname'] = $firstname;
     $data['lastname'] = $lastname;
+    $data['address'] = $address;
     $this->load->library('pdf');
    	$this->pdf->load_view('tc',$data);
 	$this->pdf->render();
-	echo $this->pdf->output();
-
+	$output = $this->pdf->output();
+    $this->load->helper('file');
+    write_file('./assets/tc/'.$hash.'.pdf', $output);
 }
 
+/*
+function viewme(){
+    $this->load->view('tc',true);
+}
+*/
 }
 
 ?>
