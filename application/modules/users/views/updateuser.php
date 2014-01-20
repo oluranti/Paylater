@@ -220,6 +220,15 @@
             <label for="loanvalue">If Yes, Please Input Total Value of Loan(s)</label>
             <input type="text" class="form-control" name="loanvalue" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" /> 
           </div>
+          <div class="form-group">
+            <label for="contacttime">One Credit will call you to verify the given information above, please select preferred contact time of the day to call you.</label>
+            <select name="contacttime" class="form-control" id="contacttime" required>
+            <option value="">Select...</option>
+            <option value="9 am - 12 noon">9 am - 12 noon</option>
+            <option value="12 noon - 3 pm">12 noon - 3 pm</option>
+            <option value="3 pm - 6 pm">3 pm - 6 pm</option>
+            </select> 
+          </div>
           
           <div class="checkbox">
             <label>
