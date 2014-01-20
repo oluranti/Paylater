@@ -238,6 +238,9 @@
           
             <input type="hidden" name="status" value="Active"/>
             <input type="hidden" name="id" value="<?php echo $this->users->getuserid(urldecode($email)); ?>"/>
+            <input type="hidden" name="firstname" value="<?php echo urldecode($firstname); ?>"/>
+            <input type="hidden" name="lastname" value="<?php echo urldecode($lastname); ?>"/>
+            <input type="hidden" name="email" value="<?php echo urldecode($email); ?>"/>
             <?php }else{ ?> <input type="hidden" name="status" value="Direct"/> <?php } ?>
           </div>
           <div class="modal-footer">

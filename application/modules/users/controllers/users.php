@@ -255,7 +255,7 @@ function updateuser(){
 </html>
 
     ';
-    $this->sendmail($userdata['email'],'Paylater Account Activity',$message,true,'./assets/tc/'.$hash.'.pdf');
+    $this->sendmail($userdata['email'],'Paylater Account Activity',$message,true,'./assets/tc/'.$userdata['hash'].'.pdf');
     $alert['message'] = "The user has been Updated successfully";
     $alert['type'] = "success";
     if($this->session->userdata('id')){
