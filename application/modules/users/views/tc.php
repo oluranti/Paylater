@@ -78,7 +78,7 @@
 <ul>
   <li>Total transaction fee of the term of the loan  will still be due in the event of the Borrower liquidating the loan before  expiration.</li>
 </ul>
-<p><strong>4. BORROWER&quot;S OBLIGATIONS</strong>:</p>
+<p><strong>4. BORROWER&#39;S OBLIGATIONS</strong>:</p>
 <ul>
   <li>To pay to us, the balance on this Account,  including all Purchases and Cash Advances, extensions of credit and other  amounts Borrower has authorized us to charge to this Account. Borrower promises  to pay these amounts as agreed in this Agreement, including the promise to make  the Minimum Payment Due on each purchase on or before the Payment Due Date.</li>
 </ul>
@@ -118,7 +118,7 @@
 <ul>
   <li>To use PayLater only for personal, family or  household purposes.</li>
 </ul>
-<p><strong>5. LENDER&quot;S OBLIGATIONS</strong></p>
+<p><strong>5. LENDER&#39;S OBLIGATIONS</strong></p>
 <ul>
   <li>To advance payment to the merchant on behalf of  the Borrower when the Borrower uses the PayLater option for transacting a  purchase</li>
 </ul>
@@ -145,7 +145,7 @@
   <li>The Borrower authorizes The Lender to access any  information available to The Lender as provided by the Credit Agency.</li>
 </ul>
 <ul>
-  <li>The Borrower also agrees that the Borrower&quot;s  details and the loan application decision may be registered with the Credit  Agency.</li>
+  <li>The Borrower also agrees that the Borrower&#39;s  details and the loan application decision may be registered with the Credit  Agency.</li>
 </ul>
 <p><strong>7. NOTICES</strong><br />
   The Borrower agrees  that The Lender may communicate with them by sending notices, messages, alerts  and statements in relation to this Agreement in the following manner:</p>
