@@ -70,7 +70,6 @@
             	<option value="Single">Single</option>
             	<option value="Divorced">Divorced</option>
             	<option value="Widowed">Widowed</option>
-            	<option value="Living Together">Living Together</option>
             	<option value="Separated">Separated</option>
             </select>
           </div>
@@ -221,12 +220,12 @@
             <input type="text" class="form-control" name="loanvalue" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" /> 
           </div>
           <div class="form-group">
-            <label for="contacttime">One Credit will call you to verify the given information above, please select preferred contact time of the day to call you.</label>
+            <label for="contacttime">When Can We Contact You on Phone?</label>
             <select name="contacttime" class="form-control" id="contacttime" required>
             <option value="">Select...</option>
-            <option value="9 am - 12 noon">9 am - 12 noon</option>
-            <option value="12 noon - 3 pm">12 noon - 3 pm</option>
-            <option value="3 pm - 6 pm">3 pm - 6 pm</option>
+            <option value="Weekdays 9 am - 12 noon">Weekdays 9 am - 12 noon</option>
+            <option value="Weekdays 12 noon - 3 pm">Weekdays 12 noon - 3 pm</option>
+            <option value="Weekdays 3 pm - 6 pm">Weekdays 3 pm - 6 pm</option>
             </select> 
           </div>
           

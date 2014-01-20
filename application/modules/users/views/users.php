@@ -360,7 +360,6 @@ foreach($users->result() as $user){
             	<option <?php if(@$user->maritalstatus == "Single"){ echo 'selected = "yes"'; } ?> value="Single">Single</option>
             	<option <?php if(@$user->maritalstatus == "Divorced"){ echo 'selected = "yes"'; } ?> value="Divorced">Divorced</option>
             	<option <?php if(@$user->maritalstatus == "Widowed"){ echo 'selected = "yes"'; } ?> value="Widowed">Widowed</option>
-            	<option <?php if(@$user->maritalstatus == "Living Together"){ echo 'selected = "yes"'; } ?> value="Living Together">Living Together</option>
             	<option <?php if(@$user->maritalstatus == "Separated"){ echo 'selected = "yes"'; } ?> value="Separated">Separated</option>
             </select>
           </div>
@@ -508,9 +507,9 @@ foreach($users->result() as $user){
             <label for="contacttime">One Credit will call you to verify the given information above, please select preferred contact time of the day to call you.</label>
             <select name="contacttime" class="form-control" id="contacttime" required>
             <option value="">Select...</option>
-            <option <?php if(@$user->contacttime == "9 am - 12 noon"){ echo 'selected = "yes"'; } ?> value="9 am - 12 noon">9 am - 12 noon</option>
-            <option <?php if(@$user->contacttime == "12 noon - 3 pm"){ echo 'selected = "yes"'; } ?> value="12 noon - 3 pm">12 noon - 3 pm</option>
-            <option <?php if(@$user->contacttime == "3 pm - 6 pm"){ echo 'selected = "yes"'; } ?> value="3 pm - 6 pm">3 pm - 6 pm</option>
+            <option <?php if(@$user->contacttime == "Weekdays 9 am - 12 noon"){ echo 'selected = "yes"'; } ?> value="Weekdays 9 am - 12 noon">Weekdays 9 am - 12 noon</option>
+            <option <?php if(@$user->contacttime == "Weekdays 12 noon - 3 pm"){ echo 'selected = "yes"'; } ?> value="Weekdays 12 noon - 3 pm">Weekdays 12 noon - 3 pm</option>
+            <option <?php if(@$user->contacttime == "Weekdays 3 pm - 6 pm"){ echo 'selected = "yes"'; } ?> value="Weekdays 3 pm - 6 pm">Weekdays 3 pm - 6 pm</option>
             </select> 
           </div>
           <input type="hidden" name="id" value="<?php echo @$user->id; ?>" />

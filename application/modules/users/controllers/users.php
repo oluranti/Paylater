@@ -261,7 +261,7 @@ function updateuser(){
     if($this->session->userdata('id')){
             $this->getusers($alert['type'],$alert['message']);
         }else{
-    $data['alert'] = "Your account has been created.";
+    $data['alert'] = "<strong>Application Submitted!</strong> We will contact you in 48 hours.";
     $data['alert_type'] = "success";
     $data['message'] = $data['alert'];
     $data['type'] = $data['alert_type'];
