@@ -10,7 +10,7 @@
   ================================================== -->
 	<meta charset="utf-8" />
 	<title>Paylater<?php echo " | ".$title; ?></title>
-	<meta name="description" content="Shop Now, Buy Now and Pay Later with One Credit Paylater." />
+	<meta name="description" content="Paylater is a service by One Credit that allows you buy now and pay later on selected websites. Shop Now, Buy Now and Pay Later with One Credit Paylater." />
 	<meta name="author" content="Olanipekun Olufemi, KVP Africa" />
 
 	<!-- Mobile Specific Metas

@@ -34,7 +34,8 @@
             <h4 class="modal-title" id="myModalLabel">Get Started</h4>
           </div>
           <div class="modal-body">
-          
+          <p class="text-primary">Paylater is a credit account offered by One Credit MFB.<br />
+          Please complete the form and accept terms and conditions to apply for your credit limit.</p>
           <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><?php }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>

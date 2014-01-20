@@ -130,7 +130,7 @@ if($checkemail < 1){
         }else{
              $data['alert'] = "Your account has been created.";
     $data['alert_type'] = "success";
-    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['title'] = "Paylater is a service by One Credit that allows you buy now and pay later on selected websites";
     $data['view_file'] = "updateuser";
     $data['module'] = "users";
     $this->template->build(false,$data);
@@ -152,7 +152,7 @@ if($checkemail < 1){
     $data['alert_type'] = "warning";
     $data['message'] = $data['alert'];
         $data['type'] = $data['alert_type'];
-    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['title'] = "Paylater is a service by One Credit that allows you buy now and pay later on selected websites";
     $data['view_file'] = "updateuser";
     $data['module'] = "users";
     $this->template->build(false,$data);
@@ -230,14 +230,14 @@ function updateuser(){
     $data['alert_type'] = "success";
     $data['message'] = $data['alert'];
     $data['type'] = $data['alert_type'];
-    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['title'] = "Paylater is a service by One Credit that allows you buy now and pay later on selected websites";
     $data['view_file'] = "updateuser";
     $data['module'] = "users";
     $this->template->build(false,$data);
         }
     
 }else{
-    $data['title'] = "Paylater is a service by One Credit that enables you to pay for the goods you buy at selected retailers later. ";
+    $data['title'] = "Paylater is a service by One Credit that allows you buy now and pay later on selected websites";
     $data['view_file'] = "updateuser";
     $data['module'] = "users";
     $this->template->build(false,$data);
@@ -430,6 +430,33 @@ function formattime($timestamp){
     $datestring = "%d/%m/%Y - %h:%i %a";
     $time = mdate($datestring, $timestamp);
     return $time;
+}
+
+function sendmail($to,$subject,$message,$attach = false,$attachment_path = ""){
+    $this->email->from('olufemi@kvpafrica.com', 'PayLater - One Credit MFB');
+    $this->email->to($to);
+    
+    $this->email->subject($subject);
+    $this->email->message($message);
+   	if($attach){
+    $this->email->attach($attachment_path);
+    }
+    $send = $this->email->send();
+    if(!$send){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function generatetc($firstname="Olanipekun",$lastname="Olufemi",$hash="iefjnfkhdf"){
+    $data['firstname'] = $firstname;
+    $data['lastname'] = $lastname;
+    $this->load->library('pdf');
+   	$this->pdf->load_view('tc',$data);
+	$this->pdf->render();
+	echo $this->pdf->output();
+
 }
 
 }
