@@ -31,11 +31,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Get Started</h4>
+            <h4 class="modal-title" id="myModalLabel">Paylater is a credit account offered by One Credit.</h4>
+            <p>Please complete the form and accept terms and conditions to apply for your credit limit.</p>
           </div>
           <div class="modal-body">
-          <p class="text-primary">Paylater is a credit account offered by One Credit MFB.<br />
-          Please complete the form and accept terms and conditions to apply for your credit limit.</p>
           <form role="form" id="formregister" method="post" action="<?php if(!empty($verificationcode) && $verification){ ?><?php echo base_url('users/updateuser'); ?><?php }else{ ?> <?php echo base_url('users/adduser'); ?> <?php } ?>">
           <div class="form-group">
             <label for="title">Title</label>
@@ -62,6 +61,17 @@
             </select>
           </div>
           <div class="form-group">
+            <label for="maritalstatus">Marital Status</label>
+            <select name="maritalstatus" class="form-control" id="maritalstatus">
+            	<option value="Married">Married</option>
+            	<option value="Single">Single</option>
+            	<option value="Divorced">Divorced</option>
+            	<option value="Widowed">Widowed</option>
+            	<option value="Living Together">Living Together</option>
+            	<option value="Separated">Separated</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="dateofbirth">Date of Birth</label>
             <input type="text" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Date of Birth" style="cursor: pointer !important;" title="Click to Input Date of Birth" required />
           </div>
@@ -72,6 +82,25 @@
           <div class="form-group">
             <label for="homeaddress">Home Address</label>
             <textarea class="form-control" name="homeaddress" id="homeaddress" placeholder="Home Address" <?php if(!empty($homeaddress)){ ?> required  disabled <?php } ?>><?php if(!empty($homeaddress)){ ?> <?php echo urldecode($homeaddress); ?><?php } ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="residentialstatus">Residential status</label>
+            <select name="residentialstatus" class="form-control" id="residentialstatus">
+            <option value="House Owner">House Owner</option>
+            <option value="Rented">Rented</option>
+            <option value="Family House">Family House</option>
+            <option value="Living With Friend(s)">Living With Friend(s)</option>
+            <option value="Temporary Accommodation">Temporary Accommodation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="howlonglived">How Long Have You Lived Here?</label>
+            <select name="howlonglived" class="form-control" id="howlonglived">
+            <option value="Less Than 1 Year">Less Than 1 Year</option>
+            <option value="1 - 3 Years">1 - 3 Years</option>
+            <option value="3 - 5 Years">3 - 5 Years</option>
+            <option value="More Than 5 Years">More Than 5 Years</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="telephonenumber">Telephone Number</label>
@@ -108,6 +137,30 @@
             <input type="text" class="form-control" name="monthlyincome" id="monthlyincome" placeholder="Monthly Income" autocomplete="off" required /> 
           </div>
           <div class="form-group">
+            <label for="noofdependants">Number of Dependants</label>
+            <select name="noofdependants" class="form-control" id="noofdependants">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="More Than 10">More Than 10</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="doyouownacar">Do You Own a Car?</label>
+            <select name="doyouownacar" class="form-control" id="doyouownacar">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            </select> 
+          </div>
+          <div class="form-group">
             <label for="havecurrentaccount">Do You Have a Current Account?</label>
             <select name="havecurrentaccount" class="form-control" id="havecurrentaccount">
             <option value="Yes">Yes</option>
@@ -127,6 +180,7 @@
             <option value="First City Monument Bank">First City Monument Bank</option>
             <option value="Guaranty Trust Bank">Guaranty Trust Bank</option>
             <option value="Heritage Bank Plc">Heritage Bank Plc</option>
+            <option value="Jaiz Bank Plc">Jaiz Bank Plc</option>
             <option value="Keystone Bank Limited">Keystone Bank Limited</option>
             <option value="Mainstreet Bank Limited">Mainstreet Bank Limited</option>
             <option value="Savannah Bank">Savannah Bank</option>
@@ -149,7 +203,7 @@
             </select> 
           </div>
           <div class="form-group">
-            <label for="loanvalue">If Yes Please Input Total Value of Loan(s)</label>
+            <label for="loanvalue">If Yes, Please Input Total Value of Loan(s)</label>
             <input type="text" class="form-control" name="loanvalue" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" /> 
           </div>
           

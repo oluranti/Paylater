@@ -223,6 +223,7 @@ foreach($users->result() as $user){
             <option <?php if(@$user->bank == "First City Monument Bank"){ echo 'selected = "yes"'; } ?> value="First City Monument Bank">First City Monument Bank</option>
             <option <?php if(@$user->bank == "Guaranty Trust Bank"){ echo 'selected = "yes"'; } ?> value="Guaranty Trust Bank">Guaranty Trust Bank</option>
             <option <?php if(@$user->bank == "Heritage Bank Plc"){ echo 'selected = "yes"'; } ?> value="Heritage Bank Plc">Heritage Bank Plc</option>
+            <option <?php if(@$user->bank == "Jaiz Bank Plc"){ echo 'selected = "yes"'; } ?> value="Jaiz Bank Plc">Jaiz Bank Plc</option>
             <option <?php if(@$user->bank == "Keystone Bank Limited"){ echo 'selected = "yes"'; } ?> value="Keystone Bank Limited">Keystone Bank Limited</option>
             <option <?php if(@$user->bank == "Mainstreet Bank Limited"){ echo 'selected = "yes"'; } ?> value="Mainstreet Bank Limited">Mainstreet Bank Limited</option>
             <option <?php if(@$user->bank == "Savannah Bank"){ echo 'selected = "yes"'; } ?> value="Savannah Bank">Savannah Bank</option>
@@ -289,6 +290,17 @@ foreach($users->result() as $user){
             </select>
           </div>
           <div class="form-group">
+            <label for="maritalstatus">Marital Status</label>
+            <select name="maritalstatus" class="form-control" id="maritalstatus">
+            	<option <?php if(@$user->maritalstatus == "Married"){ echo 'selected = "yes"'; } ?> value="Married">Married</option>
+            	<option <?php if(@$user->maritalstatus == "Single"){ echo 'selected = "yes"'; } ?> value="Single">Single</option>
+            	<option <?php if(@$user->maritalstatus == "Divorced"){ echo 'selected = "yes"'; } ?> value="Divorced">Divorced</option>
+            	<option <?php if(@$user->maritalstatus == "Widowed"){ echo 'selected = "yes"'; } ?> value="Widowed">Widowed</option>
+            	<option <?php if(@$user->maritalstatus == "Living Together"){ echo 'selected = "yes"'; } ?> value="Living Together">Living Together</option>
+            	<option <?php if(@$user->maritalstatus == "Separated"){ echo 'selected = "yes"'; } ?> value="Separated">Separated</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="dateofbirth">Date of Birth</label>
             <input type="text" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Date of Birth" value="<?php echo @$user->dateofbirth; ?>" />
           </div>
@@ -299,6 +311,25 @@ foreach($users->result() as $user){
           <div class="form-group">
             <label for="homeaddress">Home Address</label>
             <textarea class="form-control" name="homeaddress" id="homeaddress" placeholder="Home Address"><?php echo @$user->homeaddress; ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="residentialstatus">Residential status</label>
+            <select name="residentialstatus" class="form-control" id="residentialstatus">
+            <option <?php if(@$user->residentialstatus == "House Owner"){ echo 'selected = "yes"'; } ?> value="House Owner">House Owner</option>
+            <option <?php if(@$user->residentialstatus == "Rented"){ echo 'selected = "yes"'; } ?> value="Rented">Rented</option>
+            <option <?php if(@$user->residentialstatus == "Family House"){ echo 'selected = "yes"'; } ?> value="Family House">Family House</option>
+            <option <?php if(@$user->residentialstatus == "Living With Friend(s)"){ echo 'selected = "yes"'; } ?> value="Living With Friend(s)">Living With Friend(s)</option>
+            <option <?php if(@$user->residentialstatus == "Temporary Accommodation"){ echo 'selected = "yes"'; } ?> value="Temporary Accommodation">Temporary Accommodation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="howlonglived">How Long Have You Lived Here?</label>
+            <select name="howlonglived" class="form-control" id="howlonglived">
+            <option <?php if(@$user->howlonglived == "Less Than 1 Year"){ echo 'selected = "yes"'; } ?> value="Less Than 1 Year">Less Than 1 Year</option>
+            <option <?php if(@$user->howlonglived == "1 - 3 Years"){ echo 'selected = "yes"'; } ?> value="1 - 3 Years">1 - 3 Years</option>
+            <option <?php if(@$user->howlonglived == "3 - 5 Years"){ echo 'selected = "yes"'; } ?> value="3 - 5 Years">3 - 5 Years</option>
+            <option <?php if(@$user->howlonglived == "More Than 5 Years"){ echo 'selected = "yes"'; } ?> value="More Than 5 Years">More Than 5 Years</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="telephonenumber">Telephone Number</label>
@@ -337,6 +368,30 @@ foreach($users->result() as $user){
 
           </div>
           <div class="form-group">
+            <label for="noofdependants">Number of Dependants</label>
+            <select name="noofdependants" class="form-control" id="noofdependants">
+            <option <?php if(@$user->noofdependants == 0){ echo 'selected = "yes"'; } ?> value="0">0</option>
+            <option <?php if(@$user->noofdependants == 1){ echo 'selected = "yes"'; } ?> value="1">1</option>
+            <option <?php if(@$user->noofdependants == 2){ echo 'selected = "yes"'; } ?> value="2">2</option>
+            <option <?php if(@$user->noofdependants == 3){ echo 'selected = "yes"'; } ?> value="3">3</option>
+            <option <?php if(@$user->noofdependants == 4){ echo 'selected = "yes"'; } ?> value="4">4</option>
+            <option <?php if(@$user->noofdependants == 5){ echo 'selected = "yes"'; } ?> value="5">5</option>
+            <option <?php if(@$user->noofdependants == 6){ echo 'selected = "yes"'; } ?> value="6">6</option>
+            <option <?php if(@$user->noofdependants == 7){ echo 'selected = "yes"'; } ?> value="7">7</option>
+            <option <?php if(@$user->noofdependants == 8){ echo 'selected = "yes"'; } ?> value="8">8</option>
+            <option <?php if(@$user->noofdependants == 9){ echo 'selected = "yes"'; } ?> value="9">9</option>
+            <option <?php if(@$user->noofdependants == 10){ echo 'selected = "yes"'; } ?> value="10">10</option>
+            <option <?php if(@$user->noofdependants == "More Than 10"){ echo 'selected = "yes"'; } ?> value="More Than 10">More Than 10</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="doyouownacar">Do You Own a Car?</label>
+            <select name="doyouownacar" class="form-control" id="doyouownacar">
+            <option <?php if(@$user->doyouownacar == "Yes"){ echo 'selected = "yes"'; } ?> value="Yes">Yes</option>
+            <option <?php if(@$user->doyouownacar == "No"){ echo 'selected = "yes"'; } ?> value="No">No</option>
+            </select> 
+          </div>
+          <div class="form-group">
             <label for="havecurrentaccount">Do You Have a Current Account?</label>
             <select name="havecurrentaccount" class="form-control" id="havecurrentaccount">
             <option value="Yes" <?php if(@$user->havecurrentaccount == "Yes"){ echo 'selected = "yes"'; } ?>>Yes</option>
@@ -356,6 +411,7 @@ foreach($users->result() as $user){
             <option <?php if(@$user->bank == "First City Monument Bank"){ echo 'selected = "yes"'; } ?> value="First City Monument Bank">First City Monument Bank</option>
             <option <?php if(@$user->bank == "Guaranty Trust Bank"){ echo 'selected = "yes"'; } ?> value="Guaranty Trust Bank">Guaranty Trust Bank</option>
             <option <?php if(@$user->bank == "Heritage Bank Plc"){ echo 'selected = "yes"'; } ?> value="Heritage Bank Plc">Heritage Bank Plc</option>
+            <option <?php if(@$user->bank == "Jaiz Bank Plc"){ echo 'selected = "yes"'; } ?> value="Jaiz Bank Plc">Jaiz Bank Plc</option>
             <option <?php if(@$user->bank == "Keystone Bank Limited"){ echo 'selected = "yes"'; } ?> value="Keystone Bank Limited">Keystone Bank Limited</option>
             <option <?php if(@$user->bank == "Mainstreet Bank Limited"){ echo 'selected = "yes"'; } ?> value="Mainstreet Bank Limited">Mainstreet Bank Limited</option>
             <option <?php if(@$user->bank == "Savannah Bank"){ echo 'selected = "yes"'; } ?> value="Savannah Bank">Savannah Bank</option>

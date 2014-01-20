@@ -433,7 +433,7 @@ function formattime($timestamp){
 }
 
 function sendmail($to,$subject,$message,$attach = false,$attachment_path = ""){
-    $this->email->from('olufemi@kvpafrica.com', 'PayLater - One Credit MFB');
+    $this->email->from('noreply@one-cred.com', 'PayLater - Credit account offered by One Credit');
     $this->email->to($to);
     
     $this->email->subject($subject);
@@ -447,6 +447,10 @@ function sendmail($to,$subject,$message,$attach = false,$attachment_path = ""){
     }else{
         return true;
     }
+}
+
+function testmail(){
+    $this->sendmail('olufemi@kvpafrica.com','Test','fooooo');
 }
 
 function generatetc($firstname="Olanipekun",$lastname="Olufemi",$hash="iefjnfkhdf"){
