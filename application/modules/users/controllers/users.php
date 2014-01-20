@@ -215,13 +215,13 @@ function updateuser(){
         $userdata['date'] = $this->currenttime();
     }
     unset($userdata['agree']);
-    if(isset($userdata['firstname'],$userdata['lastname'],$userdata['email'])){
+    /*if(isset($userdata['firstname'],$userdata['lastname'],$userdata['email'])){*/
     $userdata['hash'] = $this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']);
-    }
+    /*}*/
     $this->load->module('companies');
     $this->companies->create($userdata['nameofemployer']);
     $this->_update($userdata['id'],$userdata);
-    $this->generatetc($userdata['title'],$userdata['firstname'],$userdata['lastname'],$userdata['address'],$userdata['hash']);
+    $this->generatetc($userdata['title'],$userdata['firstname'],$userdata['lastname'],$userdata['homeaddress'],$userdata['hash']);
     $message = '
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" style="font-family: \'Helvetica Neue\', \'Helvetica\', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;">
