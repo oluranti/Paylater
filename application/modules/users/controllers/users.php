@@ -484,9 +484,9 @@ function sendmail($to,$subject,$message,$attach = false,$attachment_path = ""){
     }
 }
 
-/*function testmail(){
+function testmail(){
     $this->sendmail('olufemi@kvpafrica.com','Test','fooooo');
-}*/
+}
 
 function generatetc($title,$firstname, $lastname, $address,$hash){
     date_default_timezone_set('Africa/Lagos');
