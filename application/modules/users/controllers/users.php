@@ -483,10 +483,11 @@ function sendmail($to,$subject,$message,$attach = false,$attachment_path = ""){
         return true;
     }
 }
-
+/*
 function testmail(){
     $this->sendmail('olufemi@kvpafrica.com','Test','fooooo');
 }
+*/
 
 function generatetc($title,$firstname, $lastname, $address,$hash){
     date_default_timezone_set('Africa/Lagos');
@@ -503,6 +504,44 @@ function generatetc($title,$firstname, $lastname, $address,$hash){
 	$output = $this->pdf->output();
     $this->load->helper('file');
     write_file('./assets/tc/'.$hash.'.pdf', $output);
+}
+
+function downloadactiveuserscsv(){
+    $this->load->helper('file');
+    $this->load->model('mdl_users');
+    $csvdata = $this->mdl_users->get_activeusers_as_csv();
+    $time = time();
+    if ( !write_file('./assets/activeusersdownloads/'.$time.'.csv', $csvdata)){
+        $alert['message'] = "User Export Failed";
+        $alert['type'] = "error";
+        $this->getusers($alert['type'],$alert['message']);
+    }else{
+        $alert['message'] = "User Export Successful";
+        $alert['type'] = "success";
+        $this->getusers($alert['type'],$alert['message']);
+        $data = file_get_contents('./assets/activeusersdownloads/'.$time.'.csv'); // Read the file's contents
+        if(!$data){
+        die('File does not exist');
+        }
+        $name = 'registed_users_'.$time.'.csv';
+        
+        force_download($name, $data);  
+    }
+
+    
+}
+
+
+function viewactiveusers(){
+    $data['access'] = "administrator";
+    $users = $this->get_where_like('status','Active');
+
+    $data['users'] = $users;
+
+    $data['title'] = "Registered Users";
+    $data['view_file'] = "users";
+    $data['module'] = "users";
+    $this->admintemplate->build(true,$data);
 }
 
 /*

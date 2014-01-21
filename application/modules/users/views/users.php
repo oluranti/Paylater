@@ -19,14 +19,17 @@
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-user"></i> Users</h2>
 					<div class="box-icon">
-							<a class="btn btn-primary" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
+							<a class="btn btn-info" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
 										<i class="icon-plus icon-white"></i>                                           
 									</a>
-                                    <a class="btn btn-primary" href="#" data-target="#ImportUsers" data-toggle="modal" title="Import Users from CSV">
+                                    <a class="btn btn-warning" href="#" data-target="#ImportUsers" data-toggle="modal" title="Import Users from CSV">
 										<i class="icon-upload icon-white"></i>                                           
 									</a>
-                                    <a class="btn btn-primary" href="<?php echo base_url('users/downloaduserlinks') ?>" title="Download User Links as CSV">
+                                    <a class="btn btn-success" href="<?php echo base_url('users/downloaduserlinks') ?>" title="Download User Links as CSV">
 										<i class="icon-download-alt icon-white"></i>                                         
+									</a>
+                                    <a class="btn btn-inverse" href="<?php echo base_url('users/downloadactiveuserscsv') ?>" title="Download Users Excel Sheet">
+										<i class="icon-download icon-white"></i>                                         
 									</a>
 						</div>
 					</div>
@@ -42,7 +45,7 @@
                                   <th>Unique ID</th>
 								  <th>Registration Date &amp; Time</th>
                                   <th>Status</th>
-                                  <th>&nbsp;
+                                  <th><a href="<?php echo base_url('users/viewactiveusers'); ?>" class="btn btn-info btn-block">View Only Registered Users</a>
                                     </th>
 							  </tr>
 						  </thead>   

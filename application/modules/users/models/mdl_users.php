@@ -118,6 +118,17 @@ function get_userlinks_as_csv(){
     
 }
 
+function get_activeusers_as_csv(){
+    $this->load->dbutil();
+    $table = $this->get_table();
+    $this->db->select('uniqueid,title,firstname,lastname,gender,maritalstatus,dateofbirth,email,homeaddress,residentialstatus,howlonglived,telephonenumber,alternativecontactnumber,employmenttype,employmentlength,nameofemployer,officeaddress,monthlyincome,noofdependants,bankaccounttype,bank,doyouhaveloans,loanvalue,contacttime');
+    $this->db->where('status','Active');
+    $query = $this->db->get($table);
+    $csvdata = $this->dbutil->csv_from_result($query);
+    return $csvdata;
+    
+}
+
 }
 
 ?>
