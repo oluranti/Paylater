@@ -453,17 +453,16 @@ function downloaduserlinks(){
     
 }
  
-function currenttime(){
-    date_default_timezone_set('Africa/Lagos');
-    $timestamp = time();
-    $timezone = 'UTC';
-    $daylight_saving = FALSE;
-    $times = /*gmt_to_local(*/$timestamp/*, $timezone, $daylight_saving)*/;
-    return $times;
+function currenttime(){    
+$timestamp = time();
+$timezone = 'UP1';
+$daylight_saving = FALSE;
+$times = gmt_to_local($timestamp, $timezone, $daylight_saving);
+return $times;
 }
 
 function formattime($timestamp){
-    $datestring = "%d/%m/%Y - %h:%i %a";
+    $datestring = "%d/%m/%Y";
     $time = mdate($datestring, $timestamp);
     return $time;
 }
