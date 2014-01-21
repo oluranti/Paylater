@@ -208,16 +208,26 @@ function getusers($alerttype = "",$alertmessage = ""){
 function updateuser(){
     $userdata = $this->get_form_data();
     if(isset($userdata['id'])){
-       
+    $userdata['firstname'] = trim($userdata['firstname']);
+    $userdata['lastname'] = trim($userdata['lastname']);
+    $userdata['email'] = trim($userdata['email']);
+    $userdata['firstname'] = explode(' ',$userdata['firstname']);
+    $userdata['lastname'] = explode(' ',$userdata['lastname']);
+    $userdata['email'] = explode(' ',$userdata['email']);
+    $userdata['firstname'] = implode('_',$userdata['firstname']);
+    $userdata['lastname'] = implode('_',$userdata['lastname']);
+    $userdata['email'] = implode('_',$userdata['email']);
     if(!isset($userdata['agree'])){
         $userdata['link'] = base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.$this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']));//base_url('users/updateuser/'.urlencode($userdata['firstname']).'/'.urlencode($userdata['lastname']).'/'.urlencode($userdata['email']).'/'.urlencode($userdata['homeaddress']).'/'.urlencode($userdata['telephonenumber']).'');
     }else{
         $userdata['date'] = $this->currenttime();
     }
     unset($userdata['agree']);
+
     /*if(isset($userdata['firstname'],$userdata['lastname'],$userdata['email'])){*/
     $userdata['hash'] = $this->makeHash($userdata['firstname'].'-'.$userdata['lastname'].'-'.$userdata['email']);
     /*}*/
+    
     $this->load->module('companies');
     $this->companies->create($userdata['nameofemployer']);
     $this->_update($userdata['id'],$userdata);
@@ -401,6 +411,16 @@ function importusers(){
         $lastname = $splitname[1];
         $email = $filedecode[1];
         
+        $firstname = trim($firstname);
+        $lastname = trim($lastname);
+        $email = trim($email);
+        $firstname = explode(' ',$firstname);
+        $lastname = explode(' ',$lastname);
+        $email = explode(' ',$email);
+        $firstname = implode('_',$firstname);
+        $lastname = implode('_',$lastname);
+        $email = implode('_',$email);
+        
         $checkemail = $this->count_where('email',$email);
         if($checkemail < 1){
             $data['firstname'] = $firstname;
@@ -559,6 +579,40 @@ function registeredtoday(){
 function registeredusers(){
     $count = $this->count_where('status','Active');
     return $count;
+}
+
+function fixblank(){
+    $this->load->model('mdl_users');
+    $fixblank = $this->mdl_users->fixblank();
+    $fixed = $this->get_where_custom('lastname','_');
+    foreach($fixed->result('array') as $user){
+        $data = $user;
+        $data['link'] = base_url('users/updateuser/'.urlencode($data['firstname']).'/'.urlencode($data['lastname']).'/'.urlencode($data['email']).'/'.$this->makeHash($data['firstname'].'-'.$data['lastname'].'-'.$data['email']));
+        $data['hash'] = $this->makeHash($data['firstname'].'-'.$data['lastname'].'-'.$data['email']);
+        $this->_update($data['id'],$data);
+    }
+    $this->load->helper('file');
+    $this->load->model('mdl_users');
+    $csvdata = $this->mdl_users->get_fixblankusers_as_csv();
+    $time = time();
+    if ( !write_file('./assets/csvdownloads/fixedusers_'.$time.'.csv', $csvdata)){
+        $alert['message'] = "User Export Failed";
+        $alert['type'] = "error";
+        $this->getusers($alert['type'],$alert['message']);
+    }else{
+        $alert['message'] = "User Export Successful";
+        $alert['type'] = "success";
+        $this->getusers($alert['type'],$alert['message']);
+        $data = file_get_contents('./assets/csvdownloads/fixedusers_'.$time.'.csv'); // Read the file's contents
+        if(!$data){
+        die('File does not exist');
+        }
+        $name = 'fixedusers_'.$time.'.csv';
+        
+        force_download($name, $data);  
+    }
+
+    
 }
 
 /*

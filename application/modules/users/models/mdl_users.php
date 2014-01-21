@@ -136,6 +136,23 @@ WHERE date >= UNIX_TIMESTAMP(CURDATE())');
     return $count;
 }
 
+function fixblank(){
+    $query = $this->db->query("UPDATE `users` SET `lastname`='_' WHERE `lastname`=''");
+    return $query;
+}
+
+function get_fixblankusers_as_csv(){
+    $this->load->dbutil();
+    $table = $this->get_table();
+    $this->db->select('firstname,lastname,email,link');
+    $this->db->where('lastname','_');
+    $query = $this->db->get($table);
+    $csvdata = $this->dbutil->csv_from_result($query);
+    return $csvdata;
+    
+}
+
+
 }
 
 ?>
