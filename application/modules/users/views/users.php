@@ -134,128 +134,96 @@ foreach($users->result() as $user){
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3 id="ViewUser<?php echo $user->id; ?>Label">View User</h3>
   </div>
-<div class="modal-body printthis" style="font-weight: bold;">
-            <strong>User Unique ID:</strong> <?php echo @$user->uniqueid;  ?>
-            <hr />
-          <div class="row-fluid">
-            <div class="span4"for="title">Title</div>
-            <div class="span8"><?php echo @$user->title;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="firstname">First Name</div>
-            <div class="span8"><?php echo @$user->firstname;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="lastname">Last Name</div>
-            <div class="span8"><?php echo @$user->lastname;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="gender">Gender</div>
-            <div class="span8"><?php echo @$user->gender;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="maritalstatus">Marital Status</div>
-            <div class="span8"><?php echo @$user->maritalstatus;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="dateofbirth">Date of Birth</div>
-            <div class="span8"><?php echo @$user->dateofbirth;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="email">Email Address</div>
-            <div class="span8"><?php echo @$user->email;  ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="homeaddress">Home Address</div>
-            <div class="span8"><?php echo @$user->homeaddress; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="residentialstatus">Residential status</div>
-            <div class="span8"><?php echo @$user->residentialstatus; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="howlonglived">How Long Have You Lived Here?</div>
-            <div class="span8"><?php echo @$user->howlonglived; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="telephonenumber">Telephone Number</div>
-            <div class="span8"><?php echo @$user->telephonenumber; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="alternativecontactnumber">Alternative Contact Number</div>
-            <div class="span8"><?php echo @$user->alternativecontactnumber; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="employmenttype">Employment Type</div>
-            <div class="span8"><?php echo @$user->employmenttype; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="employmentlength">Length of Employment</div>
-            <div class="span8"><?php  echo @$user->employmentlength; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="nameofemployer">Name of Employer/Business</div>
-            <div class="span8"><?php echo @$user->nameofemployer; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="officeaddress">Office/Business Address</div>
-            <div class="span8"><?php echo @$user->officeaddress; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="monthlyincome">Monthly Income</div>
-            <div class="span8"><?php echo @$user->monthlyincome; ?></div>
-            </div>
-            <hr />
-          <div class="row-fluid">
-            <div class="span4"for="noofdependants">Number of Dependants</div>
-            <div class="span8"><?php echo @$user->noofdependants; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="bankaccounttype">What type of account do you use?</div>
-            <div class="span8"><?php echo @$user->bankaccounttype; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="bank">Select Your Bank</div>
-            <div class="span8"><?php echo @$user->bank; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="doyouhaveloans">Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</div>
-            <div class="span8"><?php echo @$user->doyouhaveloans; ?></div>
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="loanvalue">If Yes Please Input Total Value of Loan(s)</div>
-            <div class="span8"><?php echo @$user->loanvalue; ?></div> 
-          </div>
-          <hr />
-          <div class="row-fluid">
-            <div class="span4"for="contacttime">One Credit will call you to verify the given information above, please select preferred contact time of the day to call you.</div>
-            <div class="span8"><?php echo @$user->contacttime; ?></div> 
-          </div>
-          <hr />
+<div class="modal-body printthis<?php echo $user->id; ?>">
+            <table class="table table-striped">
+            <thead><tr><th colspan="4">User Unique ID: <?php echo @$user->uniqueid;  ?></th></tr></thead>
+            <tbody>
+            <tr>
+            <td>Title</td>
+            <td><?php echo @$user->title;  ?></td>
+            <td>First Name</td>
+            <td><?php echo @$user->firstname;  ?></td>
+            </tr>
+            <tr>
+            <td>Last Name</td>
+            <td><?php echo @$user->lastname;  ?></td>
+            <td>Gender</td>
+            <td><?php echo @$user->gender;  ?></td>
+            </tr>
+            <tr>
+            <td>Marital Status</td>
+            <td><?php echo @$user->maritalstatus;  ?></td>
+            <td>Date of Birth</td>
+            <td><?php echo @$user->dateofbirth;  ?></td>
+            </tr>
+            <tr>
+            <td>Email Address</td>
+            <td><?php echo @$user->email;  ?></td>
+            <td>Home Address</td>
+            <td><?php echo @$user->homeaddress; ?></td>
+            </tr>
+            <tr>
+            <td>Residential status</td>
+            <td><?php echo @$user->residentialstatus; ?></td>
+            <td>How Long Have You Lived Here?</td>
+            <td><?php echo @$user->howlonglived; ?></td>
+            </tr>
+            <tr>
+            <td>Telephone Number</td>
+            <td><?php echo @$user->telephonenumber; ?></td>
+            <td>Alternative Contact Number</td>
+            <td><?php echo @$user->alternativecontactnumber; ?></td>
+            </tr>
+            <tr>
+            <td>Employment Type</td>
+            <td><?php echo @$user->employmenttype; ?></td>
+            <td>Length of Employment</td>
+            <td><?php  echo @$user->employmentlength; ?></td>
+            </tr>
+            <tr>
+            <td>Name of Employer/Business</td>
+            <td><?php echo @$user->nameofemployer; ?></td>
+            <td>Office/Business Address</td>
+            <td><?php echo @$user->officeaddress; ?></td>
+            </tr>
+            <tr>
+            <td>Monthly Income</td>
+            <td><?php echo @$user->monthlyincome; ?></td>
+            <td>Number of Dependants</td>
+            <td><?php echo @$user->noofdependants; ?></td>
+            </tr>
+            <tr>
+            <td>What type of account do you use?</td>
+            <td><?php echo @$user->bankaccounttype; ?></td>
+            <td>Select Your Bank</td>
+            <td><?php echo @$user->bank; ?></td>
+            </tr>
+            <tr>
+            <td>Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</td>
+            <td><?php echo @$user->doyouhaveloans; ?></td>
+            <td>If Yes Please Input Total Value of Loan(s)</td>
+            <td><?php echo @$user->loanvalue; ?></td>
+            </tr>
+            <tr>
+            <td colspan="2">When can we contact you on phone?</td>
+            <td colspan="2"><?php echo @$user->contacttime; ?></td>
             
+            </tr>
+            </tbody>
+            </table>
           </div>
+          <script>
+          $(document).ready(function(){
+            $('.printnow<?php echo $user->id; ?>').click(function(e){
+                e.preventDefault();
+            $('.printthis<?php echo $user->id; ?>').printElement();   
+        });
+          }
+          
+          );
+          </script>
           <div class="modal-footer">
-          <button class="btn btn-primary printnow">Print</button>
+          <button class="btn btn-primary printnow<?php echo $user->id; ?>">Print</button>
             <button data-dismiss="modal" class="btn">Close</button>
             </div>
 </div>
@@ -444,7 +412,7 @@ foreach($users->result() as $user){
             <input type="text" class="form-control" name="loanvalue" value="<?php echo @$user->loanvalue; ?>" id="loanvalue" placeholder="Please Input Total Value of Loan(s)" autocomplete="off" /> 
           </div>
           <div class="form-group">
-            <label for="contacttime">One Credit will call you to verify the given information above, please select preferred contact time of the day to call you.</label>
+            <label for="contacttime">When can we contact you on phone?</label>
             <select name="contacttime" class="form-control" id="contacttime" >
             <option value="">Select...</option>
             <option <?php if(@$user->contacttime == "Weekdays 9 am - 12 noon"){ echo 'selected = "yes"'; } ?> value="Weekdays 9 am - 12 noon">Weekdays 9 am - 12 noon</option>
@@ -557,11 +525,7 @@ $(document).ready(function(){
                     } 
                     } 
                     });*/
-    $('.printnow').click(function(){
-        $('.printthis').printElement();   
-    });
-     
-
+    
   $('#edituser #dateofbirth').pickadate({
     today: '',
     clear: 'Clear selection',
