@@ -13,7 +13,28 @@
 					</li>
 				</ul>
 			</div>
-			
+            <div class="row-fluid sortable">
+			<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-list"></i>Stat</h2>
+					</div>
+					<div class="box-content">
+                    <div class="row-fluid" style="font-size: 13px;"> 
+                    <div class="span4" >
+                    <a href="#"><i class="icon-user"></i><span style="font-weight: bold; font-size: 18px;" class="green"><?php echo $this->users->registeredtoday(); ?></span> Users Registered Today</a>
+                    </div>
+                    <div class="span4">
+                    <a href="#"><i class="icon-plus-sign"></i><span style="font-weight: bold; font-size: 18px;" class="blue"><?php echo $this->users->registeredusers(); ?></span> Registered Users</a>    
+                    </div>
+                    <div class="span4">
+                    <a href="#"><i class="icon-thumbs-up"></i><span style="font-weight: bold; font-size: 18px;" class="black"><?php echo $this->users->totalusers(); ?></span> Total Users</a> 
+                    </div>
+                    
+                    </div>
+                
+					</div>
+				</div><!--/span-->
+                </div>
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
@@ -138,85 +159,85 @@ foreach($users->result() as $user){
     <h3 id="ViewUser<?php echo $user->id; ?>Label">View User</h3>
   </div>
 <div class="modal-body printthis<?php echo $user->id; ?>">
-            <table class="table table-striped">
+            <table class="table table-striped table-condensed">
             <thead><tr><th colspan="4">User Unique ID: <?php echo @$user->uniqueid;  ?></th></tr></thead>
             <tbody>
             <tr>
-            <td colspan="1">Title</td>
+            <td colspan="1"><strong>Title</strong></td>
             <td colspan="3"><?php echo @$user->title;  ?></td>
             </tr>
             <tr>
-            <td>First Name</td>
+            <td><strong>First Name</strong></td>
             <td><?php echo @$user->firstname;  ?></td>
-            <td>Last Name</td>
+            <td><strong>Last Name</strong></td>
             <td><?php echo @$user->lastname;  ?></td>
             </tr>
             <tr>
-            <td>Gender</td>
+            <td><strong>Gender</strong></td>
             <td><?php echo @$user->gender;  ?></td>
-            <td>Marital Status</td>
+            <td><strong>Marital Status</strong></td>
             <td><?php echo @$user->maritalstatus;  ?></td>
             </tr>
             <tr>
-            <td colspan="1">Date of Birth</td>
+            <td colspan="1"><strong>Date of Birth</strong></td>
             <td colspan="3"><?php echo @$user->dateofbirth;  ?></td>
             </tr>
             <tr>
-            <td colspan="1">Email Address</td>
+            <td colspan="1"><strong>Email Address</strong></td>
             <td colspan="3"><?php echo @$user->email;  ?></td>
             </tr>
             <tr>
-            <td colspan="1">Home Address</td>
+            <td colspan="1"><strong>Home Address</strong></td>
             <td colspan="3"><?php echo @$user->homeaddress; ?></td>
             </tr>
             <tr>
-            <td>Residential status</td>
+            <td><strong>Residential status</strong></td>
             <td><?php echo @$user->residentialstatus; ?></td>
-            <td>How Long Have You Lived Here?</td>
+            <td><strong>How Long Have You Lived Here?</strong></td>
             <td><?php echo @$user->howlonglived; ?></td>
             </tr>
             <tr>
-            <td>Telephone Number</td>
+            <td><strong>Telephone Number</strong></td>
             <td><?php echo @$user->telephonenumber; ?></td>
-            <td>Alternative Contact Number</td>
+            <td><strong>Alternative Contact Number</strong></td>
             <td><?php echo @$user->alternativecontactnumber; ?></td>
             </tr>
             <tr>
-            <td>Employment Type</td>
+            <td><strong>Employment Type</strong></td>
             <td><?php echo @$user->employmenttype; ?></td>
-            <td>Length of Employment</td>
+            <td><strong>Length of Employment</strong></td>
             <td><?php  echo @$user->employmentlength; ?></td>
             </tr>
             <tr>
-            <td colspan="1">Name of Employer/Business</td>
+            <td colspan="1"><strong>Name of Employer/Business</strong></td>
             <td colspan="3"><?php echo @$user->nameofemployer; ?></td>
             </tr>
             <tr>
-            <td colspan="1">Office/Business Address</td>
+            <td colspan="1"><strong>Office/Business Address</strong></td>
             <td colspan="3"><?php echo @$user->officeaddress; ?></td>
             </tr>
             <tr>
-            <td>Monthly Income</td>
+            <td><strong>Monthly Income</strong></td>
             <td><?php echo @$user->monthlyincome; ?></td>
-            <td>Number of Dependants</td>
+            <td><strong>Number of Dependants</strong></td>
             <td><?php echo @$user->noofdependants; ?></td>
             </tr>
             <tr>
-            <td colspan="1">What type of account do you use?</td>
+            <td colspan="1"><strong>Bank Acount Type?</strong></td>
             <td colspan="3"><?php echo @$user->bankaccounttype; ?></td>
             </tr>
             <tr>
-            <td colspan="1">Select Your Bank</td>
+            <td colspan="1"><strong>Select Your Bank</strong></td>
             <td colspan="3"><?php echo @$user->bank; ?></td>
             </tr>
             <tr>
-            <td>Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</td>
+            <td><strong>Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</strong></td>
             <td><?php echo @$user->doyouhaveloans; ?></td>
-            <td>If Yes Please Input Total Value of Loan(s)</td>
+            <td><strong>Total Value of Loan(s)</strong></td>
             <td><?php echo @$user->loanvalue; ?></td>
             </tr>
             <tr>
-            <td colspan="1">When can we contact you on phone?</td>
+            <td colspan="1"><strong>When can we contact you?</strong></td>
             <td colspan="3"><?php echo @$user->contacttime; ?></td>
             </tr>
             </tbody>
@@ -227,6 +248,7 @@ foreach($users->result() as $user){
             $('.printnow<?php echo $user->id; ?>').click(function(e){
                 e.preventDefault();
             $('.printthis<?php echo $user->id; ?>').printElement({
+            pageTitle:'Unique ID: <?php echo @$user->uniqueid;  ?> Email: <?php echo @$user->email;  ?>',
             overrideElementCSS:[
 		'<?php echo $this->template->get_asset(); ?>/css/bootstrap.min.css'
         ]

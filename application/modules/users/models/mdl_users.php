@@ -129,6 +129,13 @@ function get_activeusers_as_csv(){
     
 }
 
+function todaysusers(){
+    $query = $this->db->query('SELECT * FROM '.$this->get_table().'
+WHERE date >= UNIX_TIMESTAMP(CURDATE())');
+    $count = $query->num_rows();
+    return $count;
+}
+
 }
 
 ?>

@@ -544,6 +544,23 @@ function viewactiveusers(){
     $this->admintemplate->build(true,$data);
 }
 
+function totalusers(){
+    $this->load->model('mdl_users');
+    $count = $this->mdl_users->count_all();
+    return $count;
+}
+
+function registeredtoday(){
+    $this->load->model('mdl_users');
+    $count = $this->mdl_users->todaysusers();
+    return $count;
+}
+
+function registeredusers(){
+    $count = $this->count_where('status','Active');
+    return $count;
+}
+
 /*
 function viewme(){
     $this->load->view('tc',true);
