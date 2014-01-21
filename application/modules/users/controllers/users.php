@@ -454,6 +454,7 @@ function downloaduserlinks(){
 }
  
 function currenttime(){
+    date_default_timezone_set('GMT');
 $timestamp = time();
 $timezone = 'UP1';
 $daylight_saving = FALSE;

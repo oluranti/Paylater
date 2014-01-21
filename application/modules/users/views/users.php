@@ -142,28 +142,32 @@ foreach($users->result() as $user){
             <thead><tr><th colspan="4">User Unique ID: <?php echo @$user->uniqueid;  ?></th></tr></thead>
             <tbody>
             <tr>
-            <td>Title</td>
-            <td><?php echo @$user->title;  ?></td>
+            <td colspan="1">Title</td>
+            <td colspan="3"><?php echo @$user->title;  ?></td>
+            </tr>
+            <tr>
             <td>First Name</td>
             <td><?php echo @$user->firstname;  ?></td>
-            </tr>
-            <tr>
             <td>Last Name</td>
             <td><?php echo @$user->lastname;  ?></td>
+            </tr>
+            <tr>
             <td>Gender</td>
             <td><?php echo @$user->gender;  ?></td>
-            </tr>
-            <tr>
             <td>Marital Status</td>
             <td><?php echo @$user->maritalstatus;  ?></td>
-            <td>Date of Birth</td>
-            <td><?php echo @$user->dateofbirth;  ?></td>
             </tr>
             <tr>
-            <td>Email Address</td>
-            <td><?php echo @$user->email;  ?></td>
-            <td>Home Address</td>
-            <td><?php echo @$user->homeaddress; ?></td>
+            <td colspan="1">Date of Birth</td>
+            <td colspan="3"><?php echo @$user->dateofbirth;  ?></td>
+            </tr>
+            <tr>
+            <td colspan="1">Email Address</td>
+            <td colspan="3"><?php echo @$user->email;  ?></td>
+            </tr>
+            <tr>
+            <td colspan="1">Home Address</td>
+            <td colspan="3"><?php echo @$user->homeaddress; ?></td>
             </tr>
             <tr>
             <td>Residential status</td>
@@ -184,10 +188,12 @@ foreach($users->result() as $user){
             <td><?php  echo @$user->employmentlength; ?></td>
             </tr>
             <tr>
-            <td>Name of Employer/Business</td>
-            <td><?php echo @$user->nameofemployer; ?></td>
-            <td>Office/Business Address</td>
-            <td><?php echo @$user->officeaddress; ?></td>
+            <td colspan="1">Name of Employer/Business</td>
+            <td colspan="3"><?php echo @$user->nameofemployer; ?></td>
+            </tr>
+            <tr>
+            <td colspan="1">Office/Business Address</td>
+            <td colspan="3"><?php echo @$user->officeaddress; ?></td>
             </tr>
             <tr>
             <td>Monthly Income</td>
@@ -196,10 +202,12 @@ foreach($users->result() as $user){
             <td><?php echo @$user->noofdependants; ?></td>
             </tr>
             <tr>
-            <td>What type of account do you use?</td>
-            <td><?php echo @$user->bankaccounttype; ?></td>
-            <td>Select Your Bank</td>
-            <td><?php echo @$user->bank; ?></td>
+            <td colspan="1">What type of account do you use?</td>
+            <td colspan="3"><?php echo @$user->bankaccounttype; ?></td>
+            </tr>
+            <tr>
+            <td colspan="1">Select Your Bank</td>
+            <td colspan="3"><?php echo @$user->bank; ?></td>
             </tr>
             <tr>
             <td>Do You Currently Have Loan(s) With Any Other Bank or Financial Institution?</td>
@@ -208,9 +216,8 @@ foreach($users->result() as $user){
             <td><?php echo @$user->loanvalue; ?></td>
             </tr>
             <tr>
-            <td colspan="2">When can we contact you on phone?</td>
-            <td colspan="2"><?php echo @$user->contacttime; ?></td>
-            
+            <td colspan="1">When can we contact you on phone?</td>
+            <td colspan="3"><?php echo @$user->contacttime; ?></td>
             </tr>
             </tbody>
             </table>
@@ -219,7 +226,11 @@ foreach($users->result() as $user){
           $(document).ready(function(){
             $('.printnow<?php echo $user->id; ?>').click(function(e){
                 e.preventDefault();
-            $('.printthis<?php echo $user->id; ?>').printElement();   
+            $('.printthis<?php echo $user->id; ?>').printElement({
+            overrideElementCSS:[
+		'<?php echo $this->template->get_asset(); ?>/css/bootstrap.min.css'
+        ]
+            });   
         });
           }
           
