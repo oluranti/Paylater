@@ -454,11 +454,12 @@ function downloaduserlinks(){
 }
  
 function currenttime(){
-$timestamp = time();
-$timezone = 'UTC';
-$daylight_saving = FALSE;
-$times = /*gmt_to_local(*/$timestamp/*, $timezone, $daylight_saving)*/;
-return $times;
+    date_default_timezone_set('Africa/Lagos');
+    $timestamp = time();
+    $timezone = 'UTC';
+    $daylight_saving = FALSE;
+    $times = /*gmt_to_local(*/$timestamp/*, $timezone, $daylight_saving)*/;
+    return $times;
 }
 
 function formattime($timestamp){
