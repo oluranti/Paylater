@@ -454,11 +454,10 @@ function downloaduserlinks(){
 }
  
 function currenttime(){
-    date_default_timezone_set('GMT');
 $timestamp = time();
-$timezone = 'UP1';
+$timezone = 'UTC';
 $daylight_saving = FALSE;
-$times = gmt_to_local($timestamp, $timezone, $daylight_saving);
+$times = /*gmt_to_local(*/$timestamp/*, $timezone, $daylight_saving)*/;
 return $times;
 }
 
