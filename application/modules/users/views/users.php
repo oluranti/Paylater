@@ -562,12 +562,12 @@ $(document).ready(function(){
                     } 
                     });*/
     
-  $('form#edituser #dateofbirth').pickadate({
+  /*('form#edituser #dateofbirth').pickadate({
     today: '',
     clear: 'Clear selection',
      selectYears: 100,
      selectMonths: true
-});
+});*/
   
 }
 
