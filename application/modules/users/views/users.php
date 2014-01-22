@@ -562,7 +562,7 @@ $(document).ready(function(){
                     } 
                     });*/
     
-  $('#edituser #dateofbirth').pickadate({
+  $('form#edituser #dateofbirth').pickadate({
     today: '',
     clear: 'Clear selection',
      selectYears: 100,
