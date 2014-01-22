@@ -52,7 +52,7 @@
           </div>
           <div class="form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" <?php if(!empty($lastname)){ ?> value="<?php echo urldecode($lastname); ?>" disabled <?php } ?> required />
+            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" <?php if(!empty($lastname)){ ?> value="<?php echo urldecode($lastname); ?>"  <?php } ?> required />
           </div>
           <div class="form-group">
             <label for="gender">Gender</label>

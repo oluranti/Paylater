@@ -120,18 +120,23 @@ function get_userlinks_as_csv(){
 
 function get_activeusers_as_csv(){
     $this->load->dbutil();
-    $table = $this->get_table();
+    /*$table = $this->get_table();
     $this->db->select('uniqueid,title,firstname,lastname,gender,maritalstatus,dateofbirth,email,homeaddress,residentialstatus,howlonglived,telephonenumber,alternativecontactnumber,employmenttype,employmentlength,nameofemployer,officeaddress,monthlyincome,noofdependants,bankaccounttype,bank,doyouhaveloans,loanvalue,contacttime');
     $this->db->where('status','Active');
-    $query = $this->db->get($table);
+    $query = $this->db->get($table);*/
+    $query = $this->db->query('SELECT `uniqueid`,
+DATE_FORMAT(from_unixtime(`date`),\'%Y-%m-%d\')  as `date`,`title`,`firstname`,`lastname`,`gender`,`maritalstatus`,`dateofbirth`,`email`,`homeaddress`,`residentialstatus`,`howlonglived`,`telephonenumber`,`alternativecontactnumber`,`employmenttype`,`employmentlength`,`nameofemployer`,`officeaddress`,`monthlyincome`,`noofdependants`,`bankaccounttype`,`bank`,`doyouhaveloans`,`loanvalue`,`contacttime`
+FROM
+'.$this->get_table().'
+WHERE
+DATEDIFF(CURDATE(),DATE_FORMAT(from_unixtime(`date`),\'%Y-%m-%d\') ) =  \'1\'');
     $csvdata = $this->dbutil->csv_from_result($query);
     return $csvdata;
     
 }
 
 function todaysusers(){
-    $query = $this->db->query('SELECT * FROM '.$this->get_table().'
-WHERE date >= UNIX_TIMESTAMP(CURDATE())');
+    $query = $this->db->query('SELECT * FROM '.$this->get_table().' WHERE date >= UNIX_TIMESTAMP(CURDATE())');
     $count = $query->num_rows();
     return $count;
 }
