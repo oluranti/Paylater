@@ -241,7 +241,18 @@
             <input type="hidden" name="firstname" value="<?php echo urldecode($firstname); ?>"/>
             <input type="hidden" name="lastname" value="<?php echo urldecode($lastname); ?>"/>
             <input type="hidden" name="email" value="<?php echo urldecode($email); ?>"/>
-            <?php }else{ ?> <input type="hidden" name="status" value="Direct"/> <?php } ?>
+            <?php }else{ ?> 
+            <?php if(isset($firstname,$lastname,$email)){ ?>
+            <input type="hidden" name="firstname" value="<?php echo urldecode($firstname); ?>"/>
+            <input type="hidden" name="lastname" value="<?php echo urldecode($lastname); ?>"/>
+            <input type="hidden" name="email" value="<?php echo urldecode($email); ?>"/>
+            <?php } ?>
+            <?php if(!empty($verificationcode)){ ?>
+             <input type="hidden" name="status" value="<?php echo $verificationcode; ?>"/>
+            <?php }else{ ?>
+            <input type="hidden" name="status" value="Direct"/>
+            <?php } ?>
+            <?php } ?>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button></form>

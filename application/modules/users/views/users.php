@@ -568,6 +568,16 @@ $(document).ready(function(){
      selectYears: 100,
      selectMonths: true
 });*/
+
+$('.btn-danger').click(function(e){
+    e.preventDefault();
+    $confirm = confirm('Are you sure?');
+    if(!$confirm){
+        return false;
+    }else{
+        window.location.href = $(this).attr('href');
+    }
+});
   
 }
 
