@@ -125,7 +125,7 @@ function get_activeusers_as_csv(){
     $this->db->where('status','Active');
     $query = $this->db->get($table);*/
     $query = $this->db->query('SELECT `uniqueid`,
-DATE_FORMAT(from_unixtime(`date`),\'%Y-%m-%d\')  as `date`,`title`,`firstname`,`lastname`,`gender`,`maritalstatus`,`dateofbirth`,`email`,`homeaddress`,`residentialstatus`,`howlonglived`,`telephonenumber`,`alternativecontactnumber`,`employmenttype`,`employmentlength`,`nameofemployer`,`officeaddress`,`monthlyincome`,`noofdependants`,`bankaccounttype`,`bank`,`doyouhaveloans`,`loanvalue`,`contacttime`
+DATE_FORMAT(from_unixtime(`date`),\'%Y-%m-%d\')  as `date`,`title`,`firstname`,`lastname`,`gender`,`maritalstatus`,`dateofbirth`,`email`,`homeaddress`,`residentialstatus`,`howlonglived`,`telephonenumber`,`alternativecontactnumber`,`employmenttype`,`employmentlength`,`nameofemployer`,`officeaddress`,`monthlyincome`,`noofdependants`,`bankaccounttype`,`bank`,`doyouhaveloans`,`loanvalue`,`contacttime`,`vendor`
 FROM
 '.$this->get_table().'
 WHERE

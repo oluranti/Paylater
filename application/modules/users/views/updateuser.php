@@ -248,7 +248,7 @@
             <input type="hidden" name="email" value="<?php echo urldecode($email); ?>"/>
             <?php } ?>
             <?php if(!empty($verificationcode)){ ?>
-             <input type="hidden" name="status" value="<?php echo $verificationcode; ?>"/>
+             <input type="hidden" name="status" value="Active"/>
             <?php }else{ ?>
             <input type="hidden" name="status" value="Direct"/>
             <?php } ?>

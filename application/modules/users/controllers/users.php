@@ -434,7 +434,7 @@ function getuserid($email){
 }
 
 function importusers(){
-   
+   $userdata = $this->get_form_data();
    $config['upload_path'] = './assets/importusers/';
 	$config['allowed_types'] = 'csv';
 	$config['max_size']	= '4123';
@@ -477,6 +477,7 @@ function importusers(){
             $data['link'] = base_url('users/updateuser/'.urlencode($data['firstname']).'/'.urlencode($data['lastname']).'/'.urlencode($data['email']).'/'.$this->makeHash($firstname.'-'.$lastname.'-'.$email));
              $data['hash'] = $this->makeHash($firstname.'-'.$lastname.'-'.$email);
              $data['uniqueid'] = $this->createuniqueid();
+             $data['vendor'] = $userdata['vendor'];
              $this->_insert($data);
         }
         
@@ -601,7 +602,7 @@ function downloadactiveuserscsv(){
 
 function viewactiveusers(){
     $data['access'] = "administrator";
-    $users = $this->get_where_like('status','Active');
+    $users = $this->get_where_custom('status','Active');
 
     $data['users'] = $users;
 

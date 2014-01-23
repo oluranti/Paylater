@@ -40,9 +40,9 @@
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-user"></i> Users</h2>
 					<div class="box-icon">
-							<a class="btn btn-info" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
+							<!--<a class="btn btn-info" href="#" data-target="#AddUser" data-toggle="modal" title="Add User">
 										<i class="icon-plus icon-white"></i>                                           
-									</a>
+									</a>-->
                                     <a class="btn btn-warning" href="#" data-target="#ImportUsers" data-toggle="modal" title="Import Users from CSV">
 										<i class="icon-upload icon-white"></i>                                           
 									</a>
@@ -66,6 +66,7 @@
                                   <th>Unique ID</th>
 								  <th>Registration Date &amp; Time</th>
                                   <th>Status</th>
+                                  <th>Vendor</th>
                                   <th><a href="<?php echo base_url('users/viewactiveusers'); ?>" class="btn btn-info btn-block">View Only Registered Users</a>
                                     </th>
 							  </tr>
@@ -91,6 +92,7 @@ foreach($users->result() as $user){
                                 <td class="center"><?php echo $user->uniqueid; ?></td>
                                 <td class="center"><?php if(!empty($user->date)){echo $this->users->formattime($user->date); } ?></td>
                                 <td class="center"><span class="label label-warning"><?php echo $user->status; ?></span></td>
+                                <td class="center"><?php echo $user->vendor; ?></td>
                                 <td class="center">
                                 <a class="btn btn-inverse" href="#" data-target="#UserLink<?php echo $user->id; ?>" data-toggle="modal" title="Copy User Link">
 										<i class="icon-share icon-white"></i>                                          
@@ -110,7 +112,7 @@ foreach($users->result() as $user){
  }
 else: ?>
 <tr>
-<td colspan="8">
+<td colspan="9">
 <div class="alert">
 I could not find any user on the database. Try Adding One.
 </div>
@@ -522,8 +524,15 @@ foreach($users->result() as $user){
           <div class="modal-body">
           <span class="text-info">Note: The CSV must contain fullname of the user in the first column (first name and last name separated by space) and the users email in the second column </span>
           <?php echo form_open_multipart('users/importusers');?>
-
+            <div class="form-group">
+            <label for="vendor">Vendor</label>
+            <input type="text" class="form-control" name="vendor" id="vendor" placeholder="vendor" />
+          </div>
+          <div class="form-group">
+            <label for="firstname">CSV File</label>
             <input type="file" name="userfile" />
+          </div>
+            
 
           </div>
           <div class="modal-footer">
